@@ -1,10 +1,10 @@
 ---
 coding: utf-8
 
-title: Delegated CoAP Authentication and Authorization Framework (DCAF)
-abbrev: DCAF
-docname: draft-gerdes-ace-dcaf-authorize-04
-date: 2015-10-19
+title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
+abbrev: CoAP-DTLS
+docname: draft-gerdes-ace-dtls-authorize-latest
+date: 2016-09-12
 category: std
 
 ipr: trust200902
