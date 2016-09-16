@@ -46,6 +46,24 @@ author:
     country: Germany
     phone: +49-421-218-63921
     email: cabo@tzi.org
+ -
+    ins: G. Selander
+    name: Göran Selander
+    org: Ericsson
+    street: Farögatan 6
+    city: Kista
+    code: 164 80
+    country: Sweden
+    email: goran.selander@ericsson.com
+ -
+    ins: L. Seitz
+    name: Ludwig Seitz
+    org: SICS Swedish ICT AB
+    street: Scheelevägen 17
+    city: Lund
+    code: 223 70
+    country: Sweden
+    email: ludwig@sics.se
 
 normative:
   RFC2119:
