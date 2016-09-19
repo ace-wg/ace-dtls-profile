@@ -107,7 +107,18 @@ processing power and memory.
 
 # Introduction
 
-(See Abstract for now.)
+This specification defines a profile of the ACE framework
+{{I-D.ietf-ace-oauth-authz}}.  In this profile, a client and a resource server
+use CoAP {{RFC7252}} over DTLS {{RFC6347}} to communicate.  The client uses an
+access token, bound to a key (the proof-of-possession key) to authorize its
+access to the resource server.  DTLS provides communication security,
+proof of possession, and server authentication.  Optionally the client and the
+resource server may also use CoAP over DTLS to communicate with the
+authorization server.  The DTLS PSK handshake {{RFC4279}} provides the
+proof-of-possession for the key tied to the access token.  Furthermore
+the psk_identity parameter in the DTLS PSK handshake is used to transfer
+the access token from the client to the resource server.
+
 
 ## Terminology
 
