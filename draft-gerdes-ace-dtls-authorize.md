@@ -95,10 +95,10 @@ entity:
 This specification defines a profile for delegating client
 authentication and authorization in a constrained environment for
 establishing a Datagram Transport Layer Security (DTLS) channel between resource-constrained nodes.
-The protocol relies on DTLS to
-transfer authorization information and session keys between entities in a constrained network. A
+The protocol relies on DTLS for communication security
+between entities in a constrained network. A
 resource-constrained node can use this protocol to delegate
-authentication of communication peers and management of authorization
+management of authorization
 information to a trusted host with less severe limitations regarding
 processing power and memory.
 
@@ -206,7 +206,7 @@ once access was granted and a secure channel has been established
 between C and RS.
 
 Unauthorized Resource Request messages MUST be denied with a client error
-response. In this response, the Reource Server MUST provide
+response. In this response, the Resource Server SHOULD provide
 proper AS Information to enable the Client to request an
 access token from RS's Authorization Server as described in {{as-info}}.
 
@@ -259,7 +259,7 @@ In this example, the attribute AS points the receiver of this message
 to the URI "coaps://as.example.com/token" to request access
 permissions. The originator of the AS Information payload
 (i.e., RS) uses a local clock that is loosely synchronized with a time
-scale common between RS and AS (e.g., wall clock time). Therefore, it has included a parameter `nonce` for replay attack prevention.
+scale common between RS and AS (e.g., wall clock time). Therefore, it has included a parameter `nonce` for replay attack prevention (c.f. {{nonce}}).
 
 Note: There is an ongoing discussion how freshness of access tokens
 : can be achieved in constrained environments. This specification for
@@ -594,7 +594,7 @@ provide C with a (possibly hard-coded) list of trustworthy
 authorization servers. AS information responses referring to a URI not
 listed there would be ignored.
 
-## Use of Nonces for Replay Protection
+## Use of Nonces for Replay Protection {#nonce}
 
 RS may add a nonce to the AS Information message sent as a response to
 an unauthorized request to ensure freshness of an Access Token
