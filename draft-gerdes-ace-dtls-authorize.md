@@ -309,8 +309,6 @@ An example Access Token request from C to RS is depicted in
    {
      grant_type:    client_credentials,
      aud:           "tempSensor4711",
-     client_id:     "myclient",
-     client_secret: h'7365637265746b6579',
      token_type:    pop,
      alg:           HS256,
      profile:       [ coap_dtls ]
@@ -319,10 +317,7 @@ An example Access Token request from C to RS is depicted in
 {: #authorization-message-example title="Access Token request example"}
 
 The example shows an Access Token request for the resource identified
-by the audience string "tempSensor4711" on the AS and the client
-identifier "myclient". The symmetric key used for a
-proof-of-possession token {{I-D.ietf-oauth-pop-architecture}} is
-"secretkey".
+by the audience string "tempSensor4711" on the AS.
 
 TODO: Add example for encrypted shared secrets.
 
