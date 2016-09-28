@@ -191,7 +191,8 @@ to RS.
 
 The optional Unauthorized Resource Request message is a request for a resource
 hosted by RS for which no proper authorization is granted. RS MUST
-treat any CoAP request as Unauthorized Resource Request message when any of the
+treat any CoAP request for a resource other than `/authz-info`
+as Unauthorized Resource Request message when any of the
 following holds:
 
 * The request has been received on an unprotected channel.
@@ -203,7 +204,8 @@ following holds:
 
 Note: These conditions ensure that RS can handle requests autonomously
 once access was granted and a secure channel has been established
-between C and RS.
+between C and RS. The resource `/authz-info` must be publicly accessible
+to upload new access tokens to RS (cf. {{I-D.ietf-ace-oauth-authz}}).
 
 Unauthorized Resource Request messages MUST be denied with a client error
 response. In this response, the Resource Server SHOULD provide
