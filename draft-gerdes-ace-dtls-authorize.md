@@ -82,6 +82,7 @@ informative:
   RFC5988:
   RFC6655:
   RFC6690:
+  RFC7251:
   RFC7641:
   RFC7959:
   I-D.selander-ace-object-security:
@@ -129,7 +130,7 @@ document are to be interpreted as described in RFC 2119 {{RFC2119}}.
 Readers are expected to be familiar with the terms and concepts
 described in {{I-D.ietf-ace-oauth-authz}}.
 
-# Protocol
+# Protocol Overview {#overview}
 
 The CoAP-DTLS profile for ACE specifies the transfer of authentication
 and, if necessary, authorization information between C and RS during
@@ -137,7 +138,10 @@ setup of a DTLS session for CoAP messaging. It also specifies how a
 Client can use CoAP over DTLS to retrieve an Access Token from AS for
 a protected resource hosted on RS.
 
-In {{protocol-overview}}, a protocol flow for this profile is depicted (messages
+This profile requires a Client (C) to retrieve an Access Token for the
+resource(s) it wants to access on a Resource Server (RS) as specified
+in {{I-D.ietf-ace-oauth-authz}}. {{at-retrieval}} shows the
+typical message flow in this scenario (messages
 in square brackets are optional):
 
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -151,16 +155,9 @@ in square brackets are optional):
    |                            |                     |
    | <---------------------------- Access Token ----- |
    |                             + Client Information |
-   |                            |                     |
-   | <== DTLS channel setup ==> |                     |
-   |     + Access Token         |                     |
-   |                            |                     |
-   | == Authorized Request ===> |                     |
-   |                            |                     |
-   | <=== Protected Resource == |                     |
 
 ~~~~~~~~~~~~~~~~~~~~~~~
-{: #protocol-overview title="Protocol overview"}
+{: #at-retrieval title="Retrieving an Access Token"}
 
 To determine the AS in charge of a resource hosted at the RS, C MAY
 send an initial Unauthorized Resource Request message to RS.  RS then
@@ -173,19 +170,50 @@ resource directory (cf. {{I-D.ietf-core-resource-directory}}).
 Once C knows AS's address, it can send an Access Token request to
 the /token endpoint at the AS as specified in {{I-D.ietf-ace-oauth-authz}},
 optionally containing a parameter `profile` that indicates its preferred
-authorization profiles.
+authorization profiles. If C wants to use the CoAP RawPublicKey mode as
+described in [Section 9 of RFC 7252](https://tools.ietf.org/html/rfc7252#section-9)
+it MUST provide a key or key identifier within a `cnf` object in the
+token request.
 If AS decides that the request is to be authorized it
 generates an access token response for C containing a `profile` parameter
 with the value `coap_dtls` to indicate that this profile MUST be used for communication between C and RS.
 Is also adds a `cnf` parameter with additional data for the establishment of a
 secure DTLS-channel between C and RS.
 
+The Access Token returned by AS then can be used by C to establish a
+new DTLS session with RS. To do so, C MUST upload the Access Token to
+the `/authz-info` resource on RS before it can start the DTLS
+handshake for CoAP RawPublicKey (RPK) mode, and MAY upload the Access
+Token to the `/authz-info` resource on RS for CoAP PreSharedKey (PSK)
+mode.  {{protocol-overview}} depicts the common protocol flow for the
+DTLS profile after C has retrieved the Access Token from AS.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+
+   C                            RS                   AS
+   | [--- Access Token ------>] |                     |
+   |                            |                     |
+   | <== DTLS channel setup ==> |                     |
+   |                            |                     |
+   | == Authorized Request ===> |                     |
+   |                            |                     |
+   | <=== Protected Resource == |                     |
+
+~~~~~~~~~~~~~~~~~~~~~~~
+{: #protocol-overview title="Protocol overview"}
+
 The following sections specify how CoAP is used to interchange
 access-related data between RS and AS so that AS can
 provide C and RS with sufficient information to establish a secure
-channel, and simultaneously convey
+channel, and convey
 authorization information specific for this communication relationship
 to RS.
+
+Depending on the desired CoAP security mode, the Client-to-AS request,
+AS-to-Client response and DTLS session establishment carry slightly
+different information. {{rpk-mode}} addresses the use of raw public
+keys while {{psk-mode}} defines how pre-shared keys are used in this
+profile.
 
 ## Unauthorized Resource Request Message {#rreq}
 
@@ -285,14 +313,84 @@ a2                                   # map(2)
 ~~~~~~~~~~
 {: #as-info-cbor title="AS Information example encoded in CBOR"}
 
-## Client-to-AS Request {#access-request}
+# RawPublicKey Mode {#rpk-mode}
 
 To retrieve an access token for the resource that C wants to access, C
 requests an Access Token from AS. The Access Token request is
 constructed as specified in {{I-D.ietf-ace-oauth-authz}}. The
 parameter `profile` MUST include `coap_dtls` to indicate C's support
 for this profile and MAY include other profiles as specified in
-{{I-D.ietf-ace-oauth-authz}}). If a symmetric
+{{I-D.ietf-ace-oauth-authz}}). C MUST add a `cnf` object
+carrying either its raw public key or a unique identifier for a
+public key that it has previously made known to AS.
+
+An example Access Token request from C to RS is depicted in
+{{rpk-authorization-message-example}}.
+
+~~~~~~~~~~
+   POST coaps://as.example.com/token
+   Content-Format: application/cbor
+   {
+     grant_type:    client_credentials,
+     aud:           "tempSensor4711",
+     token_type:    pop,
+     alg:           ES256,
+     profile:       [ coap_dtls ]
+     cnf: {
+       COSE_Key: {
+         kty: EC2,
+         crv: P-256,
+         x:   h'TODOX',
+         y:   h'TODOY'
+       }
+     }
+   }
+~~~~~~~~~~
+{: #rpk-authorization-message-example title="Access Token Request Example for RPK Mode"}
+
+The example shows an Access Token request for the resource identified
+by the audience string "tempSensor4711" on the AS  using a raw public key.
+
+## AS-to-Client Response
+
+TODO
+
+## DTLS Channel Setup Between C and RS {#rpk-dtls-channel}
+
+When C receives an Access Token from AS, it checks if the payload
+contains an `access_token` field and a `cnf` object. Before initiating
+the DTLS handshake with RS, C MUST send a `POST` request containing
+the new Access Token to the `/authz-info` resource hosted by RS. If
+this operation yields a positive response, C SHOULD proceed to
+establish a new DTLS channel with RS. To use raw public key mode, C
+MUST use the same public key as its certificate in the DTLS handshake
+that was used for constructing the Access Token.
+
+Note:
+: According to {{RFC7252}}, CoAP implementations MUST support the
+  ciphersuite TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}
+  and the NIST P-256 curve. C is therefore expected to offer at least
+  this ciphersuite to RS.
+
+The Access Token is constructed by AS such that RS can associate the
+Access Token with the Client's public key.
+
+## Examples
+
+TODO
+
+# PreSharedKey Mode {#psk-mode}
+
+To retrieve an access token for the resource that C wants to access, C
+requests an Access Token from AS. The Access Token request is
+constructed as specified in {{I-D.ietf-ace-oauth-authz}}. The
+parameter `profile` MUST include `coap_dtls` to indicate C's support
+for this profile and MAY include other profiles as specified in
+{{I-D.ietf-ace-oauth-authz}}). C MAY add a `cnf` object
+carrying a symmetric key to be used by AS to construct the
+proof-of-possession token.
+
+If a symmetric
 proof-of-possession key (c.f. {{I-D.ietf-ace-oauth-authz}}) is
 requested C must ensure that the Access Token request is sent over a
 secure channel that guarantees authentication, message integrity and
@@ -470,7 +568,7 @@ Server, the Client can update the authorization information stored at
 RS at any time. To do so, the Client requests a new Access Token
 for the intended action on the respective resource and
 from AS as described in
-{{access-request}}.
+{{psk-mode}}.
 
 Note:
 : Requesting a new Access Token also can be a Client's reaction on a
@@ -535,11 +633,11 @@ Note:
   To do so, a newly retrieved Access Token would be transmitted to the
   `/token` endpoint of RS.
 
-# DTLS PSK Generation Methods {#key-generation}
+## DTLS PSK Generation Methods {#key-generation}
 
 One goal of this profile is to provide for a DTLS PSK shared between C and RS. AS and RS MUST negotiate the method for the DTLS PSK generation.
 
-## DTLS PSK Transfer {#key-transfer}
+### DTLS PSK Transfer {#key-transfer}
 
 The DTLS PSK is generated by AS and transmitted to C and RS using a secure channel.
 
@@ -556,7 +654,7 @@ The DTLS PSK transfer method is defined as follows:
    to C using encrypted channels.
  * RS MUST decrypt the session key using K(AS,RS)
 
-## Distributed Key Derivation {#key-derivation}
+### Distributed Key Derivation {#key-derivation}
 
 AS generates a DTLS PSK for C which is transmitted using a secure channel. RS generates its own version of the DTLS PSK using the information provided in the `psk_identity` parameter of the ClientHello request.
 
@@ -573,7 +671,7 @@ The distributed key derivation method is defined as follows:
  * AS MUST NOT include a representation of the DTLS PSK in the Access Token.
  * (TBD) AS MUST NOT encrypt the Access Token.
 
-# Examples
+## Examples
 
 TODO
 
