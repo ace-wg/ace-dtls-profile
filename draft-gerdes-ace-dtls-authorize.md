@@ -154,7 +154,7 @@ in square brackets are optional):
    | --- Token Request  ----------------------------> |
    |                            |                     |
    | <---------------------------- Access Token ----- |
-   |                             + Client Information |
+   |                               + RS Information   |
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #at-retrieval title="Retrieving an Access Token"}
@@ -232,8 +232,8 @@ following holds:
 
 Note: These conditions ensure that RS can handle requests autonomously
 once access was granted and a secure channel has been established
-between C and RS. The resource `/authz-info` must be publicly accessible
-to upload new access tokens to RS (cf. {{I-D.ietf-ace-oauth-authz}}).
+between C and RS. The resource `/authz-info` is publicly accessible
+to be able to upload new access tokens to RS (cf. {{I-D.ietf-ace-oauth-authz}}).
 
 Unauthorized Resource Request messages MUST be denied with a client error
 response. In this response, the Resource Server SHOULD provide
@@ -335,7 +335,7 @@ An example Access Token request from C to RS is depicted in
      aud:           "tempSensor4711",
      token_type:    pop,
      alg:           ES256,
-     profile:       [ coap_dtls ]
+     profile:       [ coap_dtls ],
      cnf: {
        COSE_Key: {
          kty: EC2,
@@ -428,7 +428,7 @@ Access Token as specified in {{I-D.ietf-ace-oauth-authz}}. For use
 with this profile, the attribute `profile` is set to `coap_dtls`.
 
 Depending on the requested token type and algorithm in the Access
-Token request, AS adds the following Client Information to the
+Token request, AS adds the following RS Information to the
 response:
 
 A newly generated session key. This specification describes a method
@@ -591,7 +591,7 @@ established using this protocol.
    | --- Token Request  ----------------------------> |
    |                            |                     |
    | <---------------------------- New Access Token - |
-   |                             + Client Information |
+   |                               + RS Information   |
    |                            |                     |
    | <== renegotiate session => |                     |
    |     + New Access Token     |                     |
