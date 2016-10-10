@@ -322,6 +322,39 @@ a2                                   # map(2)
 ~~~~~~~~~~
 {: #as-info-cbor title="AS Information example encoded in CBOR"}
 
+## Dynamic Update of Authorization Information {#update}
+
+Once a security association exists between a Client and a Resource
+Server, the Client can update the authorization information stored at
+RS at any time. To do so, the Client requests from AS a new Access Token
+for the intended action on the respective resource and uploads
+this Access Token to the `/authz-info` resource on RS.
+
+{{update-overview}} depicts the message flow where C requests a new
+Access Token after a security association between C and RS has been
+established using this protocol.
+
+~~~~~~~~~~~~~~~~~~~~~~~
+
+   C                            RS                   AS
+   | <===== DTLS channel =====> |                     |
+   |        + Access Token      |                     |
+   |                            |                     |
+   | --- Token Request  ----------------------------> |
+   |                            |                     |
+   | <---------------------------- New Access Token - |
+   |                               + RS Information   |
+   |                            |                     |
+   | --- Update /authz-info --> |                     |
+   |     + New Access Token     |                     |
+   |                            |                     |
+   | == Authorized Request ===> |                     |
+   |                            |                     |
+   | <=== Protected Resource == |                     |
+
+~~~~~~~~~~~~~~~~~~~~~~~
+{: #update-overview title="Overview of Dynamic Update Operation"}
+
 # RawPublicKey Mode {#rpk-mode}
 
 To retrieve an access token for the resource that C wants to access, C
@@ -602,77 +635,21 @@ will succeed. If C repeatedly gets AS Information messages (cf. {{as-info}}) as 
 to its requests, it SHOULD request a new Access Token from AS to
 continue communication with RS.
 
-## Dynamic Update of Authorization Information {#update}
+## Updating Authorization Information
 
-Once a security association exists between a Client and a Resource
-Server, the Client can update the authorization information stored at
-RS at any time. To do so, the Client requests a new Access Token
-for the intended action on the respective resource and
-from AS as described in
-{{psk-mode}}.
+Usually, the authorization information that RS keeps for C is updated
+by uploading a new Access Token as described in {{update}}.
 
-Note:
-: Requesting a new Access Token also can be a Client's reaction on a
-  4.03 or 4.05 error that it has received in response to a
-  request over a DTLS channel that was setup as specified in {{dtls-channel}}.
-
-{{update-overview}} depicts the message flow where C requests a new
-Access Token after a security association between C and RS has been
-established using this protocol.
-
-~~~~~~~~~~~~~~~~~~~~~~~
-
-   C                            RS                   AS
-   | <== DTLS channel + AT ===> |                     |
-   |                            |                     |
-   | --- Resource Request ----> |                     |
-   |                            |                     |
-   | <-- 4.0x + AS Information  |                     |
-   |                            |                     |
-   | --- Token Request  ----------------------------> |
-   |                            |                     |
-   | <---------------------------- New Access Token - |
-   |                               + RS Information   |
-   |                            |                     |
-   | <== renegotiate session => |                     |
-   |     + New Access Token     |                     |
-   |                            |                     |
-   | == Authorized Request ===> |                     |
-   |                            |                     |
-   | <=== Protected Resource == |                     |
-
-~~~~~~~~~~~~~~~~~~~~~~~
-{: #update-overview title="Overview of Dynamic Update Operation"}
-
-The major difference between dynamic update of authorization
-information and the initial handshake is that the DTLS session
-between C and RS may be renegotiated with the new Access Token
-as described in {{ticket-handle}}.
-
-### Handling of Ticket Transfer Messages {#ticket-handle}
-
-If the security association with RS still exists and RS
-has indicated support for session renegotiation according to
-{{RFC5746}}, the new Access Token SHOULD be used to renegotiate the
-existing DTLS session. In this case, the Access Token is used as
-`psk_identity` as defined in {{dtls-channel}}. Otherwise, the Client
-MUST perform a new DTLS handshake according to {{dtls-channel}} that
-replaces the existing DTLS session.
+If the security association with RS still exists and RS has indicated
+support for session renegotiation according to {{RFC5746}}, the new
+Access Token MAY be used to renegotiate the existing DTLS session. In
+this case, the Access Token is used as `psk_identity` as defined in
+{{dtls-channel}}. The Client MAY also perform a new DTLS handshake
+according to {{dtls-channel}} that replaces the existing DTLS session.
 
 After successful completion of the DTLS handshake RS updates the
 existing authorization information for C according to the
 new Access Token.
-
-Note:
-: No mutual authentication between C and RS is required for dynamic
-  updates when a DTLS channel exists that has been established as
-  defined in {{dtls-channel}}. RS only needs to verify the
-  authenticity and integrity of the Access Token issued by AS which is
-  achieved by having performed a successful DTLS handshake with the
-  Access Token as psk_identity. This could even be done within the
-  existing DTLS session while the previous Access Token is still valid.
-  To do so, a newly retrieved Access Token would be transmitted to the
-  `/token` endpoint of RS.
 
 ## DTLS PSK Generation Methods {#key-generation}
 
