@@ -86,7 +86,7 @@ informative:
   RFC7251:
   RFC7641:
   RFC7959:
-  I-D.selander-ace-object-security:
+  I-D.ietf-core-object-security:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-cbor-web-token:
   I-D.ietf-cose-msg:
@@ -129,7 +129,7 @@ resource server.
 The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
 proof-of-possession for the key tied to the access token.  Here the access token
 needs to be transferred to the resource server before the handshake is initiated,
-as described in section 8.1 of {{I-D.ietf-ace-oauth-authz}}.
+as described in [section 8.1 of draft-ietf-ace-oauth-authz.](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-03#section-8.1)
 
 Note: While the scope of this draft is on client and resource server
 : communicating using CoAP over DTLS, it is expected that it applies
@@ -192,14 +192,13 @@ If AS decides that the request is to be authorized it
 generates an access token response for C containing a `profile` parameter
 with the value `coap_dtls` to indicate that this profile MUST be used for communication between C and RS.
 Is also adds a `cnf` parameter with additional data for the establishment of a
-secure DTLS channel between C and RS.
+secure DTLS channel between C and RS.  The semantics of the 'cnf' parameter depend on the type of key used between C and RS, see {{rpk-mode}} and {{psk-mode}}.
 
 The Access Token returned by AS then can be used by C to establish a
 new DTLS session with RS. When C intends to use asymmetric
 cryptography in the DTLS handshake with RS, C MUST upload the Access Token to
-the `/authz-info` resource on RS before starting the DTLS handshake.
-If only symmetric cryptography is used between C and RS, the Access
-Token MAY instead be transferred in the DTLS ClientKeyExchange message
+the `/authz-info` resource on RS before starting the DTLS handshake, as
+described in [section 8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-03#section-8.1).  If only symmetric cryptography is used between C and RS, the Access Token MAY instead be transferred in the DTLS ClientKeyExchange message
 (see {{psk-dtls-channel}}).
 
 {{protocol-overview}} depicts the common protocol flow for the
@@ -337,9 +336,7 @@ C is authorized to access resources covered by the Access Token it has
 uploaded to the `/authz-info` resource hosted by RS.
 
 On the server side (i.e., RS), successful establishment of the DTLS
-channel mutually authenticates C and RS.  Any request that RS receives
-on this channel MUST be checked against these authorization rules that are
-associated with the identity of C.  Incoming CoAP requests that are not authorized
+channel binds C to the access token, functioning as a proof-of-possession associated key.  Any request that RS receives on this channel MUST be checked against these authorization rules that are associated with the identity of C.  Incoming CoAP requests that are not authorized
 with respect to any Access Token that is associated with C MUST be
 rejected by RS with 4.01 response as described in {{rreq}}.
 
@@ -371,7 +368,7 @@ MUST be rejected
 
 C cannot always know a priori if a Authorized Resource Request
 will succeed. If C repeatedly gets AS Information messages (cf. {{as-info}}) as response
-to its requests, it SHOULD request a new Access Token from AS to
+to its requests, it SHOULD request a new Access Token from AS in order to
 continue communication with RS.
 
 ## Dynamic Update of Authorization Information {#update}
@@ -457,7 +454,7 @@ The Access Token is constructed by AS such that RS can associate the
 Access Token with the Client's public key. If CBOR web tokens
 {{I-D.ietf-ace-cbor-web-token}} are used as recommended in
 {{I-D.ietf-ace-oauth-authz}}, the AS MUST include a `COSE_Key` object
-in the `cnf` field of the Access Token. This `COSE_Key` object MAY
+in the `cnf` claim of the Access Token. This `COSE_Key` object MAY
 contain a reference to a key for C that is already known by RS (e.g.,
 from previous communication). If the AS has no certain knowledge that
 the Client's key is already known to RS, the Client's public key MUST
@@ -481,7 +478,7 @@ symmetric proof-of-possession keys
 Token request is sent over a secure channel that guarantees
 authentication, message integrity and confidentiality. This could be,
 e.g., a DTLS channel (for "coaps") or an OSCOAP
-{{I-D.selander-ace-object-security}} exchange (for "coap").
+{{I-D.ietf-core-object-security}} exchange (for "coap").
 
 When AS authorizes C it returns an AS-to-Client response with the
 profile parameter set to `coap_dtls` and a `cnf` parameter carrying a
@@ -532,11 +529,11 @@ resource is constructed according to [Section 5.2 of RFC 6749](https://tools.iet
 ## DTLS Channel Setup Between C and RS {#psk-dtls-channel}
 
 When C receives an Access Token from AS, it checks if the payload
-contains an `access_token` field and a `cnf` object. With this
+contains an `access_token` parameter and a `cnf` parameter. With this
 information C can initiate establishment of a new DTLS channel with
 RS. To use DTLS with pre-shared keys, C follows the PSK key exchange
 algorithm specified in Section 2 of {{RFC4279}} using the key conveyed
-in the `cnf` field of the AS response as PSK when constructing the
+in the `cnf` parameter of the AS response as PSK when constructing the
 premaster secret.
 
 In PreSharedKey mode, the knowledge of the session key by C and RS is
@@ -572,8 +569,8 @@ otherwise. Therefore, the Access Token is bound to a symmetric PoP key
 that is used as session key between C and RS.
 
 While C can retrieve the session key from the contents of the `cnf`
-field in the AS-to-Client response, RS uses the information contained
-in the `cnf` field of the Access Token to determine the actual session
+parameter in the AS-to-Client response, RS uses the information contained
+in the `cnf` claim of the Access Token to determine the actual session
 key. Usually, this is done by including a `COSE_Key` object carrying
 either a key that has been encrypted with a shared secret between AS
 and RS, or a key identifier that can be used by RS to lookup the
