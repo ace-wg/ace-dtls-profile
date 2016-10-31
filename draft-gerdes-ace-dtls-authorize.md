@@ -576,16 +576,18 @@ either a key that has been encrypted with a shared secret between AS
 and RS, or a key identifier that can be used by RS to lookup the
 session key.
 
-Instead of the `COSE_Key` object, AS MAY include a `COSE_KDF_Context`
-object to enable RS to calculate the session key from the Access
-Token. The `COSE_KDF_Context` MUST contain a `PartyUInfo` field
-carrying a nonce that has been used by AS to construct the session
-key. 
+Instead of the `COSE_Key` object, AS MAY include a `COSE_Encrypt`
+structure to enable RS to calculate the session key from the Access
+Token. The `COSE_Encrypt` structure MUST use the *Direct Key with KDF*
+method as described in [Section 12.1.2 of draft-ietf-cose-msg](https://tools.ietf.org/html/draft-ietf-cose-msg-23#section-12.1.2).
+The AS MUST include a Context information structure carrying a
+PartyU `nonce` parameter carrying the nonce that has been used by AS
+to construct the session key.
 
 This specification mandates that at least the key derivation algorithm
 `HKDF SHA-256` as defined in {{I-D.ietf-cose-msg}} MUST be supported.
-This key derivation function is the default when no `AlgorithmID`
-field is included in the `COSE_KDF_Context` object.
+This key derivation function is the default when no `alg`
+field is included in the `COSE_Encrypt` structure for RS.
 
 ## Updating Authorization Information
 
