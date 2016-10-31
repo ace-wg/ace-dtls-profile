@@ -69,23 +69,15 @@ normative:
   RFC2119:
   RFC3986:
   RFC4279:
-  RFC6838:
   RFC5746:
   RFC6347:
-  RFC7049:
   RFC7252:
-  RFC5226:
-  I-D.ietf-oauth-pop-architecture:
   I-D.ietf-ace-oauth-authz:
 
 informative:
-  RFC5988:
   RFC6655:
-  RFC6690:
   RFC7250:
   RFC7251:
-  RFC7641:
-  RFC7959:
   I-D.ietf-core-object-security:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-cbor-web-token:
