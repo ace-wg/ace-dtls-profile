@@ -4,7 +4,7 @@ coding: utf-8
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-gerdes-ace-dtls-authorize-latest
-date: 2016-09-16
+date: 2016-10-31
 category: std
 
 ipr: trust200902
