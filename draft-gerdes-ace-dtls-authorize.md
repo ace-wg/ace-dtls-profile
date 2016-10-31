@@ -638,6 +638,10 @@ already exists, more detailed information may be included with an
 error response to provide C with sufficient information to react on
 that particular error.
 
+# IANA Considerations
+
+This document has no actions for IANA.
+
 --- back
 
 <!--  LocalWords:  Datagram CoAP CoRE DTLS introducer URI
