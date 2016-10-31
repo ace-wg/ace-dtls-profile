@@ -606,7 +606,7 @@ TODO
 Initially, no secure channel exists to protect the communication
 between C and RS. Thus, C cannot determine if the AS information
 contained in an unprotected response from RS to an unauthorized
-request (c.f. {#as-info}) is authentic. It is therefore advisable to
+request (c.f. {{as-info}}) is authentic. It is therefore advisable to
 provide C with a (possibly hard-coded) list of trustworthy
 authorization servers. AS information responses referring to a URI not
 listed there would be ignored.
@@ -622,7 +622,7 @@ about RS's internal clock characteristics.
 
 ## Privacy
 
-An unprotected response to an unauthorized request (c.f. {#as-info})
+An unprotected response to an unauthorized request (c.f. {{as-info}})
 may disclose information about RS and/or its existing relationship
 with C. It is advisable to include as little information as possible
 in an unencrypted response. When a DTLS session between C and RS
