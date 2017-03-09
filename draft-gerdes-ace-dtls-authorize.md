@@ -58,12 +58,12 @@ author:
  -
     ins: L. Seitz
     name: Ludwig Seitz
-    org: SICS Swedish ICT AB
+    org: RISE SICS
     street: Scheelevägen 17
     city: Lund
     code: 223 70
     country: Sweden
-    email: ludwig@sics.se
+    email: ludwig.seitz@ri.se
 
 normative:
   RFC2119:
