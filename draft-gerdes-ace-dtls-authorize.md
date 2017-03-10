@@ -540,12 +540,35 @@ message.
 
 If RS receives a ClientKeyExchange message that contains a
 `psk_identity` with a length greater zero, it MUST base64-decode its
-contents and process it in the same way as an Access Token that has
-been uploaded to its `/authz-info` resource. If the contents of the
-`psk_identity` contained a syntactically valid Access Token, RS
-continues processing the ClientKeyExchange message. Otherwise, the
-DTLS session setup is terminated with an `illegal_parameter` DTLS
-alert message.
+contents and check if the `psk_identity` field contains a key
+identifier or Access Token according to the following CDDL
+specification:
+
+~~~~~~~~~~~~~~~~~~~~~~~
+psk_identity = {
+  kid => bstr / access_token => bstr
+}
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The identifiers for the map keys `kid` and `access_token` are used
+with the same meaning as in COSE [I-D.ietf-cose-msg] and the ACE
+framework [I-D.ietf-ace-oauth-authz] respectively. The identifier
+`kid` thus has the value 4 (see {{I-D.ietf-cose-msg}}), and the
+identifier `access_token` has the value 19, respectively (see
+{{I-D.ietf-ace-oauth-authz}}).
+
+If the `psk_identity` field contains a key identifier, the receiver
+MUST check if it has one or more Access Tokens that are associated
+with the specified key. If no valid Access Token is available for this
+key, the DTLS session setup is terminated with an `illegal_parameter`
+DTLS alert message.
+
+If instead the `psk_identity` field contains an Access Token, it must
+processed in the same way as an Access Token that has been uploaded to
+its `/authz-info` resource. In this case, RS continues processing the
+ClientKeyExchange message if the contents of the `psk_identity`
+contained a valid Access Token. Otherwise, the DTLS session setup is
+terminated with an `illegal_parameter` DTLS alert message.
 
 Note1: As RS cannot provide C with a meaningful PSK identity hint in
 : response to C's ClientHello message, RS SHOULD NOT send a
@@ -564,7 +587,8 @@ that is used as session key between C and RS.
 While C can retrieve the session key from the contents of the `cnf`
 parameter in the AS-to-Client response, RS uses the information contained
 in the `cnf` claim of the Access Token to determine the actual session
-key. Usually, this is done by including a `COSE_Key` object carrying
+key when no explicit `kid` was provided in the `psk_identity` field.
+Usually, this is done by including a `COSE_Key` object carrying
 either a key that has been encrypted with a shared secret between AS
 and RS, or a key identifier that can be used by RS to lookup the
 session key.
