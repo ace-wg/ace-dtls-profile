@@ -508,7 +508,7 @@ specified in {{I-D.ietf-ace-oauth-authz}}. The Max-Age option tells
 the receiving Client how long this token will be valid.
 
 A response that declines any operation on the requested
-resource is constructed according to [Section 5.2 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. Section 6.3 of {{I-D.ietf-ace-oauth-authz}}).
+resource is constructed according to [Section 5.2 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. Section 5.5.3 of {{I-D.ietf-ace-oauth-authz}}).
 
 ~~~~~~~~~~
     4.00 Bad Request
