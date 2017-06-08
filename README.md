@@ -1,9 +1,9 @@
 # Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 
-This is the working area for the Individual internet-draft, "Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)".
+This is the working area for the Working Group internet-draft, "Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)".
 
 * [Editor's copy](https://obgm.github.io/ace-dtls-profile/)
-* [Individual Draft] (https://tools.ietf.org/html/draft-gerdes-ace-dtls-authorize)
+* [Working Group Draft] (https://tools.ietf.org/html/draft-ietf-ace-dtls-authorize)
 
 
 ## Building the Draft
