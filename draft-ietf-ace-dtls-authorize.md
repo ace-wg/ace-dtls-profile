@@ -4,7 +4,7 @@ coding: utf-8
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-ietf-ace-dtls-authorize-latest
-date: 2017-06-08
+date: 2017-07-03
 category: std
 
 ipr: trust200902
@@ -111,18 +111,19 @@ access token, bound to a key (the proof-of-possession key) to authorize its
 access to the resource server.  DTLS provides communication security,
 proof of possession, and server authentication.  Optionally the client and the
 resource server may also use CoAP over DTLS to communicate with the
-authorization server.  This specification supports the DTLS PSK handshake 
-{{RFC4279}} and the DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}. 
+authorization server.  This specification supports the 
+DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}
+and the DTLS PSK handshake {{RFC4279}}.
+
+The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
+proof-of-possession for the key tied to the access token.  Here the access token
+needs to be transferred to the resource server before the handshake is initiated,
+as described in [section 8.1 of draft-ietf-ace-oauth-authz.](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-06#section-5.7.1)
 
 The DTLS PSK handshake {{RFC4279}} provides the proof-of-possession for the key
 tied to the access token.  Furthermore the psk_identity parameter in the DTLS 
 PSK handshake is used to transfer the access token from the client to the
 resource server.
-
-The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
-proof-of-possession for the key tied to the access token.  Here the access token
-needs to be transferred to the resource server before the handshake is initiated,
-as described in [section 8.1 of draft-ietf-ace-oauth-authz.](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-03#section-8.1)
 
 Note: While the scope of this draft is on client and resource server
 : communicating using CoAP over DTLS, it is expected that it applies
@@ -469,9 +470,7 @@ with sufficient information to setup a DTLS channel with RS.  For
 symmetric proof-of-possession keys
 (c.f. {{I-D.ietf-ace-oauth-authz}}), C must ensure that the Access
 Token request is sent over a secure channel that guarantees
-authentication, message integrity and confidentiality. This could be,
-e.g., a DTLS channel (for "coaps") or an OSCOAP
-{{I-D.ietf-core-object-security}} exchange (for "coap").
+authentication, message integrity and confidentiality.
 
 When AS authorizes C it returns an AS-to-Client response with the
 profile parameter set to `coap_dtls` and a `cnf` parameter carrying a
