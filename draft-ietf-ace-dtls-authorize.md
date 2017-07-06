@@ -80,7 +80,6 @@ informative:
   RFC7049:
   RFC7250:
   RFC7251:
-  I-D.ietf-core-object-security:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-cbor-web-token:
 
