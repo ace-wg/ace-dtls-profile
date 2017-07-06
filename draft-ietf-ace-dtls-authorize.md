@@ -72,6 +72,7 @@ normative:
   RFC5746:
   RFC6347:
   RFC7252:
+  RFC8152:
   I-D.ietf-ace-oauth-authz:
 
 informative:
@@ -82,7 +83,6 @@ informative:
   I-D.ietf-core-object-security:
   I-D.ietf-core-resource-directory:
   I-D.ietf-ace-cbor-web-token:
-  I-D.ietf-cose-msg:
 
 entity:
         SELF: "[RFC-XXXX]"
@@ -550,9 +550,9 @@ psk_identity = {
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 The identifiers for the map keys `kid` and `access_token` are used
-with the same meaning as in COSE [I-D.ietf-cose-msg] and the ACE
+with the same meaning as in COSE {{RFC8152}} and the ACE
 framework [I-D.ietf-ace-oauth-authz] respectively. The identifier
-`kid` thus has the value 4 (see {{I-D.ietf-cose-msg}}), and the
+`kid` thus has the value 4 (see {{RFC8152}}), and the
 identifier `access_token` has the value 19, respectively (see
 {{I-D.ietf-ace-oauth-authz}}).
 
@@ -595,13 +595,13 @@ session key.
 Instead of the `COSE_Key` object, AS MAY include a `COSE_Encrypt`
 structure to enable RS to calculate the session key from the Access
 Token. The `COSE_Encrypt` structure MUST use the *Direct Key with KDF*
-method as described in [Section 12.1.2 of draft-ietf-cose-msg](https://tools.ietf.org/html/draft-ietf-cose-msg-23#section-12.1.2).
+method as described in [Section 12.1.2 of RFC 8152](https://tools.ietf.org/html/rfc8152#section-12.1.2).
 The AS MUST include a Context information structure carrying a
 PartyU `nonce` parameter carrying the nonce that has been used by AS
 to construct the session key.
 
 This specification mandates that at least the key derivation algorithm
-`HKDF SHA-256` as defined in {{I-D.ietf-cose-msg}} MUST be supported.
+`HKDF SHA-256` as defined in {{RFC8152}} MUST be supported.
 This key derivation function is the default when no `alg`
 field is included in the `COSE_Encrypt` structure for RS.
 
