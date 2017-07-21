@@ -67,6 +67,7 @@ author:
 
 normative:
   RFC2119:
+  RFC8174:
   RFC3986:
   RFC4279:
   RFC5746:
@@ -132,8 +133,10 @@ Note: While the scope of this draft is on client and resource server
 ## Terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-document are to be interpreted as described in RFC 2119 {{RFC2119}}.
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in BCP
+14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all
+capitals, as shown here.
 
 Readers are expected to be familiar with the terms and concepts
 described in {{I-D.ietf-ace-oauth-authz}}.
