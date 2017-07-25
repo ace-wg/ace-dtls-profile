@@ -108,12 +108,8 @@ This specification defines a profile of the ACE framework
 {{I-D.ietf-ace-oauth-authz}}.  In this profile, a client and a resource server
 use CoAP {{RFC7252}} over DTLS {{RFC6347}} to communicate.  The client uses an
 access token, bound to a key (the proof-of-possession key) to authorize its
-access to the resource server.  DTLS provides communication security,
-proof of possession, and server authentication.  Optionally the client and the
-resource server may also use CoAP over DTLS to communicate with the
-authorization server.  This specification supports the 
-DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}
-and the DTLS handshake with Pre-Shared Keys (PSK) {{RFC4279}}.
+access to protected resources hosted by the resource server.  DTLS provides communication security, proof of possession, and server authentication.  Optionally the client and the resource server may also use CoAP over DTLS to communicate with the authorization server.  This specification supports the 
+DTLS handshake with Raw Public Keys (RPK) {{RFC7250}} and the DTLS handshake with Pre-Shared Keys (PSK) {{RFC4279}}.
 
 The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
 proof-of-possession for the key tied to the access token.  Here the access token
@@ -231,9 +227,7 @@ profile.
 
 The optional Unauthorized Resource Request message is a request for a resource
 hosted by RS for which no proper authorization is granted. RS MUST
-treat any CoAP request for a resource other than `/authz-info`
-as Unauthorized Resource Request message when any of the
-following holds:
+treat any CoAP request for a protected resource as Unauthorized Resource Request message when any of the following holds:
 
 * The request has been received on an unprotected channel.
 * RS has no valid access token for the sender of the
@@ -244,8 +238,7 @@ following holds:
 
 Note: These conditions ensure that RS can handle requests autonomously
 once access was granted and a secure channel has been established
-between C and RS. The resource `/authz-info` is publicly accessible
-to be able to upload new access tokens to RS (cf. {{I-D.ietf-ace-oauth-authz}}).
+between C and RS. The `/authz-info` resource MUST NOT be protected as specified above, in order to allow clients to upload access tokens to RS (cf. {{I-D.ietf-ace-oauth-authz}}).
 
 Unauthorized Resource Request messages MUST be denied with a client error
 response. In this response, the Resource Server SHOULD provide
