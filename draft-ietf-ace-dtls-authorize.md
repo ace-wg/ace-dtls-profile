@@ -656,6 +656,8 @@ already exists, more detailed information may be included with an
 error response to provide C with sufficient information to react on
 that particular error.
 
+Note that some information might still leak after DTLS session is established, due to observable message sizes, the source, and the destination addresses.
+
 # IANA Considerations
 
 This document has no actions for IANA.
