@@ -118,8 +118,7 @@ access token, bound to a key (the proof-of-possession key) to authorize its
 access to the resource server.  DTLS provides communication security,
 proof of possession, and server authentication.  Optionally the client and the
 resource server may also use CoAP over DTLS to communicate with the
-authorization server.  This specification supports the DTLS PSK handshake 
-{{RFC4279}} and the DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}. 
+authorization server.  This specification supports the DTLS handshake with Pre-Shared Keys (PSK) {{RFC4279}} and the DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}. 
 
 The DTLS PSK handshake {{RFC4279}} provides the proof-of-possession for the key
 tied to the access token.  Furthermore the psk_identity parameter in the DTLS 
