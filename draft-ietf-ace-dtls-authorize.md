@@ -113,7 +113,7 @@ proof of possession, and server authentication.  Optionally the client and the
 resource server may also use CoAP over DTLS to communicate with the
 authorization server.  This specification supports the 
 DTLS handshake with Raw Public Keys (RPK) {{RFC7250}}
-and the DTLS PSK handshake {{RFC4279}}.
+and the DTLS handshake with Pre-Shared Keys (PSK) {{RFC4279}}.
 
 The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
 proof-of-possession for the key tied to the access token.  Here the access token
