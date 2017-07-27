@@ -114,7 +114,7 @@ DTLS handshake with Raw Public Keys (RPK) {{RFC7250}} and the DTLS handshake wit
 The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
 proof-of-possession for the key tied to the access token.  Here the access token
 needs to be transferred to the resource server before the handshake is initiated,
-as described in [section 8.1 of draft-ietf-ace-oauth-authz.](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-06#section-5.7.1)
+as described in [section 5.7.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-06#section-5.7.1).
 
 The DTLS PSK handshake {{RFC4279}} provides the proof-of-possession for the key
 tied to the access token.  Furthermore the psk_identity parameter in the DTLS 
