@@ -639,7 +639,7 @@ would be sufficient to protect against replay attacks, using
 randomized nonce is preferred to prevent disclosure of information
 about RS's internal clock characteristics.
 
-## Privacy
+# Privacy Considerations
 
 An unprotected response to an unauthorized request (c.f. {{as-info}})
 may disclose information about RS and/or its existing relationship
