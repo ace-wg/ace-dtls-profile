@@ -170,7 +170,7 @@ send an initial Unauthorized Resource Request message to RS.  RS then
 denies the request and sends the address of its AS back to C.
 
 Once C knows AS's address, it can send an Access Token request to
-the /token endpoint at the AS as specified in {{I-D.ietf-ace-oauth-authz}}.
+the token endpoint at the AS as specified in {{I-D.ietf-ace-oauth-authz}}.
 If C wants to use the CoAP RawPublicKey mode as
 described in [Section 9 of RFC 7252](https://tools.ietf.org/html/rfc7252#section-9)
 it MUST provide a key or key identifier within a `cnf` object in the
@@ -184,7 +184,7 @@ secure DTLS channel between C and RS.  The semantics of the 'cnf' parameter depe
 The Access Token returned by AS then can be used by C to establish a
 new DTLS session with RS. When C intends to use asymmetric
 cryptography in the DTLS handshake with RS, C MUST upload the Access Token to
-the `/authz-info` resource on RS before starting the DTLS handshake, as
+the authz-info resource on RS before starting the DTLS handshake, as
 described in [section 5.8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.1).  If only symmetric cryptography is used between C and RS, the Access Token MAY instead be transferred in the DTLS ClientKeyExchange message
 (see {{psk-dtls-channel}}).
 
@@ -222,7 +222,7 @@ profile.
 
 Once a DTLS channel has been established as described in {{rpk-mode}} and {{psk-mode}}, respectively,
 C is authorized to access resources covered by the Access Token it has
-uploaded to the `/authz-info` resource hosted by RS.
+uploaded to the authz-info resource hosted by RS.
 
 On the server side (i.e., RS), successful establishment of the DTLS
 channel binds C to the access token, functioning as a proof-of-possession associated key.  Any request that RS receives on this channel MUST be checked against these authorization rules that are associated with the identity of C.  Incoming CoAP requests that are not authorized
@@ -269,7 +269,7 @@ continue communication with RS.
 The Client can update the authorization information stored at
 RS at any time. To do so, the Client requests from AS a new Access Token
 for the intended action on the respective resource and uploads
-this Access Token to the `/authz-info` resource on RS.
+this Access Token to the authz-info resource on RS.
 
 {{update-overview}} depicts the message flow where C requests a new
 Access Token after a security association between C and RS has been
@@ -330,7 +330,7 @@ by the audience string "tempSensor4711" on the AS  using a raw public key.
 When AS authorizes a request, it will return an Access Token and a
 `cnf` object in the AS-to-Client response. Before C initiates the DTLS
 handshake with RS, it MUST send a `POST` request containing the new
-Access Token to the `/authz-info` resource hosted by RS. If this
+Access Token to the authz-info resource hosted by RS. If this
 operation yields a positive response, C SHOULD proceed to establish a
 new DTLS channel with RS. To use raw public key mode, C MUST pass the
 same public key that was used for constructing the Access Token with
@@ -431,7 +431,7 @@ In PreSharedKey mode, the knowledge of the session key by C and RS is
 used for mutual authentication between both peers. Therefore, RS must
 be able to determine the session key from the Access Token. Following
 the general ACE authorization framework, C can upload the Access Token
-to RS's `/authz-info` resource before starting the DTLS
+to RS's authz-info resource before starting the DTLS
 handshake. Alternatively, C MAY provide the most recent base64-encoded
 Access Token in the `psk_identity` field of the ClientKeyExchange
 message.
@@ -463,7 +463,7 @@ DTLS alert message.
 
 If instead the `psk_identity` field contains an Access Token, it must
 processed in the same way as an Access Token that has been uploaded to
-its `/authz-info` resource. In this case, RS continues processing the
+its authz-info resource. In this case, RS continues processing the
 ClientKeyExchange message if the contents of the `psk_identity`
 contained a valid Access Token. Otherwise, the DTLS session setup is
 terminated with an `illegal_parameter` DTLS alert message.
