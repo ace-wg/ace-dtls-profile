@@ -4,7 +4,7 @@ coding: utf-8
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-ietf-ace-dtls-authorize-latest
-date: 2017-07-03
+date: 2017-10-26
 category: std
 
 ipr: trust200902
@@ -113,7 +113,7 @@ DTLS handshake with Raw Public Keys (RPK) {{RFC7250}} and the DTLS handshake wit
 The DTLS RPK handshake {{RFC7250}} requires client authentication to provide
 proof-of-possession for the key tied to the access token.  Here the access token
 needs to be transferred to the resource server before the handshake is initiated,
-as described in [section 5.7.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-06#section-5.7.1).
+as described in [section 5.8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.1).
 
 The DTLS PSK handshake {{RFC4279}} provides the proof-of-possession for the key
 tied to the access token.  Furthermore the psk_identity parameter in the DTLS 
@@ -185,7 +185,7 @@ The Access Token returned by AS then can be used by C to establish a
 new DTLS session with RS. When C intends to use asymmetric
 cryptography in the DTLS handshake with RS, C MUST upload the Access Token to
 the `/authz-info` resource on RS before starting the DTLS handshake, as
-described in [section 8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-03#section-8.1).  If only symmetric cryptography is used between C and RS, the Access Token MAY instead be transferred in the DTLS ClientKeyExchange message
+described in [section 5.8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.1).  If only symmetric cryptography is used between C and RS, the Access Token MAY instead be transferred in the DTLS ClientKeyExchange message
 (see {{psk-dtls-channel}}).
 
 {{protocol-overview}} depicts the common protocol flow for the
@@ -228,7 +228,7 @@ On the server side (i.e., RS), successful establishment of the DTLS
 channel binds C to the access token, functioning as a proof-of-possession associated key.  Any request that RS receives on this channel MUST be checked against these authorization rules that are associated with the identity of C.  Incoming CoAP requests that are not authorized
 with respect to any Access Token that is associated with C MUST be
 rejected by RS with 4.01 response as described in
-[Section 5.8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz#section-5.8.1).
+[Section 5.1.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.5.1).
 
 Note: The identity of C is determined by the authentication process
 : during the DTLS handshake. In the asymmetric case, the public key
@@ -259,7 +259,7 @@ MUST be rejected
 C cannot always know a priori if an Authorized Resource Request
 will succeed. If C repeatedly gets error responses containing
 AS Information (cf.
-[Section 5.8.2 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz#section-5.8.2)
+[Section 5.1.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.1)
 as response
 to its requests, it SHOULD request a new Access Token from AS in order to
 continue communication with RS.
@@ -406,7 +406,7 @@ specified in {{I-D.ietf-ace-oauth-authz}}. The Max-Age option tells
 the receiving Client how long this token will be valid.
 
 A response that declines any operation on the requested
-resource is constructed according to [Section 5.2 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. Section 5.5.3 of {{I-D.ietf-ace-oauth-authz}}).
+resource is constructed according to [Section 5.2 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. Section 5.7.3 of {{I-D.ietf-ace-oauth-authz}}).
 
 ~~~~~~~~~~
     4.00 Bad Request
