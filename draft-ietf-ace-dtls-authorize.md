@@ -438,34 +438,19 @@ message.
 
 If RS receives a ClientKeyExchange message that contains a
 `psk_identity` with a length greater zero, it MUST base64-decode its
-contents and check if the `psk_identity` field contains a key
-identifier or Access Token according to the following CDDL
-specification:
-
-~~~~~~~~~~~~~~~~~~~~~~~
-psk_identity = {
-  kid => bstr // access_token => bstr
-}
-~~~~~~~~~~~~~~~~~~~~~~~
-
-The identifiers for the map keys `kid` and `access_token` are used
-with the same meaning as in COSE {{RFC8152}} and the ACE
-framework [I-D.ietf-ace-oauth-authz] respectively. The identifier
-`kid` thus has the value 4 (see {{RFC8152}}), and the
-identifier `access_token` has the value 19, respectively (see
-{{I-D.ietf-ace-oauth-authz}}).
-
-If the `psk_identity` field contains a key identifier, the receiver
+contents and use the resulting byte sequence as index for its key
+store (i.e., treat the contents as key identifier). The RS
 MUST check if it has one or more Access Tokens that are associated
 with the specified key. If no valid Access Token is available for this
 key, the DTLS session setup is terminated with an `illegal_parameter`
 DTLS alert message.
 
-If instead the `psk_identity` field contains an Access Token, it must
-processed in the same way as an Access Token that has been uploaded to
-its authz-info resource. In this case, RS continues processing the
-ClientKeyExchange message if the contents of the `psk_identity`
-contained a valid Access Token. Otherwise, the DTLS session setup is
+If no key with a matching identifier is found the resource server RS
+MAY process the decoded contents of the `psk_identity` field as access
+token that is stored with the authorization information endpoint before
+continuing the DTLS handshake. If the decoded contents of the
+`psk_identity` do not yield a valid access token for the requesting
+client, the DTLS session setup is
 terminated with an `illegal_parameter` DTLS alert message.
 
 Note1: As RS cannot provide C with a meaningful PSK identity hint in
