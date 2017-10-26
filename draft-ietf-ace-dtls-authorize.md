@@ -296,6 +296,47 @@ established using this protocol.
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #update-overview title="Overview of Dynamic Update Operation"}
 
+## Token Expiration {#teardown}
+
+DTLS sessions that have been established in accordance with this
+profile are always tied to a specific set of access tokens. As these
+tokens may become invalid at any time (either because the token has
+expired or the responsible authorization server has revoked the
+token), the session may become useless at some point. A resource
+server therefore may decide to terminate existing DTLS sessions after
+the last valid access token for this session has been deleted.
+
+As specified in [section 5.8.2 of
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.2),
+the resource server MUST notify the client with an error response with
+code 4.01 (Unauthorized) for any long running request before
+terminating the session.
+
+The resource server MAY also keep the session alive for some time and
+respond to incoming requests with a 4.01 (Unauthorized) error message
+including AS Information to signal that the client needs to upload a
+new access token before it can continue using this DTLS session. The
+AS Information is created as specified in [section 5.1.2 of
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.2). The
+resource server SHOULD add a `kid` parameter to the AS Information
+denoting the identifier of the key that it uses internally for this
+DTLS session. The client then includes this `kid` parameter in a
+Client-to-AS request used to retrieve a new access token to be used
+with this DTLS session. In case the key identifier is already known by
+the client (e.g. because it was included in the RS Information in an
+AS-to-Client response), the `kid` parameter MAY be elided from the AS
+Information.
+
+{{as-info-params}} updates Figure 2 in [section 5.1.2 of
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.2)
+with the new `kid` parameter in accordance with {{RFC8152}}.
+
+
+| Parameter name | CBOR Key | Major Type      |
+|----------------+----------+-----------------|
+| kid            |    4     | 2 (byte string) |
+{: #as-info-params title="Updated AS Information parameters"}
+
 # RawPublicKey Mode {#rpk-mode}
 
 To retrieve an access token for the resource that C wants to access, C
