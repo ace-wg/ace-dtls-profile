@@ -248,7 +248,7 @@ if the following holds:
    respect to the authorization information.
 
 Incoming CoAP requests received on a secure DTLS channel
-MUST be rejected
+MUST be rejected according to [Section 5.1.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.1
 
 1. with response code 4.03 (Forbidden) when the resource URI specified
    in the request is not covered by the authorization information, and
