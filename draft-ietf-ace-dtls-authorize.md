@@ -75,6 +75,7 @@ normative:
   RFC7252:
   RFC8152:
   I-D.ietf-ace-oauth-authz:
+  I-D.tiloca-tls-dos-handshake:
 
 informative:
   RFC6655:
@@ -567,7 +568,16 @@ new Access Token.
 
 # Security Considerations
 
-TODO
+Constrained devices that use DTLS {{RFC6347}} are inherently
+vulnerable to Denial of Service (DoS) attacks as the handshake
+protocol requires creation of internal state within the device.  This
+is specifically of concern where an adversary is able to intercept the
+initial cookie exchange and interject forged messages with a valid
+cookie to continue with the handshake.
+
+{{I-D.tiloca-tls-dos-handshake}} specifies a TLS extension to prevent
+this type of attack which is applicable especially for constrained
+environments where the authorization server can act as trust anchor.
 
 # Privacy Considerations
 
