@@ -267,13 +267,32 @@ continue communication with RS.
 ## Dynamic Update of Authorization Information {#update}
 
 The Client can update the authorization information stored at
-RS at any time. To do so, the Client requests from AS a new Access Token
+RS at any time without changing an established DTLS session. To do so, the Client requests from AS a new Access Token
 for the intended action on the respective resource and uploads
 this Access Token to the authz-info resource on RS.
 
 {{update-overview}} depicts the message flow where C requests a new
 Access Token after a security association between C and RS has been
-established using this protocol.
+established using this protocol. The token request MUST specify
+the key identifier of the existing DTLS channel between the client
+and the resource server in the `kid` parameter of the Client-to-AS
+request. The authorization server MUST verify that the specified
+`kid` denotes a valid verifier for a proof-of-possession ticket that
+has previously been issued to the requesting client. Otherwise, the
+Client-to-AS request MUST be declined with a the error code
+`unsupported_pop_key` as defined in [Section 5.6.3 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.6.3).
+
+When the authorization server issues a new access token to update
+existing authorization information it MUST include the specified `kid`
+parameter in this access token. A resource server MUST associate the
+updated authorization information with any existing DTLS session that
+is identified by this key identifier.
+
+Note: By associating the access tokens with the identifier of an
+: existing DTLS session, the authorization information can be updated
+  without changing the cryptographic keys for the DTLS communication
+  between the client and the resource server, i.e. an existing session
+  can be used with updated permissions.
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 
