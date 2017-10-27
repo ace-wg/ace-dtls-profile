@@ -1,7 +1,7 @@
 ---
 coding: utf-8
 
-title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
+title: Datagram Transport Layer Security (DTLS) Profiles for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-ietf-ace-dtls-authorize-latest
 date: 2017-10-26
@@ -89,11 +89,11 @@ entity:
 
 --- abstract
 
-This specification defines a profile for delegating client
+This specification defines two profiles for delegating client
 authentication and authorization in a constrained environment by
 establishing a Datagram Transport Layer Security (DTLS) channel between resource-constrained nodes.
 The protocol relies on DTLS for communication security
-between entities in a constrained network. A
+between entities in a constrained network using either raw public keys or pre-shared keys. A
 resource-constrained node can use this protocol to delegate
 management of authorization
 information to a trusted host with less severe limitations regarding
