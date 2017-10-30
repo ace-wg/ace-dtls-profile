@@ -72,6 +72,7 @@ normative:
   RFC5746:
   RFC6347:
   RFC7252:
+  RFC7925:
   RFC8152:
   I-D.ietf-ace-oauth-authz:
   I-D.tiloca-tls-dos-handshake:
@@ -491,13 +492,19 @@ used for mutual authentication between both peers. Therefore, the resource serve
 be able to determine the session key from the Access Token. Following
 the general ACE authorization framework, the client can upload the Access Token
 to the resource server's authz-info resource before starting the DTLS
-handshake. Alternatively, the client MAY provide the most recent base64-encoded
+handshake. Alternatively, the client MAY provide the most recent
 Access Token in the `psk_identity` field of the ClientKeyExchange
-message.
+message. To do so, the client MUST treat the contents of the `access_token`
+field from the AS-to-Client response as opaque data and not perform
+any re-coding.
+
+Note: As stated in section 4.2 of {{RFC7925}}, the PSK identity should
+be treated as binary data in the Internet of Things space and not
+assumed to have a human-readable form of any sort.
 
 If a resource server receives a ClientKeyExchange message that contains a
-`psk_identity` with a length greater zero, it MUST base64-decode its
-contents and use the resulting byte sequence as index for its key
+`psk_identity` with a length greater zero, it
+uses the contents as index for its key
 store (i.e., treat the contents as key identifier). The resource server
 MUST check if it has one or more Access Tokens that are associated
 with the specified key. If no valid Access Token is available for this
