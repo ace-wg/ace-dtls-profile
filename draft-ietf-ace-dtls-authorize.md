@@ -568,6 +568,12 @@ new Access Token.
 
 # Security Considerations
 
+This document specifies a profile for the Authentication and
+Authorization for Constrained Environments (ACE) framework
+{{I-D.ietf-ace-oauth-authz}}. As it follows this framework's general
+approach, the general security and privacy considerations from section
+6 and section 7 also apply to this profile.
+
 Constrained devices that use DTLS {{RFC6347}} are inherently
 vulnerable to Denial of Service (DoS) attacks as the handshake
 protocol requires creation of internal state within the device.  This
