@@ -593,7 +593,25 @@ Note that some information might still leak after DTLS session is established, d
 
 # IANA Considerations
 
-This document has no actions for IANA.
+The following registrations are done for the ACE OAuth Profile
+Registry following the procedure specified in
+{{I-D.ietf-ace-oauth-authz}}.
+
+Note to RFC Editor: Please replace all occurrences of "{{&SELF}}" with
+the RFC number of this specification and delete this paragraph.
+
+Profile name: coap_dtls
+
+Profile Description: Profile for delegating client authentication and
+authorization in a constrained environment by establishing a Datagram
+Transport Layer Security (DTLS) channel between resource-constrained
+nodes.
+
+Profile ID:  1
+
+Change Controller:  IESG
+
+Specification Document(s):  {{&SELF}}
 
 --- back
 
