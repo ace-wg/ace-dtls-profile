@@ -68,7 +68,6 @@ author:
 normative:
   RFC2119:
   RFC8174:
-  RFC3986:
   RFC4279:
   RFC5746:
   RFC6347:
@@ -79,7 +78,6 @@ normative:
 
 informative:
   RFC6655:
-  RFC7049:
   RFC7250:
   RFC7251:
   I-D.ietf-ace-cbor-web-token:
