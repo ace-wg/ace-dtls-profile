@@ -181,8 +181,18 @@ denies the request and sends the address of its AS back to the client C.
 
 Once the client C knows the authorization server's address, it can
 send an Access Token request to the token endpoint at the AS as
-specified in {{I-D.ietf-ace-oauth-authz}}.  If C wants to use the CoAP
-RawPublicKey mode as described in [Section 9 of RFC
+specified in {{I-D.ietf-ace-oauth-authz}}. As the Access Token request
+as well as the response may contain confidential data, the
+communication between the client and the authorization server MUST be
+confidentiality-protected and ensure authenticity. How the mutual
+authentication between the client and the authorization server is
+achieved is out of scope for this document; the client may have been
+configured with a public key of the authorization server and have been
+registered at the AS via the OAuth client registration mechanism as
+outlined in [section 5.3 of
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.3).
+
+If C wants to use the CoAP RawPublicKey mode as described in [Section 9 of RFC
 7252](https://tools.ietf.org/html/rfc7252#section-9) it MUST provide a
 key or key identifier within a `cnf` object in the token request.  If
 the authorization server AS decides that the request is to be
