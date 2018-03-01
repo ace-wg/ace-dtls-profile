@@ -392,7 +392,10 @@ To retrieve an access token for the resource that the client wants to
 access, the client requests an Access Token from the authorization
 server. The client MUST add a `cnf` object carrying either its raw
 public key or a unique identifier for a public key that it has
-previously made known to the authorization server.
+previously made known to the authorization server. To prove that the
+client is in possession of this key, it MUST use the same public key
+as in certificate message that is used to establish the DTLS session
+with the authorization server.
 
 An example Access Token request from the client to the resource server
 is depicted in {{rpk-authorization-message-example}}.
