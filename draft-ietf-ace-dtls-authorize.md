@@ -1,10 +1,10 @@
 ---
 coding: utf-8
 
-title: Datagram Transport Layer Security (DTLS) Profiles for Authentication and Authorization for Constrained Environments (ACE)
+title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-ietf-ace-dtls-authorize-latest
-date: 2017-10-30
+date: 2018-03-01
 category: std
 
 ipr: trust200902
@@ -88,7 +88,7 @@ entity:
 
 --- abstract
 
-This specification defines two profiles for delegating client
+This specification defines a profile for delegating client
 authentication and authorization in a constrained environment by
 establishing a Datagram Transport Layer Security (DTLS) channel
 between resource-constrained nodes.  The protocol relies on DTLS for
@@ -190,7 +190,9 @@ client C and the resource server.  Is also adds a `cnf` parameter with
 additional data for the establishment of a secure DTLS channel between
 the client and the resource server.  The semantics of the 'cnf'
 parameter depend on the type of key used between the client and the
-resource server, see {{rpk-mode}} and {{psk-mode}}.
+resource server and control whether the client must use RPK mode or
+PSK mode to establish a DTLS session with the resource server, see
+{{rpk-mode}} and {{psk-mode}}.
 
 The Access Token returned by the authorization server then can be used
 by the client to establish a new DTLS session with the resource
