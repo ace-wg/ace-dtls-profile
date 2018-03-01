@@ -122,7 +122,7 @@ The DTLS RPK handshake {{RFC7250}} requires client authentication to
 provide proof-of-possession for the key tied to the access token.
 Here the access token needs to be transferred to the resource server
 before the handshake is initiated, as described in [section 5.8.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.1).
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.8.1).
 
 The DTLS PSK handshake {{RFC4279}} provides the proof-of-possession
 for the key tied to the access token.  Furthermore the psk_identity
@@ -213,7 +213,7 @@ server. When the client intends to use asymmetric cryptography in the
 DTLS handshake with the resource server, the client MUST upload the
 Access Token to the authz-info resource on the resource server before
 starting the DTLS handshake, as described in [section 5.8.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.1).
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.8.1).
 If only symmetric cryptography is used between the client and the
 resource server, the Access Token MAY instead be transferred in the
 DTLS ClientKeyExchange message (see {{psk-dtls-channel}}).
@@ -265,7 +265,7 @@ client.  Incoming CoAP requests that are not authorized with respect
 to any Access Token that is associated with the client MUST be
 rejected by the resource server with 4.01 response as described in
 [Section 5.1.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.5.1).
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.1.1).
 
 Note: The identity of the client is determined by the authentication process
 : during the DTLS handshake. In the asymmetric case, the public key
@@ -287,7 +287,7 @@ if the following holds:
 
 Incoming CoAP requests received on a secure DTLS channel MUST be
 rejected according to [Section 5.1.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.1
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.1.1
 
 1. with response code 4.03 (Forbidden) when the resource URI specified
    in the request is not covered by the authorization information, and
@@ -298,7 +298,7 @@ draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-aut
 The client cannot always know a priori if an Authorized Resource
 Request will succeed. If the client repeatedly gets error responses
 containing AS Information (cf.  [Section 5.1.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.1)
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.1.1)
 as response to its requests, it SHOULD request a new Access Token from
 the authorization server in order to continue communication with the
 resource server.
@@ -323,7 +323,7 @@ for a proof-of-possession ticket that has previously been issued to
 the requesting client. Otherwise, the Client-to-AS request MUST be
 declined with a the error code `unsupported_pop_key` as defined in
 [Section 5.6.3 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.6.3).
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.6.3).
 
 When the authorization server issues a new access token to update
 existing authorization information it MUST include the specified `kid`
@@ -369,7 +369,7 @@ server therefore may decide to terminate existing DTLS sessions after
 the last valid access token for this session has been deleted.
 
 As specified in [section 5.8.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.8.2),
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.8.2),
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the session.
@@ -379,7 +379,7 @@ respond to incoming requests with a 4.01 (Unauthorized) error message
 including AS Information to signal that the client needs to upload a
 new access token before it can continue using this DTLS session. The
 AS Information is created as specified in [section 5.1.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.2). The
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.1.2). The
 resource server SHOULD add a `kid` parameter to the AS Information
 denoting the identifier of the key that it uses internally for this
 DTLS session. The client then includes this `kid` parameter in a
@@ -390,7 +390,7 @@ AS-to-Client response), the `kid` parameter MAY be elided from the AS
 Information.
 
 {{as-info-params}} updates Figure 2 in [section 5.1.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-08#section-5.1.2)
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-10#section-5.1.2)
 with the new `kid` parameter in accordance with {{RFC8152}}.
 
 
@@ -507,8 +507,8 @@ server as illustrated in {{at-response}}.
    Location-Path: /token/asdjbaskd
    Max-Age: 86400
    {
-      access_token: b64'SlAV32hkKG ...
-      (remainder of CWT omitted for brevity;
+      access_token: h'd08343a10...
+      (remainder of CWT omitted for brevity)
       token_type:   pop,
       alg:          HS256,
       expires_in:   86400,
@@ -697,7 +697,7 @@ Profile ID:  1
 
 Change Controller:  IESG
 
-Specification Document(s):  {{&SELF}}
+Reference:  {{&SELF}}
 
 --- back
 
