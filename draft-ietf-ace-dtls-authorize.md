@@ -81,8 +81,11 @@ informative:
   RFC6655:
   RFC7250:
   RFC7251:
+  RFC7748:
+  RFC8032:
+  I-D.ietf-tls-rfc4492bis:
   I-D.ietf-ace-cbor-web-token:
-
+ 
 entity:
         SELF: "[RFC-XXXX]"
 
@@ -433,11 +436,20 @@ the client MUST pass the same public key that was used for
 constructing the Access Token with the SubjectPublicKeyInfo structure
 in the DTLS handshake as specified in {{RFC7250}}.
 
+An implementation that supports the RPK mode of this profile MUST at
+least support the ciphersuite
+TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with the ed25519
+curve (cf. {{RFC8032}}, {{I-D.ietf-tls-rfc4492bis}}).
+
 Note:
 : According to {{RFC7252}}, CoAP implementations MUST support the
   ciphersuite TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}
-  and the NIST P-256 curve. the client is therefore expected to offer
-  at least this ciphersuite to the resource server.
+  and the NIST P-256 curve. As discussed in {{RFC7748}}, new ECC
+  curves have been defined recently that are considered superior to
+  the so-called NIST curves. The curve that is mandatory to implement
+  in this specification is said to be efficient and less dangerous
+  regarding implementation errors than the secp256r1 curve mandated in
+  {{RFC7252}}.
 
 The Access Token is constructed by the authorization server such that
 the resource server can associate the Access Token with the Client's
