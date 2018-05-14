@@ -4,7 +4,6 @@ coding: utf-8
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
 docname: draft-ietf-ace-dtls-authorize-latest
-date: 2018-03-05
 category: std
 
 ipr: trust200902
@@ -84,7 +83,7 @@ informative:
   RFC7748:
   RFC8032:
   I-D.ietf-tls-rfc4492bis:
-  I-D.ietf-ace-cbor-web-token:
+  RFC8392:
  
 entity:
         SELF: "[RFC-XXXX]"
@@ -463,7 +462,7 @@ Note:
 
 The Access Token is constructed by the authorization server such that
 the resource server can associate the Access Token with the Client's
-public key. If CBOR web tokens {{I-D.ietf-ace-cbor-web-token}} are
+public key. If CBOR web tokens {{RFC8392}} are
 used as recommended in {{I-D.ietf-ace-oauth-authz}}, the authorization
 server MUST include a `COSE_Key` object in the `cnf` claim of the
 Access Token. This `COSE_Key` object MAY contain a reference to a key
