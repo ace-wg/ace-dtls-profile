@@ -194,13 +194,15 @@ the authorization server AS decides that the request is to be
 authorized it generates an access token response for the client C
 containing a `profile` parameter with the value `coap_dtls` to
 indicate that this profile MUST be used for communication between the
-client C and the resource server.  Is also adds a `cnf` parameter with
-additional data for the establishment of a secure DTLS channel between
-the client and the resource server.  The semantics of the 'cnf'
-parameter depend on the type of key used between the client and the
-resource server and control whether the client must use RPK mode or
-PSK mode to establish a DTLS session with the resource server, see
-{{rpk-mode}} and {{psk-mode}}.
+client C and the resource server. 
+
+For RPK mode, the authorization server also adds a `rs_cnf`
+parameter containing information about the public that is used by the
+resource server (see {{rpk-mode}}).
+
+For PSK mode, the authorization server adds a `cnf` parameter
+containing information about the shared secret that C can use to setup
+a DTLS session with the resource server (see {{psk-mode}}).
 
 The Access Token returned by the authorization server then can be used
 by the client to establish a new DTLS session with the resource
