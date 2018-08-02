@@ -128,11 +128,6 @@ for the key tied to the access token.  Furthermore the psk_identity
 parameter in the DTLS PSK handshake is used to transfer the access
 token from the client to the resource server.
 
-Note: While the scope of this draft is on client and resource server
-: communicating using CoAP over DTLS, it is expected that it applies
-  also to CoAP over TLS, possibly with minor modifications. However,
-  that is out of scope for this version of the draft.
-
 ## Terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
