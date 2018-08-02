@@ -171,7 +171,8 @@ in square brackets are optional):
 
 To determine the AS in charge of a resource hosted at the RS, the client C MAY
 send an initial Unauthorized Resource Request message to the RS. The RS then
-denies the request and sends the address of its AS back to the client C.
+denies the request and sends the address of its AS back to the client C as
+specified in [section 5.1.2 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-13#section-5.1.2).
 
 Once the client C knows the authorization server's address, it can
 send an Access Token request to the token endpoint at the AS as
