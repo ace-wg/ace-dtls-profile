@@ -629,14 +629,8 @@ Usually, the authorization information that the resource server keeps
 for a client is updated by uploading a new Access Token as described
 in {{update}}.
 
-If the security association with the resource server still exists and
-the resource server has indicated support for session renegotiation
-according to {{RFC5746}}, the new Access Token MAY be used to
-renegotiate the existing DTLS session. In this case, the Access Token
-is used as `psk_identity` as defined in {{psk-dtls-channel}}. The
-Client MAY also perform a new DTLS handshake according to
+The Client MAY also perform a new DTLS handshake according to
 {{psk-dtls-channel}} that replaces the existing DTLS session.
-
 After successful completion of the DTLS handshake the resource server
 updates the existing authorization information for the client
 according to the new Access Token.
