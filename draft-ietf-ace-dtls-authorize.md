@@ -82,7 +82,7 @@ informative:
   RFC7251:
   RFC7748:
   RFC8032:
-  I-D.ietf-tls-rfc4492bis:
+  RFC8422:
   RFC8392:
  
 entity:
@@ -446,7 +446,7 @@ in the DTLS handshake as specified in {{RFC7250}}.
 An implementation that supports the RPK mode of this profile MUST at
 least support the ciphersuite
 TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with the ed25519
-curve (cf. {{RFC8032}}, {{I-D.ietf-tls-rfc4492bis}}).
+curve (cf. {{RFC8032}}, {{RFC8422}}).
 
 Note:
 : According to {{RFC7252}}, CoAP implementations MUST support the
