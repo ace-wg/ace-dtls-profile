@@ -502,6 +502,7 @@ server as illustrated in {{at-response}}.
    2.01 Created
    Content-Format: application/cbor
    Location-Path: /token/asdjbaskd
+   Max-Age: 86400
    {
       access_token: h'd08343a10...
       (remainder of CWT omitted for brevity)
@@ -521,7 +522,9 @@ server as illustrated in {{at-response}}.
 
 In this example, the authorization server returns a 2.01 response
 containing a new Access Token.  The information is transferred as a
-CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
+CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}. The
+Max-Age option tells the receiving Client how long this token will be
+valid.
 
 A response that declines any operation on the requested resource is
 constructed according to [Section 5.2 of RFC
