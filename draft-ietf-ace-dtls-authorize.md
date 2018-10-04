@@ -307,7 +307,9 @@ response also contains an access token and an `rs_cnf` parameter containing
 information about the public key that is used by the resource
 server. AS MUST ascertain that the RPK specified in `rs_cnf` belongs
 to the resource server that C wants to communicate with. AS MUST
-protect the integrity of the token.
+protect the integrity of the token. If the access token contains
+confidential data, AS MUST also protect the confidentiality of the
+access token.
 
 C MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
@@ -383,7 +385,7 @@ AS-to-Client response. If the profile parameter is present, it is set to
 the resource server that C wants to communicate with. Also, AS MUST
 protect the integrity of the access
 token. If the token contains confidential data such as the symmetric
-key, the confidentiality of the token must also be
+key, the confidentiality of the token MUST also be
 protected. Depending on the requested token type and algorithm in the
 access token request, the authorization server adds access Information
 to the response that provides the client with sufficient information
