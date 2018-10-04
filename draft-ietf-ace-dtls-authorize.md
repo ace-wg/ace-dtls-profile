@@ -431,7 +431,19 @@ key itself or or a key identifier that can be used by the resource
 server to determine the shared secret. If the access token carries a
 symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
-encrypt the token.
+encrypt the token. 
+
+Instead of providing the keying material, the AS
+MAY include a key derivation function in the access token that enables
+the resource server to calculate the keying material for the
+communication with C from the access token. In this case, the token
+contains a `COSE_Key` object where the used kdf function is specified
+as the algorithm.  The `COSE_Key` structure MUST use the *Direct Key
+with KDF* method as described in [Section 12.1.2 of RFC
+8152](https://tools.ietf.org/html/rfc8152#section-12.1.2). The AS
+MUST include a salt parameter in the token carrying the salt that the
+AS has used to construct the shared key. AS and RS MUST use their
+shared keying material for the key derivation.
 
 A response that declines any operation on the requested resource is
 constructed according to [Section 5.2 of RFC
@@ -516,6 +528,14 @@ While the client can retrieve the shared secret from the contents of the
 the information contained in the `cnf` claim of the access token to
 determine the actual secret when no explicit `kid` was provided
 in the `psk_identity` field.
+
+Instead of providing the keying material, the AS MAY include a key
+derivation function in the access token as described above.  If key
+derivation is used, at least the key derivation algorithm `HKDF
+SHA-256` as defined in [RFC 8152](https://tools.ietf.org/html/rfc8152)
+MUST be supported.  This key derivation function is the default when
+no `alg` field is included in the `COSE_Encrypt` structure for the
+resource server.
 
 ## Resource Access
 
