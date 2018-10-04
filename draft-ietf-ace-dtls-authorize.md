@@ -533,9 +533,7 @@ Instead of providing the keying material, the AS MAY include a key
 derivation function in the access token as described above.  If key
 derivation is used, at least the key derivation algorithm `HKDF
 SHA-256` as defined in [RFC 8152](https://tools.ietf.org/html/rfc8152)
-MUST be supported.  This key derivation function is the default when
-no `alg` field is included in the `COSE_Encrypt` structure for the
-resource server.
+MUST be supported.
 
 ## Resource Access
 
