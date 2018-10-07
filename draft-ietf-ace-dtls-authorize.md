@@ -64,7 +64,6 @@ normative:
   RFC2119:
   RFC8174:
   RFC4279:
-  RFC5746:
   RFC6347:
   RFC7252:
   RFC7925:
