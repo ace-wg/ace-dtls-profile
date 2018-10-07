@@ -433,17 +433,45 @@ symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
-Instead of providing the keying material, the AS
-MAY include a key derivation function in the access token that enables
-the resource server to calculate the keying material for the
-communication with C from the access token. In this case, the token
-contains a `COSE_Key` object where the used kdf function is specified
-as the algorithm.  The `COSE_Key` structure MUST use the *Direct Key
-with KDF* method as described in [Section 12.1.2 of RFC
-8152](https://tools.ietf.org/html/rfc8152#section-12.1.2). The AS
-MUST include a salt parameter in the token carrying the salt that the
-AS has used to construct the shared key. AS and RS MUST use their
-shared keying material for the key derivation.
+Instead of providing the keying material, the AS MAY include a key
+derivation function in the access token that enables the resource
+server to calculate the keying material for the communication with C
+from the access token. In this case, the token contains a `cnf`
+structure that specifies the key derivation algorithm and the salt
+that the AS has used to construct the shared key. AS and RS MUST use
+their shared keying material for the key derivation.  Instead of
+providing the keying material, the AS MAY include a salt in the `cnf`
+structure that enables the resource server to calculate the keying
+material for the communication with C from the access token. The key
+derivation then MUST follow [Section 11 of RFC
+8152](https://tools.ietf.org/html/rfc8152#section-11) with parameters
+as specified here. The KDF specified in the `alg` parameter SHOULD be
+HKDF-SHA-256. The salt picked by the AS must be uniformly random and
+is carried in the `salt` parameter.
+
+The fields in the context information `COSE_KDF_Context` ([Section 11.2
+of RFC 8152](https://tools.ietf.org/html/rfc8152#section-11.2)) MUST have the following values:
+
+* AlgorithmID = "ACE-CoAP-DTLS-salt"
+* PartyUInfo = PartyVInfo = ( null, null, null )
+* keyDataLength is a uint equal the length of the key shared between
+  AS and RS in bits
+* protected MUST be a zero length bstr
+* other is a zero length bstr
+* SuppPrivInfo is omitted
+
+An example `cnf` structure specifying HMAC-based key derivation of a
+symmetric key with SHA-256 as pseudo-random function and a random salt
+value is provided in {{kdf-cnf}}.
+
+~~~~~~~~~~
+cnf : {
+   kty  : symmetric,
+   alg  : HKDF-SHA-256,
+   salt : h'eIiOFCa9lObw'
+}
+~~~~~~~~~~
+{: #kdf-cnf title="Key Derivation Specification in an Access Token"}
 
 A response that declines any operation on the requested resource is
 constructed according to [Section 5.2 of RFC
@@ -527,13 +555,8 @@ While the client can retrieve the shared secret from the contents of the
 `cnf` parameter in the AS-to-Client response, the resource server uses
 the information contained in the `cnf` claim of the access token to
 determine the actual secret when no explicit `kid` was provided
-in the `psk_identity` field.
-
-Instead of providing the keying material, the AS MAY include a key
-derivation function in the access token as described above.  If key
-derivation is used, at least the key derivation algorithm `HKDF
-SHA-256` as defined in [RFC 8152](https://tools.ietf.org/html/rfc8152)
-MUST be supported.
+in the `psk_identity` field. If key derivation is used, the RS uses
+the `COSE_KDF_Context` information as described above.
 
 ## Resource Access
 
