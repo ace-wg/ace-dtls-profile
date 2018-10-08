@@ -433,16 +433,13 @@ structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
 Instead of providing the keying material, the AS MAY include a key
-derivation function in the access token that enables the resource
+derivation function and a salt in the access token that enables the resource
 server to calculate the keying material for the communication with C
 from the access token. In this case, the token contains a `cnf`
 structure that specifies the key derivation algorithm and the salt
 that the AS has used to construct the shared key. AS and RS MUST use
-their shared keying material for the key derivation.  Instead of
-providing the keying material, the AS MAY include a salt in the `cnf`
-structure that enables the resource server to calculate the keying
-material for the communication with C from the access token. The key
-derivation then MUST follow [Section 11 of RFC
+their shared keying material for the key derivation, and the key
+derivation MUST follow [Section 11 of RFC
 8152](https://tools.ietf.org/html/rfc8152#section-11) with parameters
 as specified here. The KDF specified in the `alg` parameter SHOULD be
 HKDF-SHA-256. The salt picked by the AS must be uniformly random and
