@@ -264,7 +264,7 @@ replay protection.
 
 After C and AS mutually authenticated each other and validated each
 other's authorization, C sends a token request to AS's token endpoint.
-The client MUST add a `cnf` object carrying either its raw public key
+The client MUST add a `req_cnf` object carrying either its raw public key
 or a unique identifier for a public key that it has previously made
 known to the authorization server. To prove that the client is in
 possession of this key, C MUST use the same keying material that it
