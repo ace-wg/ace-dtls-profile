@@ -662,6 +662,16 @@ Note:
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #update-overview title="Overview of Dynamic Update Operation"}
 
+{{as-info-params}} updates Figure 2 in [Section 5.1.2 of
+draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.2)
+with the new `kid` parameter in accordance with {{RFC8152}}.
+
+
+| Parameter name | CBOR Key | Major Type      |
+|----------------+----------+-----------------|
+| kid            |    4     | 2 (byte string) |
+{: #as-info-params title="Updated AS Information parameters"}
+
 # Token Expiration {#teardown}
 
 DTLS sessions that have been established in accordance with this
@@ -677,16 +687,6 @@ draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-aut
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the session.
-
-{{as-info-params}} updates Figure 2 in [Section 5.1.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.2)
-with the new `kid` parameter in accordance with {{RFC8152}}.
-
-
-| Parameter name | CBOR Key | Major Type      |
-|----------------+----------+-----------------|
-| kid            |    4     | 2 (byte string) |
-{: #as-info-params title="Updated AS Information parameters"}
 
 # Security Considerations
 
@@ -757,6 +757,20 @@ Profile ID:  1
 Change Controller:  IESG
 
 Reference:  {{&SELF}}
+
+The following registrations are done for the ACE Authorization Server
+Information Registry following the procedure specified in
+{{I-D.ietf-ace-oauth-authz}}.
+
+Name: "kid"
+
+CBOR key: TBD
+
+Value type: bstr
+
+Reference:  {{&SELF}}
+
+Change Controller: Expert Review
 
 --- back
 
