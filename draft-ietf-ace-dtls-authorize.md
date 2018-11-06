@@ -410,12 +410,12 @@ CBOR data structure as specified in [I-D.ietf-ace-oauth-authz](https://tools.iet
       access_token: h'd08343a10...
       (remainder of CWT omitted for brevity)
       token_type:   pop,
-      alg:          HS256,
       expires_in:   86400,
       profile:      coap_dtls,
       cnf: {
         COSE_Key: {
           kty: symmetric,
+          kid: h'3d027833fc6267ce',
           k: h'73657373696f6e6b6579'
         }
       }
