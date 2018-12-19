@@ -456,15 +456,17 @@ of RFC 8152](https://tools.ietf.org/html/rfc8152#section-11.2)) MUST have the fo
 * other is a zero length bstr
 * SuppPrivInfo is omitted
 
-An example `cnf` structure specifying HMAC-based key derivation of a
-symmetric key with SHA-256 as pseudo-random function and a random salt
+The ACE_Salt `cnf` structure specifying HMAC-based key derivation of a
+symmetric key with SHA-256 as hash function and a random salt
 value is provided in {{kdf-cnf}}.
 
 ~~~~~~~~~~
 cnf : {
-   kty  : symmetric,
-   alg  : HKDF-SHA-256,
-   salt : h'eIiOFCa9lObw'
+  ACE_Salt : {
+    kty  : symmetric,
+    alg  : HKDF-SHA-256,
+    salt : h'eIiOFCa9lObw'
+  }
 }
 ~~~~~~~~~~
 {: #kdf-cnf title="Key Derivation Specification in an Access Token"}
