@@ -604,6 +604,9 @@ as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
 resource server.
 
+Unauthorized requests that have been received over a DTLS session SHOULD be treated as non-fatal by 
+the RS, i.e., the DTLS session SHOULD be kept alive until the associated access token has expired.
+
 # Dynamic Update of Authorization Information {#update}
 
 The client can update the authorization information stored at the
