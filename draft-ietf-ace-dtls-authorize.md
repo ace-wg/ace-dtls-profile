@@ -635,9 +635,9 @@ draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-aut
 
 When the authorization server issues a new access token to update
 existing authorization information, it MUST include the specified `kid`
-parameter in this access token. A resource server MUST associate the
-updated authorization information with any existing DTLS session that
-is identified by this key identifier.
+parameter in this access token. A resource server MUST replace the
+authorization information of any existing DTLS session that is identified
+by this key identifier with the updated authorization information.
 
 Note: 
 : By associating the access tokens with the identifier of an
