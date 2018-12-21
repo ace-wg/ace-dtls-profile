@@ -69,6 +69,8 @@ normative:
   RFC7925:
   RFC8152:
   I-D.ietf-ace-oauth-authz:
+  I-D.ietf-ace-oauth-params:
+  I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
   RFC6655:
@@ -84,7 +86,7 @@ entity:
 
 --- abstract
 
-This specification defines a profile that allows constrained servers
+This specification defines a profile of the ACE framework that allows constrained servers
 to delegate client authentication and authorization.  The protocol
 relies on DTLS for communication security between entities in a
 constrained network using either raw public keys or pre-shared keys. A
@@ -134,7 +136,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 capitals, as shown here.
 
 Readers are expected to be familiar with the terms and concepts
-described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
+described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz) and in [I-D.ietf-ace-oauth-params](https://tools.ietf.org/html/draft-ietf-ace-oauth-params).
 
 The authz-info resource refers to the authz-info endpoint as specified in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
 
@@ -355,10 +357,7 @@ certain knowledge that the Client's key is already known to the
 resource server, the Client's public key MUST be included in the
 access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
 used as recommended in
-[I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz),
-unencrypted keys MUST be specified using a `COSE_Key` object,
-encrypted keys with a `COSE_Encrypt0` structure and references to the
-key as `key_id` parameters in a CBOR map. RS MUST use the keying
+[I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz), keys MUST be encoded as specified in [I-D.ietf-ace-cwt-proof-of-possession](https://tools.ietf.org/html/draft-ietf-ace-cwt-proof-of-possession).  RS MUST use the keying
 material in the handshake that AS specified in the rs_cnf parameter in
 the access token. Thus, the handshake only finishes if C and
 RS are able to use their respective keying material.
@@ -580,12 +579,12 @@ if the following holds:
 
 1. The message was received on a secure channel that has been
    established using the procedure defined in this document.
-1. The authorization information tied to the sending client is valid.
+1. The access token tied to the sending client is valid.
 1. The request is destined for the resource server.
 1. The resource URI specified in the request is covered by the
-   authorization information.
+   scope of the access token.
 1. The request method is an authorized action on the resource with
-   respect to the authorization information.
+   respect to the access token.
 
 Incoming CoAP requests received on a secure DTLS channel that are not
 thus authorized MUST be
@@ -636,12 +635,12 @@ draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-aut
 When the authorization server issues a new access token to update
 existing authorization information, it MUST include the specified `kid`
 parameter in this access token. A resource server MUST replace the
-authorization information of any existing DTLS session that is identified
-by this key identifier with the updated authorization information.
+access token associated to any existing DTLS session that is identified
+by this key identifier with the updated access token.
 
 Note: 
 : By associating the access tokens with the identifier of an
-  existing DTLS session, the authorization information can be updated
+  existing DTLS session, the access token can be updated
   without changing the cryptographic keys for the DTLS communication
   between the client and the resource server, i.e. an existing session
   can be used with updated permissions.
