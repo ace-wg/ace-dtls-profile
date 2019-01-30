@@ -708,7 +708,7 @@ is specifically of concern where an adversary is able to intercept the
 initial cookie exchange and interject forged messages with a valid
 cookie to continue with the handshake. A similar issue exists with
 the authorization information endpoint where the resource server
-needs to keep valid cookies until their expiry. Adversaries can fill
+needs to keep valid access tokens until their expiry. Adversaries can fill
 up the constrained resource server's internal storage for a very
 long time with interjected or otherwise retrieved valid access tokens.
 
