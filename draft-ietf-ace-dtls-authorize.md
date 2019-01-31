@@ -69,6 +69,8 @@ normative:
   RFC7925:
   RFC8152:
   I-D.ietf-ace-oauth-authz:
+  I-D.ietf-ace-oauth-params:
+  I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
   RFC6655:
@@ -84,7 +86,7 @@ entity:
 
 --- abstract
 
-This specification defines a profile that allows constrained servers
+This specification defines a profile of the ACE framework that allows constrained servers
 to delegate client authentication and authorization.  The protocol
 relies on DTLS for communication security between entities in a
 constrained network using either raw public keys or pre-shared keys. A
@@ -134,7 +136,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 capitals, as shown here.
 
 Readers are expected to be familiar with the terms and concepts
-described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
+described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz) and in [I-D.ietf-ace-oauth-params](https://tools.ietf.org/html/draft-ietf-ace-oauth-params).
 
 The authz-info resource refers to the authz-info endpoint as specified in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
 
@@ -355,10 +357,7 @@ certain knowledge that the Client's key is already known to the
 resource server, the Client's public key MUST be included in the
 access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
 used as recommended in
-[I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz),
-unencrypted keys MUST be specified using a `COSE_Key` object,
-encrypted keys with a `COSE_Encrypt0` structure and references to the
-key as `key_id` parameters in a CBOR map. RS MUST use the keying
+[I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz), keys MUST be encoded as specified in [I-D.ietf-ace-cwt-proof-of-possession](https://tools.ietf.org/html/draft-ietf-ace-cwt-proof-of-possession).  RS MUST use the keying
 material in the handshake that AS specified in the rs_cnf parameter in
 the access token. Thus, the handshake only finishes if C and
 RS are able to use their respective keying material.
@@ -698,7 +697,7 @@ is specifically of concern where an adversary is able to intercept the
 initial cookie exchange and interject forged messages with a valid
 cookie to continue with the handshake. A similar issue exists with
 the authorization information endpoint where the resource server
-needs to keep valid cookies until their expiry. Adversaries can fill
+needs to keep valid access tokens until their expiry. Adversaries can fill
 up the constrained resource server's internal storage for a very
 long time with interjected or otherwise retrieved valid access tokens.
 
