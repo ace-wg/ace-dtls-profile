@@ -667,16 +667,6 @@ Note:
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #update-overview title="Overview of Dynamic Update Operation"}
 
-{{as-info-params}} updates Figure 2 in [Section 5.1.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.2)
-with the new `kid` parameter in accordance with {{RFC8152}}.
-
-
-| Parameter name | CBOR Key | Major Type      |
-|----------------+----------+-----------------|
-| kid            |    4     | 2 (byte string) |
-{: #as-info-params title="Updated AS Information parameters"}
-
 # Token Expiration {#teardown}
 
 DTLS sessions that have been established in accordance with this
