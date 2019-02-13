@@ -426,21 +426,20 @@ CBOR data structure as specified in [I-D.ietf-ace-oauth-authz](https://tools.iet
 The access token also comprises a `cnf` claim. This claim usually contains a
 `COSE_Key` object that carries either the symmetric
 key itself or a key identifier that can be used by the resource
-server to determine the secret key shared with the client. The method for 
-how the resource server determines the symmetric key from the key identifier 
-is application specific. If the access token carries a
+server to determine the secret key shared with the client. If the access token carries a
 symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
-One example of how the resource server can determine the symmetric key from 
-the key identifier in the access token is given in the following. The AS and 
-the resource server are assumed to share a key derivation key used only for 
-this purpose. The key derivation key MAY be derived from some other shared 
-key between the AS and the resource server. The key derivation key is in turn 
-used to derive thesymmetric key shared with the client. Knowledge of the 
+The method for how the resource server determines the symmetric key from the 
+key identifier is application specific, one example is given here. The AS and 
+the resource server are assumed to share a key derivation key used to derive 
+the symmetric key shared with the client from the key identifier in the access token. 
+The key derivation key MAY be derived 
+from some other secret key shared between the AS and the resource server. 
+Knowledge of the 
 symmetric key shared with the client MUST NOT reveal any information about 
-the key deriviation key or other keys shared between AS and resource server.
+the key derivation key or other secret keys shared between AS and resource server.
 
 In order to generate a new symmetric key to be used by client and resource server, 
 the AS generates a key identifier and uses the key derivation key shared with the 
@@ -448,22 +447,20 @@ resource server to derive the symmetric key as specified below. Instead of
 providing the keying material in the access token, the AS includes the key
 identifier in the `kid` parameter, see {{kdf-cnf}}. This key identifier
 enables the resource server to calculate the keying material for the 
-communication with C
-from the access token.  AS and RS MUST use
-their shared key derivation key for the key derivation, and the key
-derivation MUST follow [Section 11 of RFC
+communication with the client from the access token using
+the key derivation key and following [Section 11 of RFC
 8152](https://tools.ietf.org/html/rfc8152#section-11) with parameters
-as specified here. The KDF used is defined by the application and SHOULD be
-HKDF-SHA-256. The key identifier picked by the AS must be unique for each access
-token using the same key derivation key.
+as specified here. The KDF to be used needs to be defined by the application, for example
+HKDF-SHA-256. The key identifier picked by the AS MUST be unique for each access
+token where a unique symmetric key is required.
 
 The fields in the context information `COSE_KDF_Context` ([Section 11.2
-of RFC 8152](https://tools.ietf.org/html/rfc8152#section-11.2)) MUST have the following values:
+of RFC 8152](https://tools.ietf.org/html/rfc8152#section-11.2)) have the following values:
 
 * AlgorithmID = "ACE-CoAP-DTLS-key-derivation"
 * PartyUInfo = PartyVInfo = ( null, null, null )
-* keyDataLength is a uint equal the length of the key shared between
-  AS and RS in bits
+* keyDataLength is a uint equal the length of the symmetric key shared between
+  C and RS in bits
 * protected MUST be a zero length bstr
 * other is a zero length bstr
 * SuppPrivInfo is omitted
