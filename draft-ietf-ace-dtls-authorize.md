@@ -425,8 +425,8 @@ CBOR data structure as specified in [I-D.ietf-ace-oauth-authz](https://tools.iet
 
 The access token also comprises a `cnf` claim. This claim usually contains a
 `COSE_Key` object that carries either the symmetric
-key itself or or a key identifier that can be used by the resource
-server to determine the shared secret. If the access token carries a
+key itself or a key identifier that can be used by the resource
+server to determine the secret key shared with the client. If the access token carries a
 symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
