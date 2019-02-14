@@ -431,14 +431,31 @@ symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
-The method for how the resource server determines the symmetric key from the 
-key identifier is application specific, one example is given here. The AS and 
+A response that declines any operation on the requested resource is
+constructed according to [Section 5.2 of RFC
+6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. [Section 5.7.3. of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz#section-5.7.3)).
+
+~~~~~~~~~~
+    4.00 Bad Request
+    Content-Format: application/ace+cbor
+    {
+      error: invalid_request
+    }
+~~~~~~~~~~
+{: #token-reject title="Example Access Token Response With Reject"}
+
+
+The method for how the resource server determines the symmetric key from an access token 
+containing only a key identifier is application specific, the remainder of this section 
+provides one example. 
+
+The AS and 
 the resource server are assumed to share a key derivation key used to derive 
 the symmetric key shared with the client from the key identifier in the access token. 
-The key derivation key MAY be derived 
+The key derivation key may be derived 
 from some other secret key shared between the AS and the resource server. 
 Knowledge of the 
-symmetric key shared with the client MUST NOT reveal any information about 
+symmetric key shared with the client must not reveal any information about 
 the key derivation key or other secret keys shared between AS and resource server.
 
 In order to generate a new symmetric key to be used by client and resource server, 
@@ -451,7 +468,7 @@ communication with the client from the access token using
 the key derivation key and following [Section 11 of RFC
 8152](https://tools.ietf.org/html/rfc8152#section-11) with parameters
 as specified here. The KDF to be used needs to be defined by the application, for example
-HKDF-SHA-256. The key identifier picked by the AS MUST be unique for each access
+HKDF-SHA-256. The key identifier picked by the AS needs to be unique for each access
 token where a unique symmetric key is required.
 
 The fields in the context information `COSE_KDF_Context` ([Section 11.2
@@ -478,18 +495,7 @@ cnf : {
 ~~~~~~~~~~
 {: #kdf-cnf title="Access Token without Keying Material"}
 
-A response that declines any operation on the requested resource is
-constructed according to [Section 5.2 of RFC
-6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. [Section 5.7.3. of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz#section-5.7.3)).
 
-~~~~~~~~~~
-    4.00 Bad Request
-    Content-Format: application/ace+cbor
-    {
-      error: invalid_request
-    }
-~~~~~~~~~~
-{: #token-reject title="Example Access Token Response With Reject"}
 
 ### DTLS Channel Setup Between C and RS {#psk-dtls-channel}
 
