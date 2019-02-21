@@ -65,6 +65,7 @@ normative:
   RFC8174:
   RFC4279:
   RFC6347:
+  RFC6749:
   RFC7252:
   RFC7925:
   RFC8152:
@@ -119,7 +120,7 @@ token and the server shows that it can use a certain RPK. The access
 token must be presented to the resource server.  For the RPK mode, the
 access token needs to be uploaded to the resource server before the
 handshake is initiated, as described in
-[Section 5.8.1 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.8.1).
+Section 5.8.1 of the ACE framework {{I-D.ietf-ace-oauth-authz}}.
 
 In the PSK mode, client and server show with the DTLS handshake that
 they can use the keying material that is bound to the access token.
@@ -136,9 +137,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 capitals, as shown here.
 
 Readers are expected to be familiar with the terms and concepts
-described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz) and in [I-D.ietf-ace-oauth-params](https://tools.ietf.org/html/draft-ietf-ace-oauth-params).
+described in {{I-D.ietf-ace-oauth-authz}} and in {{I-D.ietf-ace-oauth-params}}.
 
-The authz-info resource refers to the authz-info endpoint as specified in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
+The authz-info resource refers to the authz-info endpoint as specified in
+{{I-D.ietf-ace-oauth-authz}}.
 
 # Protocol Overview {#overview}
 
@@ -152,7 +154,7 @@ protected resource hosted on the resource server.
 
 This profile requires the client to retrieve an access token for protected
 resource(s) it wants to access on RS as specified
-in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz). {{at-retrieval}} shows the
+in {{I-D.ietf-ace-oauth-authz}}. {{at-retrieval}} shows the
 typical message flow in this scenario (messages
 in square brackets are optional):
 
@@ -175,17 +177,16 @@ To determine the AS in charge of a resource hosted at the RS, C MAY
 send an initial Unauthorized Resource Request message to the RS. The RS then
 denies the request and sends an AS information message containing the address
 of its AS back to the client as
-specified in [Section 5.1.2 of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.2).
+specified in Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}.
 
 Once the client knows the authorization server's address, it can
 send an access token request to the token endpoint at the AS as
-specified in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz). As the access token request
+specified in {{I-D.ietf-ace-oauth-authz}}. As the access token request
 as well as the response may contain confidential data, the
 communication between the client and the authorization server MUST be
 confidentiality-protected and ensure authenticity. C may have been
 registered at the AS via the OAuth 2.0 client registration mechanism as
-outlined in [Section 5.3 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.3).
+outlined in Section 5.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 The access token returned by the authorization server can then be used
 by the client to establish a new DTLS session with the resource
@@ -193,8 +194,8 @@ server. When the client intends to use asymmetric cryptography in the
 DTLS handshake with the resource server, the client MUST upload the
 access token to the authz-info resource, i.e. the authz-info endpoint,
 on the resource server before
-starting the DTLS handshake, as described in [Section 5.8.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.8.1).
+starting the DTLS handshake, as described in Section 5.8.1 of
+{{I-D.ietf-ace-oauth-authz}}.
 If only symmetric cryptography is used between the client and the
 resource server, the access token MAY instead be transferred in the
 DTLS ClientKeyExchange message (see {{psk-dtls-channel}}).
@@ -229,7 +230,7 @@ specific for this communication relationship to the resource server.
 {{C-AS-comm}} describes how the communication between C and AS
 must be secured.
 Depending on the used CoAP security mode (see also
-[Section 9 of RFC 7252](https://tools.ietf.org/html/rfc7252#section-9)),
+Section 9 of {{RFC7252}},
 the Client-to-AS request, AS-to-Client response and DTLS session
 establishment carry slightly different information. {{rpk-mode}}
 addresses the use of raw public keys while {{psk-mode}} defines how
@@ -325,7 +326,7 @@ establish a new DTLS channel with the resource server. To use the
 RawPublicKey mode, the client MUST specify the public key that AS
 defined in the `cnf` field of the access token response in the
 SubjectPublicKeyInfo structure in the DTLS handshake as specified in
-[RFC 7250](https://tools.ietf.org/html/rfc7250).
+{{RFC7250}}.
 
 An implementation that supports the RPK mode of this profile MUST at
 least support the ciphersuite
@@ -333,15 +334,15 @@ TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with the ed25519
 curve (cf. {{RFC8032}}, {{RFC8422}}).
 
 Note:
-: According to [RFC 7252](https://tools.ietf.org/html/rfc7252),
+: According to {{RFC7252}},
   CoAP implementations MUST support the
   ciphersuite TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}
-  and the NIST P-256 curve. As discussed in [RFC 7748](https://tools.ietf.org/html/rfc7748), new ECC
+  and the NIST P-256 curve. As discussed in {{RFC7748}}, new ECC
   curves have been defined recently that are considered superior to
   the so-called NIST curves. The curve that is mandatory to implement
   in this specification is said to be efficient and less dangerous
   regarding implementation errors than the secp256r1 curve mandated in
-  [RFC 7252](https://tools.ietf.org/html/rfc7252).
+  {{RFC7252}}.
 
 RS MUST check if the access token is still valid, if RS is the
 intended destination, i.e., the audience, of the token, and if the
@@ -357,7 +358,8 @@ certain knowledge that the Client's key is already known to the
 resource server, the Client's public key MUST be included in the
 access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
 used as recommended in
-[I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz), keys MUST be encoded as specified in [I-D.ietf-ace-cwt-proof-of-possession](https://tools.ietf.org/html/draft-ietf-ace-cwt-proof-of-possession).  RS MUST use the keying
+{{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
+{{I-D.ietf-ace-cwt-proof-of-possession}}.  RS MUST use the keying
 material in the handshake that AS specified in the rs_cnf parameter in
 the access token. Thus, the handshake only finishes if C and
 RS are able to use their respective keying material.
@@ -396,7 +398,7 @@ In this example, the authorization server returns a 2.01 response
 containing a new access token and information for the client,
 including the symmetric key in the cnf claim.  The information is
 transferred as a
-CBOR data structure as specified in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz).
+CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
 
 
 <!-- msg1 -->
@@ -432,8 +434,8 @@ structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
 A response that declines any operation on the requested resource is
-constructed according to [Section 5.2 of RFC
-6749](https://tools.ietf.org/html/rfc6749#section-5.2), (cf. [Section 5.7.3. of draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz#section-5.7.3)).
+constructed according to Section 5.2 of {{RFC6749}},
+(cf. Section 5.6.3. of {{I-D.ietf-ace-oauth-authz}}).
 
 ~~~~~~~~~~
     4.00 Bad Request
@@ -465,14 +467,13 @@ providing the keying material in the access token, the AS includes the key
 identifier in the `kid` parameter, see {{kdf-cnf}}. This key identifier
 enables the resource server to calculate the keying material for the 
 communication with the client from the access token using
-the key derivation key and following [Section 11 of RFC
-8152](https://tools.ietf.org/html/rfc8152#section-11) with parameters
+the key derivation key and following Section 11 of {{RFC8152}} with parameters
 as specified here. The KDF to be used needs to be defined by the application, for example
 HKDF-SHA-256. The key identifier picked by the AS needs to be unique for each access
 token where a unique symmetric key is required.
 
-The fields in the context information `COSE_KDF_Context` ([Section 11.2
-of RFC 8152](https://tools.ietf.org/html/rfc8152#section-11.2)) have the following values:
+The fields in the context information `COSE_KDF_Context` (Section 11.2
+of {{RFC8152}}) have the following values:
 
 * AlgorithmID = "ACE-CoAP-DTLS-key-derivation"
 * PartyUInfo = PartyVInfo = ( null, null, null )
@@ -509,7 +510,7 @@ C checks if the payload of the access token response contains an
 `cnf` parameter. With this information the client can initiate the
 establishment of a new DTLS channel with a resource server. To use
 DTLS with pre-shared keys, the client follows the PSK key exchange
-algorithm specified in [Section 2 of RFC 4279](https://tools.ietf.org/html/rfc4279#section-2) using the key conveyed
+algorithm specified in Section 2 of {{RFC4279}} using the key conveyed
 in the `cnf` parameter of the AS response as PSK when constructing the
 premaster secret.
 
@@ -526,7 +527,7 @@ message. To do so, the client MUST treat the contents of the
 not perform any re-coding.
 
 Note: 
-: As stated in [Section 4.2 of RFC 7925](https://tools.ietf.org/html/rfc7925#section-4.2), the PSK identity should
+: As stated in Section 4.2 of {{RFC7925}}, the PSK identity should
 be treated as binary data in the Internet of Things space and not
 assumed to have a human-readable form of any sort.
 
@@ -549,7 +550,7 @@ Note1:
 SHOULD NOT send a ServerKeyExchange message.
 
 Note2:
-: According to [RFC 7252](https://tools.ietf.org/html/rfc7252), CoAP implementations MUST support the
+: According to {{RFC7252}}, CoAP implementations MUST support the
   ciphersuite TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}}. A client is
   therefore expected to offer at least this ciphersuite to the resource server.
 
@@ -557,7 +558,7 @@ When RS receives an access token, RS MUST check if the access token is
 still valid, if RS is the intended destination, i.e., the audience of
 the token, and if the token was issued by an authorized AS.
 This specification assumes that the access token is a PoP token as
-described in [I-D.ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz) unless specifically stated
+described in {{I-D.ietf-ace-oauth-authz}} unless specifically stated
 otherwise. Therefore, the access token is bound to a symmetric PoP key
 that is used as shared secret between the client and the resource
 server.
@@ -585,8 +586,7 @@ MUST check for every request if the access token is still valid.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
 rejected by the resource server with 4.01 response as described in
-[Section 5.1.1 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.1).
+Section 5.1.1 of {{I-D.ietf-ace-oauth-authz}}.
 
 The resource server SHOULD treat an incoming CoAP request as authorized
 if the following holds:
@@ -602,8 +602,7 @@ if the following holds:
 
 Incoming CoAP requests received on a secure DTLS channel that are not
 thus authorized MUST be
-rejected according to [Section 5.8.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.8.2)
+rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
 
 1. with response code 4.03 (Forbidden) when the resource URI specified
    in the request is not covered by the authorization information, and
@@ -613,8 +612,7 @@ draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-aut
 
 The client cannot always know a priori if an Authorized Resource
 Request will succeed. If the client repeatedly gets error responses
-containing AS Information (cf.  [Section 5.1.2 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.1.2))
+containing AS Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
 resource server.
@@ -643,8 +641,7 @@ server MUST verify that the specified `kid` denotes a valid verifier
 for a proof-of-possession token that has previously been issued to
 the requesting client. Otherwise, the Client-to-AS request MUST be
 declined with the error code `unsupported_pop_key` as defined in
-[Section 5.6.3 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.6.3).
+Section 5.6.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 When the authorization server issues a new access token to update
 existing authorization information, it MUST include the specified `kid`
@@ -690,8 +687,7 @@ token), the session may become useless at some point. A resource
 server therefore MUST terminate existing DTLS sessions after
 the last valid access token for this session has been deleted.
 
-As specified in [Section 5.8.3 of
-draft-ietf-ace-oauth-authz](https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-16#section-5.8.3),
+As specified in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}},
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the session.
