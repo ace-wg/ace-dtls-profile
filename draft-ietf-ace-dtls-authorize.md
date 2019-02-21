@@ -762,19 +762,6 @@ Change Controller:  IESG
 
 Reference:  {{&SELF}}
 
-The following registrations are done for the ACE Authorization Server
-Information Registry following the procedure specified in
-{{I-D.ietf-ace-oauth-authz}}.
-
-Name: "kid"
-
-CBOR key: TBD
-
-Value type: bstr
-
-Reference:  {{&SELF}}
-
-Change Controller: Expert Review
 
 --- back
 
