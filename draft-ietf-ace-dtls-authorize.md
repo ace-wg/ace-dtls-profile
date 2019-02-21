@@ -113,7 +113,7 @@ also be secured with DTLS.  This specification supports DTLS with Raw
 Public Keys (RPK) {{RFC7250}} and with Pre-Shared Keys (PSK)
 {{RFC4279}}.
 
-The DTLS handshake {{RFC7250}} requires the client and server to prove
+The DTLS handshake requires the client and server to prove
 that they can use certain keying material. In the RPK mode, the client
 proves with the DTLS handshake that it can use the RPK bound to the
 token and the server shows that it can use a certain RPK. The access
