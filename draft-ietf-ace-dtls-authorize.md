@@ -611,7 +611,9 @@ rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
    not the requested action.
 
 The client cannot always know a priori if an Authorized Resource
-Request will succeed. If the client repeatedly gets error responses
+Request will succeed. It must check the validity of its
+keying material before sending a request or processing a response.
+If the client repeatedly gets error responses
 containing AS Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
