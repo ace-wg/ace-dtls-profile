@@ -453,8 +453,11 @@ provides one example.
 The AS and 
 the resource server are assumed to share a key derivation key used to derive 
 the symmetric key shared with the client from the key identifier in the access token. 
-The key derivation key may be derived 
-from some other secret key shared between the AS and the resource server. 
+The key derivation key may be derived  
+from some other secret key shared between the AS and the resource server. This key needs
+to be securely stored and processed in the same way as the key used to protect the 
+communication between AS and RS.
+
 Knowledge of the 
 symmetric key shared with the client must not reveal any information about 
 the key derivation key or other secret keys shared between AS and resource server.
@@ -697,8 +700,8 @@ terminating the session.
 This document specifies a profile for the Authentication and
 Authorization for Constrained Environments (ACE) framework
 {{I-D.ietf-ace-oauth-authz}}. As it follows this framework's general
-approach, the general security and privacy considerations from section
-6 and section 7 also apply to this profile.
+approach, the general security considerations from section
+6 also apply to this profile.
 
 Constrained devices that use DTLS {{RFC6347}} are inherently
 vulnerable to Denial of Service (DoS) attacks as the handshake
@@ -721,6 +724,9 @@ protection. Developers should avoid using multiple access
 tokens for a client.
 
 # Privacy Considerations
+
+This privacy considerations from section
+7 of the {{I-D.ietf-ace-oauth-authz}} apply also to this profile.
 
 An unprotected response to an unauthorized request may disclose
 information about the resource server and/or its existing relationship
