@@ -414,7 +414,6 @@ CBOR data structure as specified in [I-D.ietf-ace-oauth-authz](https://tools.iet
       cnf: {
         COSE_Key: {
           kty: symmetric,
-          alg: TLS_PSK_WITH_AES_128_CCM_8
           kid: h'3d027833fc6267ce',
           k: h'73657373696f6e6b6579'
         }
@@ -488,7 +487,6 @@ The `cnf` structure in the access token is provided in {{kdf-cnf}}.
 cnf : {
   COSE_Key : {
     kty  : symmetric,
-    alg  : TLS_PSK_WITH_AES_128_CCM_8,
     kid : h'eIiOFCa9lObw'
   }
 }
