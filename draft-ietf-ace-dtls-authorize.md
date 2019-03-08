@@ -432,6 +432,18 @@ symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
 structure. The AS MUST use the keying material shared with the RS to
 encrypt the token. 
 
+The `cnf` structure in the access token is provided in {{kdf-cnf}}.
+
+~~~~~~~~~~
+cnf : {
+  COSE_Key : {
+    kty  : symmetric,
+    kid : h'eIiOFCa9lObw'
+  }
+}
+~~~~~~~~~~
+{: #kdf-cnf title="Access Token without Keying Material"}
+
 A response that declines any operation on the requested resource is
 constructed according to Section 5.2 of {{RFC6749}},
 (cf. Section 5.6.3. of {{I-D.ietf-ace-oauth-authz}}).
@@ -484,18 +496,6 @@ of {{RFC8152}}) have the following values:
 * protected MUST be a zero length bstr
 * other is a zero length bstr
 * SuppPrivInfo is omitted
-
-The `cnf` structure in the access token is provided in {{kdf-cnf}}.
-
-~~~~~~~~~~
-cnf : {
-  COSE_Key : {
-    kty  : symmetric,
-    kid : h'eIiOFCa9lObw'
-  }
-}
-~~~~~~~~~~
-{: #kdf-cnf title="Access Token without Keying Material"}
 
 
 
