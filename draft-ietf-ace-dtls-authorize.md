@@ -531,8 +531,7 @@ of {{RFC8152}}) have the following values:
 
 * AlgorithmID = "ACE-CoAP-DTLS-key-derivation"
 * PartyUInfo = PartyVInfo = ( null, null, null )
-* keyDataLength is a uint equal the length of the symmetric key shared between
-  C and RS in bits
+* keyDataLength needs to be defined by the application
 * protected MUST be a zero length bstr
 * other is a zero length bstr
 * SuppPrivInfo is omitted
@@ -741,6 +740,8 @@ Authorization for Constrained Environments (ACE) framework
 {{I-D.ietf-ace-oauth-authz}}. As it follows this framework's general
 approach, the general security considerations from section
 6 also apply to this profile.
+
+When using pre-shared keys provisioned by the AS, the security level depends on the randomness of PSK, and the security of the TLS cipher suite and key exchange algorithm.
 
 Constrained devices that use DTLS {{RFC6347}} are inherently
 vulnerable to Denial of Service (DoS) attacks as the handshake
