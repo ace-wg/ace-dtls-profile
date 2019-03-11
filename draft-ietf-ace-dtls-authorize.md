@@ -139,8 +139,7 @@ capitals, as shown here.
 Readers are expected to be familiar with the terms and concepts
 described in {{I-D.ietf-ace-oauth-authz}} and in {{I-D.ietf-ace-oauth-params}}.
 
-The authz-info resource refers to the authz-info endpoint as specified in
-{{I-D.ietf-ace-oauth-authz}}.
+The authorization information (authz-info) resource refers to the authorization information endpoint as specified in {{I-D.ietf-ace-oauth-authz}}.
 
 # Protocol Overview {#overview}
 
@@ -160,22 +159,22 @@ in square brackets are optional):
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-   C                            RS                   AS
-   | [-- Resource Request --->] |                     |
-   |                            |                     |
-   | [<----- AS Information --] |                     |
-   |                            |                     |
-   | --- Token Request  ----------------------------> |
-   |                            |                     |
-   | <---------------------------- Access Token ----- |
-   |                           + Access Information   |
+   C                                RS                   AS
+   | [---- Resource Request ------>]|                     |
+   |                                |                     |
+   | [<-AS Request Creation Hints-] |                     |
+   |                                |                     |
+   | ------- Token Request  ----------------------------> |
+   |                                |                     |
+   | <---------------------------- Access Token --------- |
+   |                               + Access Information   |
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #at-retrieval title="Retrieving an Access Token"}
 
 To determine the AS in charge of a resource hosted at the RS, C MAY
 send an initial Unauthorized Resource Request message to the RS. The RS then
-denies the request and sends an AS information message containing the address
+denies the request and sends an AS Request Creation Hints message containing the address
 of its AS back to the client as
 specified in Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}.
 
@@ -190,14 +189,14 @@ outlined in Section 5.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 The access token returned by the authorization server can then be used
 by the client to establish a new DTLS session with the resource
-server. When the client intends to use asymmetric cryptography in the
+server. When the client intends to use an asymmetric proof-of-possession key in the
 DTLS handshake with the resource server, the client MUST upload the
 access token to the authz-info resource, i.e. the authz-info endpoint,
 on the resource server before
 starting the DTLS handshake, as described in Section 5.8.1 of
-{{I-D.ietf-ace-oauth-authz}}.
-If only symmetric cryptography is used between the client and the
-resource server, the access token MAY instead be transferred in the
+{{I-D.ietf-ace-oauth-authz}}. In case the client uses a symmetric proof-of-possession
+key in the DTLS handshake, the procedure as above MAY be used, or alternatively,
+ the access token MAY instead be transferred in the
 DTLS ClientKeyExchange message (see {{psk-dtls-channel}}).
 
 {{protocol-overview}} depicts the common protocol flow for the DTLS
@@ -242,25 +241,21 @@ To retrieve an access token for the resource that the client wants to
 access, the client requests an access token from the authorization
 server. Before C can request the access token, C and AS must establish
 a secure communication channel. C must securely have obtained keying
-material to communicate with AS, and C must securely have received
-authorization information intended for C that states that AS is authorized to provide
-keying material concerning RS to C. Also, AS must securely have obtained
+material to communicate with AS. Furthermore, C must verify that AS is authorized 
+to provide access tokens (including authorization information) about RS to C.
+ Also, AS must securely have obtained
 keying material for C, and obtained authorization rules approved by
 the resource owner (RO) concerning C and RS that relate to this
 keying
 material. C and AS must use their respective keying material for all
 exchanged messages. How the security association between C and AS is
-established is not part of this document. C and AS MUST ensure the
+bootstrapped is not part of this document. C and AS MUST ensure the
 confidentiality, integrity and authenticity of all exchanged messages.
 
 If C is constrained, C and AS should use DTLS to communicate with each
 other. But C and AS may also use other means to secure their
-communication, e.g., TLS. The used security protocol must provide
-confidentiality, integrity and authenticity, and enable the client to
-determine if it is the intended recipient of a message, e.g., by using
-an AEAD mechanism. C must also be able to determine if a response from
-AS belongs to a certain request. Additionally, the protocol must offer
-replay protection.
+communication, e.g., TLS. The used security protocol must confirm with the
+communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
 
 ## RawPublicKey Mode {#rpk-mode}
 
@@ -278,6 +273,7 @@ in {{rpk-authorization-message-example}}.
 ~~~~~~~~~~
    POST coaps://as.example.com/token
    Content-Format: application/ace+cbor
+   Payload:
    {
      grant_type: client_credentials,
      req_aud:           "tempSensor4711",
@@ -301,9 +297,12 @@ AS MUST check if the client that it communicates with is associated
 with the RPK in the cnf object before issuing an access token to it.
 If AS determines that the request is to be authorized according to
 the respective authorization rules, it generates an access token
-response for C. The response SHOULD contain a `profile` parameter with
-the value `coap_dtls` to indicate that this profile must be used for
-communication between the client C and the resource server. The
+response for C. The access token MUST be bound to the RPK of the client 
+by means of the cnf claim. 
+The response MAY contain a `profile` parameter with
+the value `coap_dtls` to indicate that this profile MUST be used for
+communication between the client C and the resource server. The `profile` 
+may be specified out-of-band, in which case it does not have to be sent. The
 response also contains an access token and an `rs_cnf` parameter containing
 information about the public key that is used by the resource
 server. AS MUST ascertain that the RPK specified in `rs_cnf` belongs
@@ -320,8 +319,9 @@ resource server with which C wants to communicate.
 
 Before the client initiates the DTLS handshake with the resource
 server, C MUST send a `POST` request containing the new access token
-to the authz-info resource hosted by the resource server. If this
-operation yields a positive response, the client SHOULD proceed to
+to the authz-info resource hosted by the resource server. After the client  
+receives a confirmation that the RS has accepted the access token, it 
+SHOULD proceed to 
 establish a new DTLS channel with the resource server. To use the
 RawPublicKey mode, the client MUST specify the public key that AS
 defined in the `cnf` field of the access token response in the
@@ -391,7 +391,8 @@ to the response that provides the client with sufficient information
 to setup a DTLS channel with the resource server. AS adds a `cnf`
 parameter to the access information carrying a `COSE_Key` object
 that informs the client about the symmetric key that is to be used between
-C and the resource server.
+C and the resource server. The access token MUST be bound to the same symmetric key
+by means of the cnf claim.
 
 An example access token response is illustrated in {{at-response}}. 
 In this example, the authorization server returns a 2.01 response
@@ -407,6 +408,7 @@ CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
    2.01 Created
    Content-Format: application/ace+cbor
    Max-Age: 86400
+   Payload:
    {
       access_token: h'd08343a10...
       (remainder of CWT omitted for brevity)
@@ -451,6 +453,7 @@ constructed according to Section 5.2 of {{RFC6749}},
 ~~~~~~~~~~
     4.00 Bad Request
     Content-Format: application/ace+cbor
+    Payload:
     {
       error: invalid_request
     }
@@ -637,7 +640,8 @@ resource server.
 requests a new access token after a security association between the
 client and the resource server has been established using this
 protocol. If the client wants to update the authorization information,
-the token request MUST specify the key identifier of the
+the token request MUST specify the key identifier of the proof-of-possession 
+key used for the
 existing DTLS channel between the client and the resource server in
 the `kid` parameter of the Client-to-AS request. The authorization
 server MUST verify that the specified `kid` denotes a valid verifier
@@ -683,12 +687,10 @@ Note:
 # Token Expiration {#teardown}
 
 DTLS sessions that have been established in accordance with this
-profile are always tied to a specific set of access tokens. As these
-tokens may become invalid at any time (either because the token has
-expired or the responsible authorization server has revoked the
-token), the session may become useless at some point. A resource
+profile are always tied to a specific access token. As this
+token may become invalid at any time (e.g. because it has expired), the session may become useless at some point. A resource
 server therefore MUST terminate existing DTLS sessions after
-the last valid access token for this session has been deleted.
+the access token for this session has been deleted.
 
 As specified in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}},
 the resource server MUST notify the client with an error response with
@@ -720,7 +722,7 @@ and calculate the actual permissions of the client. Also, tokens may
 contradict each other which may lead the server to enforce wrong
 permissions. If one of the access tokens expires earlier than others,
 the resulting permissions may offer insufficient
-protection. Developers should avoid using multiple access
+protection. Developers SHOULD avoid using multiple access
 tokens for a client.
 
 # Privacy Considerations
