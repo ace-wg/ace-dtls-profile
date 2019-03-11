@@ -275,14 +275,14 @@ in {{rpk-authorization-message-example}}.
    Content-Format: application/ace+cbor
    Payload:
    {
-     grant_type: client_credentials,
-     req_aud:           "tempSensor4711",
-     req_cnf: {
-       COSE_Key: {
-         kty: EC2,
-         crv: P-256,
-         x:   h'e866c35f4c3c81bb96a1...',
-         y:   h'2e25556be097c8778a20...'
+     "grant_type" : "client_credentials",
+     "req_aud"    : "tempSensor4711",
+     "req_cnf"    : {
+       "COSE_Key" : {
+         "kty" : "EC2",
+         "crv" : "P-256",
+         "x"   : h'e866c35f4c3c81bb96a1...',
+         "y"   : h'2e25556be097c8778a20...'
        }
      }
    }
@@ -314,6 +314,31 @@ access token.
 C MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
 resource server with which C wants to communicate.
+
+An example access token response fromt eh AS to the client is depicted in
+{{rpk-authorization-response-example}}.
+
+~~~~~~~~~~
+   2.01 Created
+   Content-Format: application/ace+cbor
+   Max-Age: 3600
+   Payload:
+   {
+     "access_token" : "b64'SlAV32hkKG ...
+      (remainder of CWT omitted for brevity;
+      CWT contains clients RPK in the "cnf" claim)',
+     "expires_in" : "3600",
+     "rs_cnf"     : {
+       "COSE_Key"  : {
+         "kty" : "EC2",
+         "crv" : "P-256",
+         "x"   : h'd7cc072de2205bdc1537...',
+         "y"   : h'f95e1d4b851a2cc80fff...'
+       }
+     }
+   }
+~~~~~~~~~~
+{: #rpk-authorization-response-example title="Access Token Response Example for RPK Mode"}
 
 ### DTLS Channel Setup Between C and RS {#rpk-dtls-channel}
 
@@ -394,6 +419,17 @@ that informs the client about the symmetric key that is to be used between
 C and the resource server. The access token MUST be bound to the same symmetric key
 by means of the cnf claim.
 
+An example access token request for an access token with a symmetric proof-of-possession key is illustrated in {{at-request}}.
+~~~~~~~~~~
+   POST coaps://as.example.com/token
+   Content-Format: application/ace+cbor
+   Payload:
+   {
+     "audience"    : "smokeSensor1807",
+   }
+~~~~~~~~~~
+{: #at-request title="Example Access Token Request, symmetric PoP-key"}
+
 An example access token response is illustrated in {{at-response}}. 
 In this example, the authorization server returns a 2.01 response
 containing a new access token and information for the client,
@@ -410,21 +446,21 @@ CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
    Max-Age: 86400
    Payload:
    {
-      access_token: h'd08343a10...
+      "access_token" : h'd08343a10...
       (remainder of CWT omitted for brevity)
-      token_type:   pop,
-      expires_in:   86400,
-      profile:      coap_dtls,
-      cnf: {
-        COSE_Key: {
-          kty: symmetric,
-          kid: h'3d027833fc6267ce',
-          k: h'73657373696f6e6b6579'
+      "token_type" : "pop",
+      "expires_in" : 86400,
+      "profile"    : "coap_dtls",
+      "cnf"        : {
+        "COSE_Key" : {
+          "kty" : "symmetric",
+          "kid" : h'3d027833fc6267ce',
+          "k"   : h'73657373696f6e6b6579'
         }
       }
    }
 ~~~~~~~~~~
-{: #at-response title="Example Access Token Response"}
+{: #at-response title="Example Access Token Response, symmetric PoP-key"}
 
 The access token also comprises a `cnf` claim. This claim usually contains a
 `COSE_Key` object that carries either the symmetric
@@ -437,10 +473,10 @@ encrypt the token.
 The `cnf` structure in the access token is provided in {{kdf-cnf}}.
 
 ~~~~~~~~~~
-cnf : {
-  COSE_Key : {
-    kty  : symmetric,
-    kid : h'eIiOFCa9lObw'
+"cnf" : {
+  "COSE_Key" : {
+    "kty" : "symmetric",
+    "kid" : h'eIiOFCa9lObw'
   }
 }
 ~~~~~~~~~~
@@ -455,7 +491,7 @@ constructed according to Section 5.2 of {{RFC6749}},
     Content-Format: application/ace+cbor
     Payload:
     {
-      error: invalid_request
+      "error" : "invalid_request"
     }
 ~~~~~~~~~~
 {: #token-reject title="Example Access Token Response With Reject"}
