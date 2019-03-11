@@ -239,22 +239,22 @@ pre-shared keys are used in this profile.
 
 To retrieve an access token for the resource that the client wants to
 access, the client requests an access token from the authorization
-server. Before C can request the access token, C and AS must establish
-a secure communication channel. C must securely have obtained keying
-material to communicate with AS. Furthermore, C must verify that AS is authorized 
+server. Before C can request the access token, C and AS MUST establish
+a secure communication channel. C MUST securely have obtained keying
+material to communicate with AS. Furthermore, C MUST verify that AS is authorized 
 to provide access tokens (including authorization information) about RS to C.
- Also, AS must securely have obtained
+ Also, AS MUST securely have obtained
 keying material for C, and obtained authorization rules approved by
 the resource owner (RO) concerning C and RS that relate to this
 keying
-material. C and AS must use their respective keying material for all
+material. C and AS MUST use their respective keying material for all
 exchanged messages. How the security association between C and AS is
 bootstrapped is not part of this document. C and AS MUST ensure the
 confidentiality, integrity and authenticity of all exchanged messages.
 
 If C is constrained, C and AS should use DTLS to communicate with each
 other. But C and AS may also use other means to secure their
-communication, e.g., TLS. The used security protocol must confirm with the
+communication, e.g., TLS. The used security protocol MUST fulfill the
 communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
 
 ## RawPublicKey Mode {#rpk-mode}
@@ -651,7 +651,7 @@ rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
    not the requested action.
 
 The client cannot always know a priori if an Authorized Resource
-Request will succeed. It must check the validity of its
+Request will succeed. It MUST check the validity of its
 keying material before sending a request or processing a response.
 If the client repeatedly gets error responses
 containing AS Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
@@ -771,13 +771,13 @@ information about the resource server and/or its existing relationship
 with the client. It is advisable to include as little information as
 possible in an unencrypted response. When a DTLS session between the
 client and the resource server already exists, more detailed
-information may be included with an error response to provide the
+information MAY be included with an error response to provide the
 client with sufficient information to react on that particular error.
 
 Also, unprotected requests to the resource server may reveal
 information about the client, e.g., which resources the client
 attempts to request or the data that the client wants to provide to
-the resource server. The client should not send confidential data in
+the resource server. The client SHOULD NOT send confidential data in
 an unprotected request.
 
 Note that some information might still leak after DTLS session is
