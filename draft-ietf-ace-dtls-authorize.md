@@ -315,7 +315,7 @@ C MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
 resource server with which C wants to communicate.
 
-An example access token response fromt eh AS to the client is depicted in
+An example access token response from the AS to the client is depicted in
 {{rpk-authorization-response-example}}.
 
 ~~~~~~~~~~
@@ -420,6 +420,7 @@ C and the resource server. The access token MUST be bound to the same symmetric 
 by means of the cnf claim.
 
 An example access token request for an access token with a symmetric proof-of-possession key is illustrated in {{at-request}}.
+
 ~~~~~~~~~~
    POST coaps://as.example.com/token
    Content-Format: application/ace+cbor
