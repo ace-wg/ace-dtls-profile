@@ -53,7 +53,7 @@ author:
  -
     ins: L. Seitz
     name: Ludwig Seitz
-    org: RISE SICS
+    org: RISE
     street: Scheelevägen 17
     city: Lund
     code: 223 70
