@@ -3,7 +3,7 @@ coding: utf-8
 
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
-docname: draft-ietf-ace-dtls-authorize-latest
+docname: draft-ietf-ace-dtls-authorize-08
 category: std
 
 ipr: trust200902
@@ -252,10 +252,8 @@ exchanged messages. How the security association between C and AS is
 bootstrapped is not part of this document. C and AS MUST ensure the
 confidentiality, integrity and authenticity of all exchanged messages.
 
-If C is constrained, C and AS should use DTLS to communicate with each
-other. But C and AS may also use other means to secure their
-communication, e.g., TLS. The used security protocol MUST fulfill the
-communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
+Section {{as-commsec}} specifies how communication with the AS is secured.
+
 
 ## RawPublicKey Mode {#rpk-mode}
 
@@ -505,8 +503,7 @@ provides one example.
 The AS and 
 the resource server are assumed to share a key derivation key used to derive 
 the symmetric key shared with the client from the key identifier in the access token. 
-The key derivation key may be derived  
-from some other secret key shared between the AS and the resource server. This key needs
+The key derivation key may be derived from some other secret key shared between the AS and the resource server. This key needs
 to be securely stored and processed in the same way as the key used to protect the 
 communication between AS and RS.
 
@@ -732,6 +729,21 @@ As specified in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}},
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the session.
+
+# Secure Communication with AS {#as-commsec}
+
+As specified in the ACE framework (sections 5.6 and 5.7 of
+{{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
+and the AS communicates via the token or introspection endpoints.  The
+use of CoAP and DTLS for this communication is RECOMMENDED in this
+profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used
+instead.
+
+If DTLS is used, the requesting entity and the AS are expected to
+have pre-established credentials (e.g. PSK or RPK) in place.  How these 
+credentials are established is out of scope for this profile.
+
+If other means of securing the communication with the AS are used, the security protocol MUST fulfill the communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
 
 # Security Considerations
 
