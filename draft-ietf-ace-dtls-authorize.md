@@ -3,7 +3,7 @@ coding: utf-8
 
 title: Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)
 abbrev: CoAP-DTLS
-docname: draft-ietf-ace-dtls-authorize-08
+docname: draft-ietf-ace-dtls-authorize-latest
 category: std
 
 ipr: trust200902
@@ -734,14 +734,12 @@ terminating the session.
 
 As specified in the ACE framework (sections 5.6 and 5.7 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
-and the AS communicates via the token or introspection endpoints.  The
+and the AS communicates via the token endpoint or introspection endpoint.  The
 use of CoAP and DTLS for this communication is RECOMMENDED in this
 profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used
 instead.
 
-If DTLS is used, the requesting entity and the AS are expected to
-have pre-established credentials (e.g. PSK or RPK) in place.  How these 
-credentials are established is out of scope for this profile.
+How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the AS are established is out of scope for this profile.
 
 If other means of securing the communication with the AS are used, the security protocol MUST fulfill the communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
 
