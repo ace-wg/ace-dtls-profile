@@ -734,7 +734,7 @@ terminating the session.
 
 As specified in the ACE framework (sections 5.6 and 5.7 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
-and the AS communicates via the token endpoint or introspection endpoint.  The
+and the AS communicate via the token endpoint or introspection endpoint.  The
 use of CoAP and DTLS for this communication is RECOMMENDED in this
 profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used
 instead.
