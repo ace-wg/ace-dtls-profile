@@ -273,14 +273,14 @@ in {{rpk-authorization-message-example}}.
    Content-Format: application/ace+cbor
    Payload:
    {
-     "grant_type" : "client_credentials",
-     "req_aud"    : "tempSensor4711",
-     "req_cnf"    : {
-       "COSE_Key" : {
-         "kty" : "EC2",
-         "crv" : "P-256",
-         "x"   : h'e866c35f4c3c81bb96a1...',
-         "y"   : h'2e25556be097c8778a20...'
+     grant_type : client_credentials,
+     req_aud    : "tempSensor4711",
+     req_cnf    : {
+       COSE_Key : {
+         kty : EC2,
+         crv : P-256,
+         x   : h'e866c35f4c3c81bb96a1...',
+         y   : h'2e25556be097c8778a20...'
        }
      }
    }
@@ -322,16 +322,16 @@ An example access token response from the AS to the client is depicted in
    Max-Age: 3600
    Payload:
    {
-     "access_token" : "b64'SlAV32hkKG ...
+     access_token : b64'SlAV32hkKG...
       (remainder of CWT omitted for brevity;
-      CWT contains clients RPK in the "cnf" claim)',
-     "expires_in" : "3600",
-     "rs_cnf"     : {
-       "COSE_Key"  : {
-         "kty" : "EC2",
-         "crv" : "P-256",
-         "x"   : h'd7cc072de2205bdc1537...',
-         "y"   : h'f95e1d4b851a2cc80fff...'
+      CWT contains clients RPK in the cnf claim)',
+     expires_in : 3600,
+     rs_cnf     : {
+       COSE_Key : {
+         kty : EC2,
+         crv : P-256,
+         x   : h'd7cc072de2205bdc1537...',
+         y   : h'f95e1d4b851a2cc80fff...'
        }
      }
    }
@@ -424,7 +424,7 @@ An example access token request for an access token with a symmetric proof-of-po
    Content-Format: application/ace+cbor
    Payload:
    {
-     "audience"    : "smokeSensor1807",
+     audience    : "smokeSensor1807",
    }
 ~~~~~~~~~~
 {: #at-request title="Example Access Token Request, symmetric PoP-key"}
@@ -445,16 +445,16 @@ CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
    Max-Age: 86400
    Payload:
    {
-      "access_token" : h'd08343a10...
+      access_token : h'd08343a10...
       (remainder of CWT omitted for brevity)
-      "token_type" : "pop",
-      "expires_in" : 86400,
-      "profile"    : "coap_dtls",
-      "cnf"        : {
-        "COSE_Key" : {
-          "kty" : "symmetric",
-          "kid" : h'3d027833fc6267ce',
-          "k"   : h'73657373696f6e6b6579'
+      token_type : pop,
+      expires_in : 86400,
+      profile    : coap_dtls,
+      cnf        : {
+        COSE_Key : {
+          kty : symmetric,
+          kid : h'3d027833fc6267ce',
+          k   : h'73657373696f6e6b6579'
         }
       }
    }
@@ -472,10 +472,10 @@ encrypt the token.
 The `cnf` structure in the access token is provided in {{kdf-cnf}}.
 
 ~~~~~~~~~~
-"cnf" : {
-  "COSE_Key" : {
-    "kty" : "symmetric",
-    "kid" : h'eIiOFCa9lObw'
+cnf : {
+  COSE_Key : {
+    kty : symmetric,
+    kid : h'6549694f464361396c4f6277'
   }
 }
 ~~~~~~~~~~
@@ -490,7 +490,7 @@ constructed according to Section 5.2 of {{RFC6749}},
     Content-Format: application/ace+cbor
     Payload:
     {
-      "error" : "invalid_request"
+      error : invalid_request
     }
 ~~~~~~~~~~
 {: #token-reject title="Example Access Token Response With Reject"}
@@ -734,7 +734,7 @@ terminating the session.
 
 As specified in the ACE framework (sections 5.6 and 5.7 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
-and the AS communicates via the token endpoint or introspection endpoint.  The
+and the AS communicate via the token endpoint or introspection endpoint.  The
 use of CoAP and DTLS for this communication is RECOMMENDED in this
 profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used
 instead.
