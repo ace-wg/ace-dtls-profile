@@ -53,12 +53,12 @@ author:
  -
     ins: L. Seitz
     name: Ludwig Seitz
-    org: RISE
-    street: Scheelevägen 17
-    city: Lund
-    code: 223 70
+    org: Combitech
+    street: Djäknegatan 31
+    city: Malmö
+    code: 211 35
     country: Sweden
-    email: ludwig.seitz@ri.se
+    email: ludwig.seitz@combitech.se
 
 normative:
   RFC2119:
