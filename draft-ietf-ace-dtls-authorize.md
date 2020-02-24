@@ -812,7 +812,7 @@ authorization in a constrained environment by establishing a Datagram
 Transport Layer Security (DTLS) channel between resource-constrained
 nodes.
 
-Profile ID:  1
+Profile ID:  TBD (suggested: 1)
 
 Change Controller:  IESG
 
