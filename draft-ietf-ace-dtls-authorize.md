@@ -66,20 +66,20 @@ normative:
   RFC4279:
   RFC6347:
   RFC6749:
+  RFC7250:
+  RFC7251:
   RFC7252:
   RFC7925:
   RFC8152:
+  RFC8422:
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
   I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
   RFC6655:
-  RFC7250:
-  RFC7251:
   RFC7748:
   RFC8032:
-  RFC8422:
   RFC8392:
  
 entity:
