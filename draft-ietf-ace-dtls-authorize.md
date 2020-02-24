@@ -116,14 +116,23 @@ also be secured with DTLS.  This specification supports DTLS with Raw
 Public Keys (RPK) {{RFC7250}} and with Pre-Shared Keys (PSK)
 {{RFC4279}}.
 
-The DTLS handshake requires the client and server to prove
-that they can use certain keying material. In the RPK mode, the client
-proves with the DTLS handshake that it can use the RPK bound to the
-token and the server shows that it can use a certain RPK. The access
-token must be presented to the resource server.  For the RPK mode, the
-access token needs to be uploaded to the resource server before the
-handshake is initiated, as described in
-Section 5.8.1 of the ACE framework {{I-D.ietf-ace-oauth-authz}}.
+The ACE framework requires that client and server mutually
+authenticate each other before any application data is exchanged.
+DTLS enables mutual authentication if both client and server prove
+their ability to use certain keying material in the DTLS handshake.
+The authorization server assists in this process on the server side by
+incorporating keying material (or information about keying material)
+into the access token, which is considered a "proof of possession"
+token.
+
+In the RPK mode, the client proves that it can use the RPK bound to
+the token and the server shows that it can use a certain RPK.
+
+The resource server needs access to the token in order to complete
+this exchange.  For the RPK mode, the client must upload the access
+token to the resource server before initiating the handshake, as
+described in Section 5.8.1 of the ACE framework
+{{I-D.ietf-ace-oauth-authz}}.
 
 In the PSK mode, client and server show with the DTLS handshake that
 they can use the keying material that is bound to the access token.
