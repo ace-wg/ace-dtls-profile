@@ -781,7 +781,7 @@ This privacy considerations from section
 An unprotected response to an unauthorized request may disclose
 information about the resource server and/or its existing relationship
 with the client. It is advisable to include as little information as
-possible in an unencrypted response. When a DTLS session between the
+possible in an unencrypted response. When a DTLS session between a known
 client and the resource server already exists, more detailed
 information MAY be included with an error response to provide the
 client with sufficient information to react on that particular error.
