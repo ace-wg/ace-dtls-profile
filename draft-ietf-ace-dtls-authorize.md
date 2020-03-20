@@ -92,7 +92,7 @@ entity:
 
 This specification defines a profile of the ACE framework that allows constrained servers
 to delegate client authentication and authorization.  The protocol
-relies on DTLS for communication security between entities in a
+relies on DTLS version 1.2 for communication security between entities in a
 constrained network using either raw public keys or pre-shared keys. A
 resource-constrained server can use this protocol to delegate
 management of authorization information to a trusted host with less
@@ -105,7 +105,7 @@ severe limitations regarding processing power and memory.
 
 This specification defines a profile of the ACE framework
 {{I-D.ietf-ace-oauth-authz}}.  In this profile, a client and a
-resource server use CoAP {{RFC7252}} over DTLS {{RFC6347}} to
+resource server use CoAP {{RFC7252}} over DTLS version 1.2 {{RFC6347}} to
 communicate. The client obtains an access token, bound to a key
 (the proof-of-possession key), from an authorization server to prove
 its authorization to access protected resources hosted by the resource
