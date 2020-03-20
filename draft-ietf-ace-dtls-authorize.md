@@ -150,6 +150,9 @@ the resource server (RS) during setup of a DTLS session for CoAP
 messaging. It also specifies how C can use CoAP over DTLS to
 retrieve an access token from the authorization server (AS) for a
 protected resource hosted on the resource server.
+As specified in Section 6.7 of
+{{I-D.ietf-ace-oauth-authz}}, use of DTLS for one or both of these
+interactions is completely independent
 
 This profile requires the client to retrieve an access token for protected
 resource(s) it wants to access on RS as specified
@@ -172,7 +175,7 @@ in square brackets are optional):
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #at-retrieval title="Retrieving an Access Token"}
 
-To determine the AS in charge of a resource hosted at the RS, C MAY
+To determine the AS in charge of a resource hosted at the RS, C can
 send an initial Unauthorized Resource Request message to the RS. The RS then
 denies the request and sends an AS Request Creation Hints message containing the address
 of its AS back to the client as
@@ -182,7 +185,7 @@ Once the client knows the authorization server's address, it can
 send an access token request to the token endpoint at the AS as
 specified in {{I-D.ietf-ace-oauth-authz}}. As the access token request
 as well as the response may contain confidential data, the
-communication between the client and the authorization server MUST be
+communication between the client and the authorization server must be
 confidentiality-protected and ensure authenticity. C may have been
 registered at the AS via the OAuth 2.0 client registration mechanism as
 outlined in Section 5.3 of {{I-D.ietf-ace-oauth-authz}}.
@@ -230,7 +233,8 @@ specific for this communication relationship to the resource server.
 must be secured.
 Depending on the used CoAP security mode (see also
 Section 9 of {{RFC7252}},
-the Client-to-AS request, AS-to-Client response and DTLS session
+the Client-to-AS request, AS-to-Client response (see Section
+5.6 of {{I-D.ietf-ace-oauth-authz}}) and DTLS session
 establishment carry slightly different information. {{rpk-mode}}
 addresses the use of raw public keys while {{psk-mode}} defines how
 pre-shared keys are used in this profile.
@@ -249,7 +253,7 @@ the resource owner (RO) concerning C and RS that relate to this
 keying
 material. C and AS MUST use their respective keying material for all
 exchanged messages. How the security association between C and AS is
-bootstrapped is not part of this document. C and AS MUST ensure the
+bootstrapped is not part of this document. C and AS must ensure the
 confidentiality, integrity and authenticity of all exchanged messages.
 
 Section {{as-commsec}} specifies how communication with the AS is secured.
@@ -257,6 +261,8 @@ Section {{as-commsec}} specifies how communication with the AS is secured.
 
 ## RawPublicKey Mode {#rpk-mode}
 
+When the client and the resource server use RawPublicKey
+authentication, the procedure is as follows:
 After C and AS mutually authenticated each other and validated each
 other's authorization, C sends a token request to AS's token endpoint.
 The client MUST add a `req_cnf` object carrying either its raw public key
@@ -291,7 +297,7 @@ The example shows an access token request for the resource identified
 by the string "tempSensor4711" on the authorization server
 using a raw public key.
 
-AS MUST check if the client that it communicates with is associated
+The AS MUST check if the client that it communicates with is associated
 with the RPK in the cnf object before issuing an access token to it.
 If AS determines that the request is to be authorized according to
 the respective authorization rules, it generates an access token
