@@ -373,10 +373,12 @@ defined in the `cnf` field of the access token response in the
 SubjectPublicKeyInfo structure in the DTLS handshake as specified in
 {{RFC7250}}.
 
-An implementation that supports the RPK mode of this profile MUST at
+To be consistent with {{RFC7252}} which allows for shortened MAC tags
+in constrained environments,
+an implementation that supports the RPK mode of this profile MUST at
 least support the ciphersuite
-TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with the ed25519
-curve (cf. {{RFC8032}}, {{RFC8422}}).
+TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with curve25519
+(cf. {{RFC8032}}, {{RFC8422}}).
 
 Note:
 : According to {{RFC7252}},
