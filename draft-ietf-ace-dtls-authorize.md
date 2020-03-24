@@ -406,11 +406,11 @@ resource server, the Client's public key MUST be included in the
 access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
 used as recommended in
 {{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
-{{I-D.ietf-ace-cwt-proof-of-possession}}.  RS MUST use the keying
-material that the AS specified in the rs_cnf parameter in
+{{I-D.ietf-ace-cwt-proof-of-possession}}.  The resource server MUST use the keying
+material that the authorizations server has specified in the `cnf` parameter in
 the access token for the DTLS handshake with the client.
-Thus, the handshake only finishes if C and
-RS are able to use their respective keying material.
+Thus, the handshake only finishes if the client and the resource server
+are able to use their respective keying material.
 
 ## PreSharedKey Mode {#psk-mode}
 
