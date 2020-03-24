@@ -646,7 +646,7 @@ the `COSE_KDF_Context` information as described above.
 ## Resource Access
 
 Once a DTLS channel has been established as described in {{rpk-mode}}
-and {{psk-mode}}, respectively, the client is authorized to access
+or {{psk-mode}}, respectively, the client is authorized to access
 resources covered by the access token it has uploaded to the
 authz-info resource hosted by the resource server.
 
@@ -654,11 +654,12 @@ With the successful establishment of the DTLS channel, C and RS have
 proven that they can use their respective keying material. An access
 token that is bound to the client's keying material is associated
 with the channel. Any request that the resource server receives on
-this channel MUST be checked against these authorization rules. RS
+this channel MUST be checked against the following authorization rules. RS
 MUST check for every request if the access token is still valid.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
-rejected by the resource server with 4.01 response as described in
+rejected by the resource server with 4.01 response. The response
+MAY include AS Request Creation Hints as described in
 Section 5.1.1 of {{I-D.ietf-ace-oauth-authz}}.
 
 The resource server SHOULD treat an incoming CoAP request as authorized
@@ -687,7 +688,7 @@ The client cannot always know a priori if an Authorized Resource
 Request will succeed. It MUST check the validity of its
 keying material before sending a request or processing a response.
 If the client repeatedly gets error responses
-containing AS Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
+containing AS Request Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
 resource server.
