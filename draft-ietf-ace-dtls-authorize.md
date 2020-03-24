@@ -128,6 +128,11 @@ To transfer the access token from the client to the resource server,
 the `psk_identity` parameter in the DTLS PSK handshake may be used
 instead of uploading the token prior to the handshake.
 
+As recommended in Section 5.8 of {{I-D.ietf-ace-oauth-authz}}, this
+specification uses CBOR web tokens to convey claims within an access
+token issued by the server.  While other formats could be used as well
+these are out of scope for this document.
+
 ## Terminology
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
