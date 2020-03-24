@@ -243,18 +243,30 @@ pre-shared keys are used in this profile.
 
 To retrieve an access token for the resource that the client wants to
 access, the client requests an access token from the authorization
-server. Before C can request the access token, C and AS MUST establish
-a secure communication channel. C MUST securely have obtained keying
-material to communicate with AS. Furthermore, C MUST verify that AS is authorized 
-to provide access tokens (including authorization information) about RS to C.
- Also, AS MUST securely have obtained
-keying material for C, and obtained authorization rules approved by
-the resource owner (RO) concerning C and RS that relate to this
-keying
-material. C and AS MUST use their respective keying material for all
-exchanged messages. How the security association between C and AS is
-bootstrapped is not part of this document. C and AS must ensure the
-confidentiality, integrity and authenticity of all exchanged messages.
+server. Before the client can request the access token, the client and
+the authorization server MUST establish
+a secure communication channel. This profile assumes that the keying
+material to secure this communication channel has securely been obtained
+either by manual configuration or in an automated provisioning process.
+The following requirements in alignment with Section 6.5 of
+{{I-D.ietf-ace-oauth-authz}} therefore must be met:
+
+* The client MUST securely have obtained keying material to communicate
+  with AS.
+* Furthermore, the client MUST verify that the authorization server is
+  authorized to provide access tokens (including authorization
+  information) about the resource server to the client.
+* Also, the authorization server MUST securely have obtained keying
+  material for the client, and obtained authorization rules approved
+  by the resource owner (RO) concerning the client and the resource
+  server that relate to this keying material.
+
+The client and the authorization server MUST use their respective
+keying material for all exchanged messages. How the security
+association between the client and the authorization server is
+bootstrapped is not part of this document. The client and the
+authorization server must ensure the confidentiality, integrity and
+authenticity of all exchanged messages within the ACE protocol.
 
 Section {{as-commsec}} specifies how communication with the AS is secured.
 
