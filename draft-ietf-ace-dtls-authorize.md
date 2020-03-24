@@ -310,28 +310,32 @@ by the string "tempSensor4711" on the authorization server
 using a raw public key.
 
 The AS MUST check if the client that it communicates with is associated
-with the RPK in the cnf object before issuing an access token to it.
-If AS determines that the request is to be authorized according to
+with the RPK in the `req_cnf` parameter before issuing an access token to it.
+If the AS determines that the request is to be authorized according to
 the respective authorization rules, it generates an access token
 response for C. The access token MUST be bound to the RPK of the client 
-by means of the cnf claim. 
+by means of the `cnf` claim.
+
 The response MAY contain a `profile` parameter with
 the value `coap_dtls` to indicate that this profile MUST be used for
 communication between the client C and the resource server. The `profile` 
 may be specified out-of-band, in which case it does not have to be sent. The
-response also contains an access token and an `rs_cnf` parameter containing
+response also contains an access token with
 information about the public key that is used by the resource
-server. AS MUST ascertain that the RPK specified in `rs_cnf` belongs
-to the resource server that C wants to communicate with. AS MUST
-protect the integrity of the token. If the access token contains
-confidential data, AS MUST also protect the confidentiality of the
+server. The authorization server MUST return in its response the
+parameter `rs_cnf` unless it is certain that the client already knows
+the public key of the resource server.
+The authorization server MUST ascertain that the RPK specified in `rs_cnf` belongs
+to the resource server that the client wants to communicate with. The authorization server MUST
+protect the integrity of the access token. If the access token contains
+confidential data, the authorization server MUST also protect the confidentiality of the
 access token.
 
-C MUST ascertain that the access token response belongs to a certain
+The client MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
-resource server with which C wants to communicate.
+resource server with which the client wants to communicate.
 
-An example access token response from the AS to the client is depicted in
+An example access token response from the authorization to the client is depicted in
 {{rpk-authorization-response-example}}.
 
 ~~~~~~~~~~
