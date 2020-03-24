@@ -340,13 +340,17 @@ The client MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
 resource server with which the client wants to communicate.
 
-An example access token response from the authorization to the client is depicted in
-{{rpk-authorization-response-example}}.
+An example access token response from the authorization to the client
+is depicted in {{rpk-authorization-response-example}}. Note that
+caching proxies process the Max-Age option in the CoAP response which
+has a default value of 60 seconds. The authorization server SHOULD
+adjust the Max-Age option such that it does not exceed the
+`expires_in` parameter to avoid stale responses.
 
 ~~~~~~~~~~
    2.01 Created
    Content-Format: application/ace+cbor
-   Max-Age: 3600
+   Max-Age: 3560
    Payload:
    {
      access_token : b64'SlAV32hkKG...
@@ -474,7 +478,7 @@ CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
 ~~~~~~~~~~
    2.01 Created
    Content-Format: application/ace+cbor
-   Max-Age: 86400
+   Max-Age: 85800
    Payload:
    {
       access_token : h'd08343a10...
