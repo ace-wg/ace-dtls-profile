@@ -130,8 +130,8 @@ instead of uploading the token prior to the handshake.
 
 As recommended in Section 5.8 of {{I-D.ietf-ace-oauth-authz}}, this
 specification uses CBOR web tokens to convey claims within an access
-token issued by the server.  While other formats could be used as well
-these are out of scope for this document.
+token issued by the server.  While other formats could be used as well,
+those are out of scope for this document.
 
 ## Terminology
 
