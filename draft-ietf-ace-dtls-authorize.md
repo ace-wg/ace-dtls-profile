@@ -800,7 +800,7 @@ This document specifies a profile for the Authentication and
 Authorization for Constrained Environments (ACE) framework
 {{I-D.ietf-ace-oauth-authz}}. As it follows this framework's general
 approach, the general security considerations from section
-6 also apply to this profile.
+6 of {{I-D.ietf-ace-oauth-authz}} also apply to this profile.
 
 The authorization server must ascertain that the keying material for
 the client that it provides to the resource server actually is
