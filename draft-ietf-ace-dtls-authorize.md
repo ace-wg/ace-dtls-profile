@@ -81,6 +81,7 @@ informative:
   RFC7748:
   RFC8032:
   RFC8392:
+  RFC8613:
  
 entity:
         SELF: "[RFC-XXXX]"
@@ -773,12 +774,14 @@ As specified in the ACE framework (sections 5.6 and 5.7 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
 and the AS communicate via the token endpoint or introspection endpoint.  The
 use of CoAP and DTLS for this communication is RECOMMENDED in this
-profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used
+profile, other protocols (such as HTTP and TLS, or CoAP and OSCORE {{RFC8613}}) MAY be used
 instead.
 
 How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the AS are established is out of scope for this profile.
 
-If other means of securing the communication with the AS are used, the security protocol MUST fulfill the communication security requirements in Section 6.2 of {{I-D.ietf-ace-oauth-authz}}.
+If other means of securing the communication with the AS are used, the
+communication security requirements from Section 6.2 of
+{{I-D.ietf-ace-oauth-authz}} remain applicable.
 
 # Security Considerations
 
