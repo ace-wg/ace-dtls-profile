@@ -814,7 +814,18 @@ authorization server therefore should at some point validate that the
 client can actually use the private key corresponding to the client's
 public key.
 
-When using pre-shared keys provisioned by the AS, the security level depends on the randomness of PSK, and the security of the TLS cipher suite and key exchange algorithm.
+When using pre-shared keys provisioned by the AS, the security level
+depends on the randomness of PSK, and the security of the TLS cipher
+suite and key exchange algorithm.  As this specification targets at
+constrained environments, message payloads exchanged between the
+client and the resource server are expected to be small and rare.
+CoAP {{RFC7252}} mandates the implementation of cipher suites with
+abbreviated, 8-byte tags for message integrity protection. For
+consistency, this profile requires implementation of the same cipher
+suites. For application scenarios where the cost of full-width
+authentication tags is low compared to the overall amount of data
+being transmitted, the use of cipher suites with 16-byte integrity
+protection tags is preferred.
 
 The PSK mode of this profile offers a distribution mechanism to convey
 authorization tokens together with a shared secret to a client and a
