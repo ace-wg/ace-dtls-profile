@@ -918,15 +918,15 @@ Internet-Draft                  CoAP-DTLS                     March 2020
    [I-D.ietf-ace-oauth-authz]), the requesting entity (RS and/or client)
    and the AS communicate via the token endpoint or introspection
    endpoint.  The use of CoAP and DTLS for this communication is
-   RECOMMENDED in this profile, other protocols (such as HTTP and TLS or
-   CoAP and OSCORE) MAY be used instead.
+   RECOMMENDED in this profile, other protocols (such as HTTP and TLS,
+   or CoAP and OSCORE [RFC8613]) MAY be used instead.
 
    How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the
    AS are established is out of scope for this profile.
 
    If other means of securing the communication with the AS are used,
-   the security protocol MUST fulfill the communication security
-   requirements in Section 6.2 of [I-D.ietf-ace-oauth-authz].
+   the communication security requirements from Section 6.2 of
+   [I-D.ietf-ace-oauth-authz] remain applicable.
 
 7.  Security Considerations
 
@@ -1142,6 +1142,11 @@ Internet-Draft                  CoAP-DTLS                     March 2020
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
               May 2018, <https://www.rfc-editor.org/info/rfc8392>.
 
+   [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
+              "Object Security for Constrained RESTful Environments
+              (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
+              <https://www.rfc-editor.org/info/rfc8613>.
+
 Authors' Addresses
 
    Stefanie Gerdes
@@ -1162,11 +1167,6 @@ Authors' Addresses
 
    Phone: +49-421-218-63904
    Email: bergmann@tzi.org
-
-
-
-
-
 
 
 

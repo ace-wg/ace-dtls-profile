@@ -717,9 +717,9 @@ cnf : {
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#as-commsec" id="as-commsec">Secure Communication with AS</a>
 </h1>
-<p id="rfc.section.6.p.1">As specified in the ACE framework (sections 5.6 and 5.7 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>), the requesting entity (RS and/or client) and the AS communicate via the token endpoint or introspection endpoint.  The use of CoAP and DTLS for this communication is RECOMMENDED in this profile, other protocols (such as HTTP and TLS or CoAP and OSCORE) MAY be used instead.</p>
+<p id="rfc.section.6.p.1">As specified in the ACE framework (sections 5.6 and 5.7 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>), the requesting entity (RS and/or client) and the AS communicate via the token endpoint or introspection endpoint.  The use of CoAP and DTLS for this communication is RECOMMENDED in this profile, other protocols (such as HTTP and TLS, or CoAP and OSCORE <a href="#RFC8613" class="xref">[RFC8613]</a>) MAY be used instead.</p>
 <p id="rfc.section.6.p.2">How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the AS are established is out of scope for this profile.</p>
-<p id="rfc.section.6.p.3">If other means of securing the communication with the AS are used, the security protocol MUST fulfill the communication security requirements in Section 6.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>.</p>
+<p id="rfc.section.6.p.3">If other means of securing the communication with the AS are used, the communication security requirements from Section 6.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a> remain applicable.</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
@@ -847,6 +847,11 @@ cnf : {
 <td class="reference"><b id="RFC8392">[RFC8392]</b></td>
 <td class="top">
 <a>Jones, M.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/rfc8392">CBOR Web Token (CWT)</a>", RFC 8392, DOI 10.17487/RFC8392, May 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8613">[RFC8613]</b></td>
+<td class="top">
+<a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="https://tools.ietf.org/html/rfc8613">Object Security for Constrained RESTful Environments (OSCORE)</a>", RFC 8613, DOI 10.17487/RFC8613, July 2019.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
