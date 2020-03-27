@@ -654,8 +654,17 @@ authz-info resource hosted by the resource server.
 With the successful establishment of the DTLS channel, C and RS have
 proven that they can use their respective keying material. An access
 token that is bound to the client's keying material is associated
-with the channel. Any request that the resource server receives on
-this channel MUST be checked against the following authorization rules. RS
+with the channel. According to section 5.8.1 of {{I-D.ietf-ace-oauth-authz}},
+there should be only one access token for each client. New access
+tokens issued by the authorization server are supposed to replace
+previously issued access tokens for the respective client. The resource
+server therefore must have a common understanding with the authorization
+server how access tokens are ordered.
+
+Any request that the resource server receives on a DTLS channel that
+is tied to an access token via its keying material 
+MUST be checked against the following authorization rules. The resource
+server
 MUST check for every request if the access token is still valid.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
