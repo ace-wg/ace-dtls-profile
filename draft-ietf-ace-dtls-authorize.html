@@ -296,7 +296,7 @@ li, p {
 
   <meta name="dct.creator" content="Gerdes, S., Bergmann, O., Bormann, C., Selander, G., and L. Seitz" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-ace-dtls-authorize-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-03-25" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-04-01" />
   <meta name="dct.abstract" content="This specification defines a profile of the ACE framework that allows constrained servers to delegate client authentication and authorization.  The protocol relies on DTLS for communication security between entities in a constrained network using either raw public keys or pre-shared keys. A resource-constrained server can use this protocol to delegate management of authorization information to a trusted host with less severe limitations regarding processing power and memory. " />
   <meta name="description" content="This specification defines a profile of the ACE framework that allows constrained servers to delegate client authentication and authorization.  The protocol relies on DTLS for communication security between entities in a constrained network using either raw public keys or pre-shared keys. A resource-constrained server can use this protocol to delegate management of authorization information to a trusted host with less severe limitations regarding processing power and memory. " />
 
@@ -320,7 +320,7 @@ li, p {
 <td class="right">C. Bormann</td>
 </tr>
 <tr>
-<td class="left">Expires: September 26, 2020</td>
+<td class="left">Expires: October 3, 2020</td>
 <td class="right">Universit&#228;t Bremen TZI</td>
 </tr>
 <tr>
@@ -341,7 +341,7 @@ li, p {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">March 25, 2020</td>
+<td class="right">April 01, 2020</td>
 </tr>
 
     	
@@ -357,7 +357,7 @@ li, p {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 26, 2020.</p>
+<p>This Internet-Draft will expire on October 3, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -656,8 +656,9 @@ cnf : {
 <a href="#rfc.section.3.4">3.4.</a> <a href="#resource-access" id="resource-access">Resource Access</a>
 </h1>
 <p id="rfc.section.3.4.p.1">Once a DTLS channel has been established as described in <a href="#rpk-mode" class="xref">Section 3.2</a> or <a href="#psk-mode" class="xref">Section 3.3</a>, respectively, the client is authorized to access resources covered by the access token it has uploaded to the authz-info resource hosted by the resource server.</p>
-<p id="rfc.section.3.4.p.2">With the successful establishment of the DTLS channel, C and RS have proven that they can use their respective keying material. An access token that is bound to the client&#8217;s keying material is associated with the channel. Any request that the resource server receives on this channel MUST be checked against the following authorization rules. RS MUST check for every request if the access token is still valid.  Incoming CoAP requests that are not authorized with respect to any access token that is associated with the client MUST be rejected by the resource server with 4.01 response. The response MAY include AS Request Creation Hints as described in Section 5.1.1 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>.</p>
-<p id="rfc.section.3.4.p.3">The resource server SHOULD treat an incoming CoAP request as authorized if the following holds:</p>
+<p id="rfc.section.3.4.p.2">With the successful establishment of the DTLS channel, C and RS have proven that they can use their respective keying material. An access token that is bound to the client&#8217;s keying material is associated with the channel. According to section 5.8.1 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>, there should be only one access token for each client. New access tokens issued by the authorization server are supposed to replace previously issued access tokens for the respective client. The resource server therefore must have a common understanding with the authorization server how access tokens are ordered.</p>
+<p id="rfc.section.3.4.p.3">Any request that the resource server receives on a DTLS channel that is tied to an access token via its keying material MUST be checked against the following authorization rules. The resource server MUST check for every request if the access token is still valid.  Incoming CoAP requests that are not authorized with respect to any access token that is associated with the client MUST be rejected by the resource server with 4.01 response. The response MAY include AS Request Creation Hints as described in Section 5.1.1 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a>.</p>
+<p id="rfc.section.3.4.p.4">The resource server SHOULD treat an incoming CoAP request as authorized if the following holds:</p>
 <p></p>
 
 <ol>
@@ -667,15 +668,15 @@ cnf : {
 <li>The resource URI specified in the request is covered by the authorization information.</li>
 <li>The request method is an authorized action on the resource with respect to the authorization information.</li>
 </ol>
-<p id="rfc.section.3.4.p.5">Incoming CoAP requests received on a secure DTLS channel that are not thus authorized MUST be rejected according to Section 5.8.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a></p>
+<p id="rfc.section.3.4.p.6">Incoming CoAP requests received on a secure DTLS channel that are not thus authorized MUST be rejected according to Section 5.8.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a></p>
 <p></p>
 
 <ol>
 <li>with response code 4.03 (Forbidden) when the resource URI specified in the request is not covered by the authorization information, and</li>
 <li>with response code 4.05 (Method Not Allowed) when the resource URI specified in the request covered by the authorization information but not the requested action.</li>
 </ol>
-<p id="rfc.section.3.4.p.7">The client cannot always know a priori if an Authorized Resource Request will succeed. It MUST check the validity of its keying material before sending a request or processing a response.  If the client repeatedly gets error responses containing AS Request Creation Hints (cf.  Section 5.1.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a> as response to its requests, it SHOULD request a new access token from the authorization server in order to continue communication with the resource server.</p>
-<p id="rfc.section.3.4.p.8">Unauthorized requests that have been received over a DTLS session SHOULD be treated as non-fatal by the RS, i.e., the DTLS session SHOULD be kept alive until the associated access token has expired.</p>
+<p id="rfc.section.3.4.p.8">The client cannot always know a priori if an Authorized Resource Request will succeed. It MUST check the validity of its keying material before sending a request or processing a response.  If the client repeatedly gets error responses containing AS Request Creation Hints (cf.  Section 5.1.2 of <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a> as response to its requests, it SHOULD request a new access token from the authorization server in order to continue communication with the resource server.</p>
+<p id="rfc.section.3.4.p.9">Unauthorized requests that have been received over a DTLS session SHOULD be treated as non-fatal by the RS, i.e., the DTLS session SHOULD be kept alive until the associated access token has expired.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#update" id="update">Dynamic Update of Authorization Information</a>
 </h1>
