@@ -71,7 +71,7 @@ normative:
   RFC7252:
   RFC7925:
   RFC8152:
-  RFC8422: 
+  RFC8422:
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
   I-D.ietf-ace-cwt-proof-of-possession:
