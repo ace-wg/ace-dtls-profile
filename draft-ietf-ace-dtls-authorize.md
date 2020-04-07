@@ -71,16 +71,18 @@ normative:
   RFC7252:
   RFC7925:
   RFC8152:
-  RFC8422:
+  RFC8422: 
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
   I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
+  RFC5869:
   RFC6655:
   RFC7748:
   RFC8032:
   RFC8392:
+  RFC8610:
   RFC8613:
  
 entity:
@@ -553,23 +555,35 @@ the AS generates a key identifier and uses the key derivation key shared with th
 resource server to derive the symmetric key as specified below. Instead of 
 providing the keying material in the access token, the AS includes the key
 identifier in the `kid` parameter, see {{kdf-cnf}}. This key identifier
-enables the resource server to calculate the keying material for the 
-communication with the client from the access token using
-the key derivation key and following Section 11 of {{RFC8152}} with parameters
-as specified here. The KDF to be used needs to be defined by the application, for example
+enables the resource server to calculate the symmetric key used for the 
+communication with the client using
+the key derivation key and a KDF to be defined by the application, for example
 HKDF-SHA-256. The key identifier picked by the AS needs to be unique for each access
 token where a unique symmetric key is required.
 
-The fields in the context information `COSE_KDF_Context` (Section 11.2
-of {{RFC8152}}) have the following values:
+In this example, HKDF consists of the composition of the HKDF-Extract and HKDF-Expand steps [RFC5869]. The symmetric key is derived from the key identifier, the key derivation key and other data:
 
-* AlgorithmID = "ACE-CoAP-DTLS-key-derivation"
-* PartyUInfo = PartyVInfo = ( null, null, null )
-* keyDataLength needs to be defined by the application
-* protected MUST be a zero length bstr
-* other is a zero length bstr
-* SuppPrivInfo is omitted
+OKM = HKDF(salt, IKM, info, L),
 
+where:
+
+* OKM, the output keying material, is the derived symmetric key
+* salt is the empty byte string
+* IKM, the input keying material, is the key derivation key as defined above
+* info is the serialization of a CBOR array consisting of ([RFC8610]):
+
+~~~~~~~~~~~~~~~~~
+      info = [
+        type : tstr,
+        kid : bstr,
+        L : uint,
+      ]
+~~~~~~~~~~~~~~~~~
+where:
+
+* type is set to the constant text string "ACE-CoAP-DTLS-key-derivation",
+* kid is the key identifier, and
+* L is the size of the symmetric key in bytes.
 
 
 ### DTLS Channel Setup Between C and RS {#psk-dtls-channel}
