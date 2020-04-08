@@ -663,6 +663,7 @@ is tied to an access token via its keying material
 MUST be checked against the authorization rules that can be determined
 with the access token. The resource server
 MUST check for every request if the access token is still valid.
+If the token has expired, the resource server MUST remove it.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
 rejected by the resource server with 4.01 response. The response
