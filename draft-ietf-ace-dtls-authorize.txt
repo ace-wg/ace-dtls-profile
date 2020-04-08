@@ -5,12 +5,12 @@
 ACE Working Group                                              S. Gerdes
 Internet-Draft                                               O. Bergmann
 Intended status: Standards Track                              C. Bormann
-Expires: October 9, 2020                         Universitaet Bremen TZI
+Expires: October 10, 2020                        Universitaet Bremen TZI
                                                              G. Selander
                                                              Ericsson AB
                                                                 L. Seitz
                                                                Combitech
-                                                          April 07, 2020
+                                                          April 08, 2020
 
 
 Datagram Transport Layer Security (DTLS) Profile for Authentication and
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 9, 2020.
+   This Internet-Draft will expire on October 10, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gerdes, et al.           Expires October 9, 2020                [Page 1]
+Gerdes, et al.          Expires October 10, 2020                [Page 1]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -79,18 +79,19 @@ Table of Contents
        3.2.1.  DTLS Channel Setup Between C and RS . . . . . . . . .   8
      3.3.  PreSharedKey Mode . . . . . . . . . . . . . . . . . . . .   9
        3.3.1.  DTLS Channel Setup Between C and RS . . . . . . . . .  13
-     3.4.  Resource Access . . . . . . . . . . . . . . . . . . . . .  15
-   4.  Dynamic Update of Authorization Information . . . . . . . . .  16
-   5.  Token Expiration  . . . . . . . . . . . . . . . . . . . . . .  17
+     3.4.  Resource Access . . . . . . . . . . . . . . . . . . . . .  14
+   4.  Dynamic Update of Authorization Information . . . . . . . . .  15
+   5.  Token Expiration  . . . . . . . . . . . . . . . . . . . . . .  16
    6.  Secure Communication with AS  . . . . . . . . . . . . . . . .  17
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  18
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  19
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+     7.1.  Out-of-Band Configuration . . . . . . . . . . . . . . . .  19
+   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  19
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  20
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  20
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  22
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
 
 1.  Introduction
 
@@ -104,15 +105,17 @@ Table of Contents
    authorization server with the necessary keying material to establish
    a DTLS session.  The communication between client and authorization
    server may also be secured with DTLS.  This specification supports
-   DTLS with Raw Public Keys (RPK) [RFC7250] and with Pre-Shared Keys
-   (PSK) [RFC4279].
 
 
 
-Gerdes, et al.           Expires October 9, 2020                [Page 2]
+
+Gerdes, et al.          Expires October 10, 2020                [Page 2]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
+
+   DTLS with Raw Public Keys (RPK) [RFC7250] and with Pre-Shared Keys
+   (PSK) [RFC4279].
 
    The DTLS handshake requires the client and server to prove that they
    can use certain keying material.  In the RPK mode, the client proves
@@ -159,16 +162,16 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    how C can use CoAP over DTLS to retrieve an access token from the
    authorization server (AS) for a protected resource hosted on the
    resource server.  As specified in Section 6.7 of
-   [I-D.ietf-ace-oauth-authz], use of DTLS for one or both of these
-   interactions is completely independent
 
 
 
-
-Gerdes, et al.           Expires October 9, 2020                [Page 3]
+Gerdes, et al.          Expires October 10, 2020                [Page 3]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
+
+   [I-D.ietf-ace-oauth-authz], use of DTLS for one or both of these
+   interactions is completely independent
 
    This profile requires the client to retrieve an access token for
    protected resource(s) it wants to access on RS as specified in
@@ -218,10 +221,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-
-
-
-Gerdes, et al.           Expires October 9, 2020                [Page 4]
+Gerdes, et al.          Expires October 10, 2020                [Page 4]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -277,14 +277,15 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.           Expires October 9, 2020                [Page 5]
+Gerdes, et al.          Expires October 10, 2020                [Page 5]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
 
    o  Furthermore, the client MUST verify that the authorization server
       is authorized to provide access tokens (including authorization
-      information) about the resource server to the client.
+      information) about the resource server to the client, and that
+      this authorization information about the AS is still valid.
 
    o  Also, the authorization server MUST securely have obtained keying
       material for the client, and obtained authorization rules approved
@@ -332,8 +333,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-
-Gerdes, et al.           Expires October 9, 2020                [Page 6]
+Gerdes, et al.          Expires October 10, 2020                [Page 6]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.           Expires October 9, 2020                [Page 7]
+Gerdes, et al.          Expires October 10, 2020                [Page 7]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -438,26 +438,21 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    To be consistent with [RFC7252] which allows for shortened MAC tags
    in constrained environments, an implementation that supports the RPK
    mode of this profile MUST at least support the ciphersuite
-   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251] with curve25519 (cf.
-   [RFC8032], [RFC8422]).
+   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251].  As discussed in
+   [RFC7748], new ECC curves have been defined recently that are
+   considered superior to the so-called NIST curves.  This specification
+   therefore mandates implementation support for curve25519 (cf.
 
 
 
-
-
-Gerdes, et al.           Expires October 9, 2020                [Page 8]
+Gerdes, et al.          Expires October 10, 2020                [Page 8]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
 
-   Note:  According to [RFC7252], CoAP implementations MUST support the
-      ciphersuite TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251] and the
-      NIST P-256 curve.  As discussed in [RFC7748], new ECC curves have
-      been defined recently that are considered superior to the so-
-      called NIST curves.  The curve that is mandatory to implement in
-      this specification is said to be efficient and less dangerous
-      regarding implementation errors than the secp256r1 curve mandated
-      in [RFC7252].
+   [RFC8032], [RFC8422]) as this curve said to be efficient and less
+   dangerous regarding implementation errors than the secp256r1 curve
+   mandated in [RFC7252].
 
    RS MUST check if the access token is still valid, if RS is the
    intended destination (i.e., the audience) of the token, and if the
@@ -498,19 +493,19 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    authorizes the client, it returns an AS-to-Client response.  If the
    profile parameter is present, it is set to "coap_dtls".  AS MUST
    ascertain that the access token is generated for the resource server
-
-
-
-Gerdes, et al.           Expires October 9, 2020                [Page 9]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    that C wants to communicate with.  Also, AS MUST protect the
    integrity of the access token.  If the token contains confidential
    data such as the symmetric key, the confidentiality of the token MUST
    also be protected.  Depending on the requested token type and
    algorithm in the access token request, the authorization server adds
+
+
+
+Gerdes, et al.          Expires October 10, 2020                [Page 9]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
    access Information to the response that provides the client with
    sufficient information to setup a DTLS channel with the resource
    server.  AS adds a "cnf" parameter to the access information carrying
@@ -538,30 +533,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    information is transferred as a CBOR data structure as specified in
    [I-D.ietf-ace-oauth-authz].
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 10]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
       2.01 Created
       Content-Format: application/ace+cbor
       Max-Age: 85800
@@ -582,6 +553,14 @@ Internet-Draft                  CoAP-DTLS                     April 2020
       }
 
         Figure 6: Example Access Token Response, symmetric PoP-key
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 10]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    The access token also comprises a "cnf" claim.  This claim usually
    contains a "COSE_Key" object that carries either the symmetric key
@@ -605,18 +584,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    A response that declines any operation on the requested resource is
    constructed according to Section 5.2 of [RFC6749], (cf.
    Section 5.6.3. of [I-D.ietf-ace-oauth-authz]).
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 11]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
 
        4.00 Bad Request
        Content-Format: application/ace+cbor
@@ -643,6 +610,14 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    any information about the key derivation key or other secret keys
    shared between AS and resource server.
 
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 11]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
    In order to generate a new symmetric key to be used by client and
    resource server, the AS generates a key identifier and uses the key
    derivation key shared with the resource server to derive the
@@ -667,13 +642,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    o  salt is the empty byte string
 
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 12]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    o  IKM, the input keying material, is the key derivation key as
       defined above
 
@@ -695,6 +663,17 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    o  L is the size of the symmetric key in bytes.
 
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 12]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
 3.3.1.  DTLS Channel Setup Between C and RS
 
    When a client receives an access token response from an authorization
@@ -708,7 +687,10 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    channel with a resource server.  To use DTLS with pre-shared keys,
    the client follows the PSK key exchange algorithm specified in
    Section 2 of [RFC4279] using the key conveyed in the "cnf" parameter
-   of the AS response as PSK when constructing the premaster secret.
+   of the AS response as PSK when constructing the premaster secret.  To
+   be consistent with the recommendations in [RFC7252] a client is
+   expected to offer at least the ciphersuite TLS_PSK_WITH_AES_128_CCM_8
+   [RFC6655] to the resource server.
 
    In PreSharedKey mode, the knowledge of the shared secret by the
    client and the resource server is used for mutual authentication
@@ -716,53 +698,38 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    determine the shared secret from the access token.  Following the
    general ACE authorization framework, the client can upload the access
    token to the resource server's authz-info resource before starting
-   the DTLS handshake.  Alternatively, the client MAY provide the most
-   recent access token in the "psk_identity" field of the
+   the DTLS handshake.
+
+   As an alternative to the access token upload, the client can provide
+   the most recent access token in the "psk_identity" field of the
    ClientKeyExchange message.  To do so, the client MUST treat the
    contents of the "access_token" field from the AS-to-Client response
-   as opaque data and not perform any re-coding.
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 13]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
-   Note:  As stated in Section 4.2 of [RFC7925], the PSK identity should
-      be treated as binary data in the Internet of Things space and not
-      assumed to have a human-readable form of any sort.
+   as opaque data as specified in Section 4.2 of [RFC7925] and not
+   perform any re-coding.  This allows the resource server to retrieve
+   the shared secret directly from the "cnf" claim of the access token.
 
    If a resource server receives a ClientKeyExchange message that
-   contains a "psk_identity" with a length greater than zero, it uses
-   the contents as an index for its key store (i.e., treat the contents
-   as a key identifier).  The resource server MUST check if it has one
-   or more access tokens that are associated with the specified key.
-
-   If no key with a matching identifier is found, the resource server
-   MAY process the contents of the "psk_identity" field as access token
-   that is stored with the authorization information endpoint, before
+   contains a "psk_identity" with a length greater than zero, it MUST
+   process the contents of the "psk_identity" field as access token that
+   is stored with the authorization information endpoint, before
    continuing the DTLS handshake.  If the contents of the "psk_identity"
    do not yield a valid access token for the requesting client, the
    resource server aborts the DTLS handshake with an "illegal_parameter"
    alert.
-
-   Note1:  As a resource server cannot provide a client with a
-      meaningful PSK identity hint in response to the client's
-      ClientHello message, the resource server SHOULD NOT send a
-      ServerKeyExchange message.
-
-   Note2:  According to [RFC7252], CoAP implementations MUST support the
-      ciphersuite TLS_PSK_WITH_AES_128_CCM_8 [RFC6655].  A client is
-      therefore expected to offer at least this ciphersuite to the
-      resource server.
 
    When RS receives an access token, RS MUST check if the access token
    is still valid, if RS is the intended destination (i.e., the audience
    of the token), and if the token was issued by an authorized AS.  This
    specification assumes that the access token is a PoP token as
    described in [I-D.ietf-ace-oauth-authz] unless specifically stated
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 13]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
    otherwise.  Therefore, the access token is bound to a symmetric PoP
    key that is used as shared secret between the client and the resource
    server.
@@ -773,18 +740,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    to determine the actual secret when no explicit "kid" was provided in
    the "psk_identity" field.  If key derivation is used, the RS uses the
    "COSE_KDF_Context" information as described above.
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 14]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
 
 3.4.  Resource Access
 
@@ -806,15 +761,16 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    Any request that the resource server receives on a DTLS channel that
    is tied to an access token via its keying material MUST be checked
-   against the following authorization rules.  The resource server MUST
-   check for every request if the access token is still valid.  Incoming
-   CoAP requests that are not authorized with respect to any access
-   token that is associated with the client MUST be rejected by the
-   resource server with 4.01 response.  The response MAY include AS
-   Request Creation Hints as described in Section 5.1.1 of
-   [I-D.ietf-ace-oauth-authz].
+   against the authorization rules that can be determined with the
+   access token.  The resource server MUST check for every request if
+   the access token is still valid.  If the token has expired, the
+   resource server MUST remove it.  Incoming CoAP requests that are not
+   authorized with respect to any access token that is associated with
+   the client MUST be rejected by the resource server with 4.01
+   response.  The response MAY include AS Request Creation Hints as
+   described in Section 5.1.1 of [I-D.ietf-ace-oauth-authz].
 
-   The resource server SHOULD treat an incoming CoAP request as
+   The resource server MUST only accept an incoming CoAP request as
    authorized if the following holds:
 
    1.  The message was received on a secure channel that has been
@@ -822,6 +778,13 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    2.  The authorization information tied to the sending client is
        valid.
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 14]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    3.  The request is destined for the resource server.
 
@@ -835,13 +798,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    thus authorized MUST be rejected according to Section 5.8.2 of
    [I-D.ietf-ace-oauth-authz]
 
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 15]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    1.  with response code 4.03 (Forbidden) when the resource URI
        specified in the request is not covered by the authorization
        information, and
@@ -850,14 +806,12 @@ Internet-Draft                  CoAP-DTLS                     April 2020
        URI specified in the request covered by the authorization
        information but not the requested action.
 
-   The client cannot always know a priori if an Authorized Resource
-   Request will succeed.  It MUST check the validity of its keying
-   material before sending a request or processing a response.  If the
-   client repeatedly gets error responses containing AS Request Creation
-   Hints (cf.  Section 5.1.2 of [I-D.ietf-ace-oauth-authz] as response
-   to its requests, it SHOULD request a new access token from the
-   authorization server in order to continue communication with the
-   resource server.
+   The client MUST ascertain that its keying material is still valid
+   before sending a request or processing a response.  If the client
+   gets an error response containing AS Request Creation Hints (cf.
+   Section 5.1.2 of [I-D.ietf-ace-oauth-authz] as response to its
+   requests, it SHOULD request a new access token from the authorization
+   server in order to continue communication with the resource server.
 
    Unauthorized requests that have been received over a DTLS session
    SHOULD be treated as non-fatal by the RS, i.e., the DTLS session
@@ -865,12 +819,28 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 4.  Dynamic Update of Authorization Information
 
-   The client can update the authorization information stored at the
-   resource server at any time without changing an established DTLS
-   session.  To do so, the Client requests a new access token from the
-   authorization server for the intended action on the respective
+   Resource servers must only use a new access token to update the
+   authorization information for a DTLS session if the keying material
+   that is bound to the token is the same that was used in the DTLS
+   handshake.  By associating the access tokens with the identifier of
+   an existing DTLS session, the authorization information can be
+   updated without changing the cryptographic keys for the DTLS
+   communication between the client and the resource server, i.e. an
+   existing session can be used with updated permissions.
+
+   The client can therefore update the authorization information stored
+   at the resource server at any time without changing an established
+   DTLS session.  To do so, the Client requests a new access token from
+   the authorization server for the intended action on the respective
    resource and uploads this access token to the authz-info resource on
    the resource server.
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 15]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    Figure 9 depicts the message flow where the C requests a new access
    token after a security association between the client and the
@@ -889,23 +859,8 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    existing authorization information, it MUST include the specified
    "kid" parameter in this access token.  A resource server MUST replace
    the authorization information of any existing DTLS session that is
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 16]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    identified by this key identifier with the updated authorization
    information.
-
-   Note:  By associating the access tokens with the identifier of an
-      existing DTLS session, the authorization information can be
-      updated without changing the cryptographic keys for the DTLS
-      communication between the client and the resource server, i.e. an
-      existing session can be used with updated permissions.
 
       C                            RS                   AS
       | <===== DTLS channel =====> |                     |
@@ -928,17 +883,28 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 5.  Token Expiration
 
-   DTLS sessions that have been established in accordance with this
-   profile are always tied to a specific access token.  As this token
-   may become invalid at any time (e.g. because it has expired), the
-   session may become useless at some point.  A resource server
-   therefore MUST terminate existing DTLS sessions after the access
-   token for this session has been deleted.
+   The resource server MUST delete access tokens that are no longer
+   valid.  DTLS associations that have been setup in accordance with
+   this profile are always tied to specific tokens (which may be
+   exchanged with a dynamic update as described in Section 4).  As
+   tokens may become invalid at any time (e.g. because they have
+   expired), the association may become useless at some point.  A
+   resource server therefore MUST terminate existing DTLS association
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 16]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
+   after the last access token associated with this association has
+   expired.
 
    As specified in Section 5.8.3 of [I-D.ietf-ace-oauth-authz], the
    resource server MUST notify the client with an error response with
    code 4.01 (Unauthorized) for any long running request before
-   terminating the session.
+   terminating the association.
 
 6.  Secure Communication with AS
 
@@ -946,14 +912,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    [I-D.ietf-ace-oauth-authz]), the requesting entity (RS and/or client)
    and the AS communicate via the token endpoint or introspection
    endpoint.  The use of CoAP and DTLS for this communication is
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 17]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    RECOMMENDED in this profile, other protocols (such as HTTP and TLS,
    or CoAP and OSCORE [RFC8613]) MAY be used instead.
 
@@ -969,12 +927,52 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    This document specifies a profile for the Authentication and
    Authorization for Constrained Environments (ACE) framework
    [I-D.ietf-ace-oauth-authz].  As it follows this framework's general
-   approach, the general security considerations from section 6 also
-   apply to this profile.
+   approach, the general security considerations from section 6 of
+   [I-D.ietf-ace-oauth-authz] also apply to this profile.
+
+   The authorization server must ascertain that the keying material for
+   the client that it provides to the resource server actually is
+   associated with this client.  Malicious clients may hand over access
+   tokens containing their own access permissions to other entities.
+   This problem cannot be completely eliminated.  Nevertheless, in RPK
+   mode it should not be possible for clients to request access tokens
+   for arbitrary public keys, since that would allow the client to relay
+   tokens without the need to share its own credentials with others.
+   The authorization server therefore should at some point validate that
+   the client can actually use the private key corresponding to the
+   client's public key.
 
    When using pre-shared keys provisioned by the AS, the security level
    depends on the randomness of PSK, and the security of the TLS cipher
-   suite and key exchange algorithm.
+   suite and key exchange algorithm.  As this specification targets at
+   constrained environments, message payloads exchanged between the
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 17]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
+   client and the resource server are expected to be small and rare.
+   CoAP [RFC7252] mandates the implementation of cipher suites with
+   abbreviated, 8-byte tags for message integrity protection.  For
+   consistency, this profile requires implementation of the same cipher
+   suites.  For application scenarios where the cost of full-width
+   authentication tags is low compared to the overall amount of data
+   being transmitted, the use of cipher suites with 16-byte integrity
+   protection tags is preferred.
+
+   The PSK mode of this profile offers a distribution mechanism to
+   convey authorization tokens together with a shared secret to a client
+   and a server.  As this specification aims at constrained devices and
+   uses CoAP [RFC7252] as transfer protocol, at least the ciphersuite
+   TLS_PSK_WITH_AES_128_CCM_8 [RFC6655] should be supported.  The access
+   tokens and the corresponding shared secrets generated by the
+   authorization server are expected to be sufficiently short-lived to
+   provide similar forward-secrecy properties to using ephemeral Diffie-
+   Hellman (DHE) key exchange mechanisms.  For longer-lived access
+   tokens, DHE ciphersuites should be used.
 
    Constrained devices that use DTLS [RFC6347] are inherently vulnerable
    to Denial of Service (DoS) attacks as the handshake protocol requires
@@ -995,6 +993,49 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    others, the resulting permissions may offer insufficient protection.
    Developers SHOULD avoid using multiple access tokens for a client.
 
+   Even when a single access token per client is used, an attacker could
+   compromise the dynamic update mechanism for existing DTLS connections
+   by delaying or reordering packets destined for the authz-info
+   endpoint.  Thus, the order in which operations occur at the resource
+   server (and thus which authorization info is used to process a given
+   client request) cannot be guaranteed.  Especially in the presence of
+   later-issued access tokens that reduce the client's permissions from
+   the initial access token, it is impossible to guarantee that the
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 18]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
+   reduction in authorization will take effect prior to the expiration
+   of the original token.
+
+7.1.  Out-of-Band Configuration
+
+   To communicate securely, the authorization server, the client and the
+   resource server require certain information that must be exchanged
+   outside the protocol flow described in this document.  The
+   authorization server must have obtained authorization information
+   concerning the client and the resource server that is approved by the
+   resource owner as well as corresponding keying material.  The
+   resource server must have received authorization information approved
+   by the resource owner concerning its authorization managers and the
+   respective keying material.  The client must have obtained
+   authorization information concerning the authorization server
+   approved by its owner as well as the corresponding keying material.
+   Also, the client's owner must have approved of the client's
+   communication with the resource server.  The client and the
+   authorization server must have obtained a common understanding how
+   this resource server is identified to ensure that the client obtains
+   access token and keying material for the correct resource server.  If
+   the client is provided with a raw public key for the resource server,
+   it must be ascertained to which resource server (which identifier and
+   authorization information) the key is associated.  All authorization
+   information and keying material must be kept up to date.
+
 8.  Privacy Considerations
 
    This privacy considerations from section 7 of the
@@ -1002,26 +1043,28 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    An unprotected response to an unauthorized request may disclose
    information about the resource server and/or its existing
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 18]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    relationship with the client.  It is advisable to include as little
    information as possible in an unencrypted response.  When a DTLS
-   session between a known client and the resource server already
-   exists, more detailed information MAY be included with an error
-   response to provide the client with sufficient information to react
-   on that particular error.
+   session between an authenticated client and the resource server
+   already exists, more detailed information MAY be included with an
+   error response to provide the client with sufficient information to
+   react on that particular error.
 
    Also, unprotected requests to the resource server may reveal
    information about the client, e.g., which resources the client
    attempts to request or the data that the client wants to provide to
    the resource server.  The client SHOULD NOT send confidential data in
    an unprotected request.
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 19]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    Note that some information might still leak after DTLS session is
    established, due to observable message sizes, the source, and the
@@ -1058,14 +1101,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    Ludwig Seitz worked on this document as part of the CelticNext
    projects CyberWI, and CRITISEC with funding from Vinnova.
 
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 19]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
 11.  References
 
 11.1.  Normative References
@@ -1075,6 +1110,17 @@ Internet-Draft                  CoAP-DTLS                     April 2020
               Tschofenig, "Proof-of-Possession Key Semantics for CBOR
               Web Tokens (CWTs)", draft-ietf-ace-cwt-proof-of-
               possession-11 (work in progress), October 2019.
+
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 20]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    [I-D.ietf-ace-oauth-authz]
               Seitz, L., Selander, G., Wahlstroem, E., Erdtman, S., and
@@ -1112,16 +1158,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
               Layer Security (DTLS)", RFC 7250, DOI 10.17487/RFC7250,
               June 2014, <https://www.rfc-editor.org/info/rfc7250>.
 
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 20]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    [RFC7251]  McGrew, D., Bailey, D., Campagna, M., and R. Dugal, "AES-
               CCM Elliptic Curve Cryptography (ECC) Cipher Suites for
               TLS", RFC 7251, DOI 10.17487/RFC7251, June 2014,
@@ -1131,6 +1167,16 @@ Internet-Draft                  CoAP-DTLS                     April 2020
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/info/rfc7252>.
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 21]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    [RFC7925]  Tschofenig, H., Ed. and T. Fossati, "Transport Layer
               Security (TLS) / Datagram Transport Layer Security (DTLS)
@@ -1168,16 +1214,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
 
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 21]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
@@ -1186,6 +1222,17 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
               May 2018, <https://www.rfc-editor.org/info/rfc8392>.
+
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 22]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
 
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
@@ -1220,20 +1267,6 @@ Authors' Addresses
    Email: bergmann@tzi.org
 
 
-
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires October 9, 2020               [Page 22]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    Carsten Bormann
    Universitaet Bremen TZI
    Postfach 330440
@@ -1248,6 +1281,13 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    Ericsson AB
 
    Email: goran.selander@ericsson.com
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 23]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
 
 
    Ludwig Seitz
@@ -1285,4 +1325,20 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.           Expires October 9, 2020               [Page 23]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires October 10, 2020               [Page 24]
