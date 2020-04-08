@@ -704,7 +704,16 @@ the RS, i.e., the DTLS session SHOULD be kept alive until the associated access 
 
 # Dynamic Update of Authorization Information {#update}
 
-The client can update the authorization information stored at the
+Resource servers must only use a new access token to update the
+authorization information for a DTLS session if the keying material
+that is bound to the token is the same that was used in the DTLS
+handshake. By associating the access tokens with the identifier of an
+existing DTLS session, the authorization information can be updated
+without changing the cryptographic keys for the DTLS communication
+between the client and the resource server, i.e. an existing session
+can be used with updated permissions.
+
+The client can therefore update the authorization information stored at the
 resource server at any time without changing an established DTLS
 session. To do so, the Client requests a
 new access token from the authorization server 
@@ -732,13 +741,6 @@ parameter in this access token. A resource server MUST replace the
 authorization information of any existing DTLS session that is identified
 by this key identifier with the updated authorization information.
 
-Note: 
-: By associating the access tokens with the identifier of an
-  existing DTLS session, the authorization information can be updated
-  without changing the cryptographic keys for the DTLS communication
-  between the client and the resource server, i.e. an existing session
-  can be used with updated permissions.
-
 ~~~~~~~~~~~~~~~~~~~~~~~
 
    C                            RS                   AS
@@ -762,16 +764,19 @@ Note:
 
 # Token Expiration {#teardown}
 
-DTLS sessions that have been established in accordance with this
-profile are always tied to a specific access token. As this
-token may become invalid at any time (e.g. because it has expired), the session may become useless at some point. A resource
-server therefore MUST terminate existing DTLS sessions after
-the access token for this session has been deleted.
+The resource server MUST delete access tokens that are no longer
+valid.  DTLS associations that have been setup in accordance with
+this profile are always tied to specific tokens (which may be
+exchanged with a dynamic update as described in Section 4). As tokens
+may become invalid at any time (e.g. because they have expired), the
+association may become useless at some point.  A resource server therefore
+MUST terminate existing DTLS association after the last access token
+associated with this association has expired.
 
 As specified in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}},
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
-terminating the session.
+terminating the association.
 
 # Secure Communication with AS {#as-commsec}
 
