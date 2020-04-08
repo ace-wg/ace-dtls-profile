@@ -858,6 +858,17 @@ the resulting permissions may offer insufficient
 protection. Developers SHOULD avoid using multiple access
 tokens for a client.
 
+Even when a single access token per client is used, an attacker could
+compromise the dynamic update mechanism for existing DTLS connections
+by delaying or reordering packets destined for the authz-info
+endpoint. Thus, the order in which operations occur at the resource
+server (and thus which authorization info is used to process a given
+client request) cannot be guaranteed.  Especially in the presence of
+later-issued access tokens that reduce the client's permissions from
+the initial access token, it is impossible to guarantee that the
+reduction in authorization will take effect prior to the expiration of
+the original token.
+
 # Privacy Considerations
 
 This privacy considerations from section
