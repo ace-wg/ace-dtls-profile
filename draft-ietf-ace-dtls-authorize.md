@@ -595,7 +595,10 @@ establishment of a new DTLS channel with a resource server. To use
 DTLS with pre-shared keys, the client follows the PSK key exchange
 algorithm specified in Section 2 of {{RFC4279}} using the key conveyed
 in the `cnf` parameter of the AS response as PSK when constructing the
-premaster secret.
+premaster secret. To be consistent with the recommendations in
+{{RFC7252}} a client is expected to offer at least the
+ciphersuite TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}}
+to the resource server.
 
 In PreSharedKey mode, the knowledge of the shared secret by the client
 and the resource server is used for mutual authentication between both
@@ -603,39 +606,24 @@ peers. Therefore, the resource server must be able to determine the
 shared secret from the access token. Following the general ACE
 authorization framework, the client can upload the access token to the
 resource server's authz-info resource before starting the DTLS
-handshake. Alternatively, the client MAY provide the most recent
-access token in the `psk_identity` field of the ClientKeyExchange
-message. To do so, the client MUST treat the contents of the
-`access_token` field from the AS-to-Client response as opaque data and
-not perform any re-coding.
+handshake.
 
-Note: 
-: As stated in Section 4.2 of {{RFC7925}}, the PSK identity should
-be treated as binary data in the Internet of Things space and not
-assumed to have a human-readable form of any sort.
+As an alternative to the access token upload, the client can provide
+the most recent access token in the `psk_identity` field of the
+ClientKeyExchange message. To do so, the client MUST treat the
+contents of the `access_token` field from the AS-to-Client response as
+opaque data as specified in Section 4.2 of [RFC7925] and not perform
+any re-coding. This allows the resource server to retrieve the shared
+secret directly from the `cnf` claim of the access token.
 
 If a resource server receives a ClientKeyExchange message that
-contains a `psk_identity` with a length greater than zero, it uses the
-contents as an index for its key store (i.e., treat the contents as a key
-identifier). The resource server MUST check if it has one or more
-access tokens that are associated with the specified key.
-
-If no key with a matching identifier is found, the
-resource server MAY process the contents of the `psk_identity`
-field as access token that is stored with the authorization
-information endpoint, before continuing the DTLS handshake. If the
-contents of the `psk_identity` do not yield a valid access
-token for the requesting client, the resource server aborts the DTLS handshake
-with an `illegal_parameter` alert.
-
-Note1: 
-: As a resource server cannot provide a client with a meaningful PSK identity hint in response to the client's ClientHello message, the resource server
-SHOULD NOT send a ServerKeyExchange message.
-
-Note2:
-: According to {{RFC7252}}, CoAP implementations MUST support the
-  ciphersuite TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}}. A client is
-  therefore expected to offer at least this ciphersuite to the resource server.
+contains a `psk_identity` with a length greater than zero, it MUST
+process the contents of the `psk_identity` field as access token that
+is stored with the authorization information endpoint, before
+continuing the DTLS handshake. If the contents of the `psk_identity`
+do not yield a valid access token for the requesting client, the
+resource server aborts the DTLS handshake with an `illegal_parameter`
+alert.
 
 When RS receives an access token, RS MUST check if the access token is
 still valid, if RS is the intended destination (i.e., the audience of
