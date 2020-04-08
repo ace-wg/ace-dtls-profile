@@ -669,8 +669,8 @@ rejected by the resource server with 4.01 response. The response
 MAY include AS Request Creation Hints as described in
 Section 5.1.1 of {{I-D.ietf-ace-oauth-authz}}.
 
-The resource server SHOULD treat an incoming CoAP request as authorized
-if the following holds:
+The resource server MUST only accept an incoming CoAP request as
+authorized if the following holds:
 
 1. The message was received on a secure channel that has been
    established using the procedure defined in this document.
@@ -691,10 +691,9 @@ rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
    specified in the request covered by the authorization information but
    not the requested action.
 
-The client cannot always know a priori if an Authorized Resource
-Request will succeed. It MUST check the validity of its
-keying material before sending a request or processing a response.
-If the client repeatedly gets error responses
+The client MUST ascertain that its keying material is still valid
+before sending a request or processing a response.
+If the client gets an error response
 containing AS Request Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
