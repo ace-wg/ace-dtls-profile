@@ -870,6 +870,29 @@ the initial access token, it is impossible to guarantee that the
 reduction in authorization will take effect prior to the expiration of
 the original token.
 
+## Out-of-Band Configuration
+
+To communicate securely, the authorization server, the client and the
+resource server require certain information that must be exchanged
+outside the protocol flow described in this document. The
+authorization server must have obtained authorization information
+concerning the client and the resource server that is approved by the
+resource owner as well as corresponding keying material. The resource
+server must have received authorization information approved by the
+resource owner concerning its authorization managers and the
+respective keying material. The client must have obtained
+authorization information concerning the authorization server approved
+by its owner as well as the corresponding keying material. Also, the
+client's owner must have approved of the client's communication with
+the resource server. The client and the authorization server must have
+obtained a common understanding how this resource server is identified
+to ensure that the client obtains access token and keying material for
+the correct resource server. If the client is provided with a raw
+public key for the resource server, it must be ascertained to which
+resource server (which identifier and authorization information) the
+key is associated.  All authorization information and keying material
+must be kept up to date.
+
 # Privacy Considerations
 
 This privacy considerations from section
@@ -878,7 +901,7 @@ This privacy considerations from section
 An unprotected response to an unauthorized request may disclose
 information about the resource server and/or its existing relationship
 with the client. It is advisable to include as little information as
-possible in an unencrypted response. When a DTLS session between a known
+possible in an unencrypted response. When a DTLS session between an authenticated
 client and the resource server already exists, more detailed
 information MAY be included with an error response to provide the
 client with sufficient information to react on that particular error.
