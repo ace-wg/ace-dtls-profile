@@ -814,6 +814,18 @@ Authorization for Constrained Environments (ACE) framework
 approach, the general security considerations from section
 6 also apply to this profile.
 
+The authorization server must ascertain that the keying material for
+the client that it provides to the resource server actually is
+associated with this client.  Malicious clients may hand over access
+tokens containing their own access permissions to other entities. This
+problem cannot be completely eliminated. Nevertheless, in RPK mode it
+should not be possible for clients to request access tokens for
+arbitrary public keys, since that would allow the client to relay
+tokens without the need to share its own credentials with others. The
+authorization server therefore should at some point validate that the
+client can actually use the private key corresponding to the client's
+public key.
+
 When using pre-shared keys provisioned by the AS, the security level depends on the randomness of PSK, and the security of the TLS cipher suite and key exchange algorithm.
 
 Constrained devices that use DTLS {{RFC6347}} are inherently
