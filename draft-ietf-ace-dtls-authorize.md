@@ -389,17 +389,12 @@ To be consistent with {{RFC7252}} which allows for shortened MAC tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile MUST at
 least support the ciphersuite
-TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}} with curve25519
-(cf. {{RFC8032}}, {{RFC8422}}).
-
-Note:
-: According to {{RFC7252}},
-  CoAP implementations MUST support the
-  ciphersuite TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}
-  and the NIST P-256 curve. As discussed in {{RFC7748}}, new ECC
+TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}.
+As discussed in {{RFC7748}}, new ECC
   curves have been defined recently that are considered superior to
-  the so-called NIST curves. The curve that is mandatory to implement
-  in this specification is said to be efficient and less dangerous
+  the so-called NIST curves. This specification therefore mandates
+  implementation support for curve25519 (cf. {{RFC8032}}, {{RFC8422}})
+  as this curve said to be efficient and less dangerous
   regarding implementation errors than the secp256r1 curve mandated in
   {{RFC7252}}.
 
