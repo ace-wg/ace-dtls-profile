@@ -660,8 +660,8 @@ server how access tokens are ordered.
 
 Any request that the resource server receives on a DTLS channel that
 is tied to an access token via its keying material 
-MUST be checked against the following authorization rules. The resource
-server
+MUST be checked against the authorization rules that can be determined
+with the access token. The resource server
 MUST check for every request if the access token is still valid.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
