@@ -263,7 +263,8 @@ The following requirements in alignment with Section 6.5 of
   with AS.
 * Furthermore, the client MUST verify that the authorization server is
   authorized to provide access tokens (including authorization
-  information) about the resource server to the client.
+  information) about the resource server to the client, and that
+  this authorization information about the AS is still valid.
 * Also, the authorization server MUST securely have obtained keying
   material for the client, and obtained authorization rules approved
   by the resource owner (RO) concerning the client and the resource
