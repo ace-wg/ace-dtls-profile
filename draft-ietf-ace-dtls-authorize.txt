@@ -5,12 +5,12 @@
 ACE Working Group                                              S. Gerdes
 Internet-Draft                                               O. Bergmann
 Intended status: Standards Track                              C. Bormann
-Expires: October 10, 2020                        Universitaet Bremen TZI
+Expires: October 11, 2020                        Universitaet Bremen TZI
                                                              G. Selander
                                                              Ericsson AB
                                                                 L. Seitz
                                                                Combitech
-                                                          April 08, 2020
+                                                          April 09, 2020
 
 
 Datagram Transport Layer Security (DTLS) Profile for Authentication and
@@ -21,12 +21,12 @@ Abstract
 
    This specification defines a profile of the ACE framework that allows
    constrained servers to delegate client authentication and
-   authorization.  The protocol relies on DTLS for communication
-   security between entities in a constrained network using either raw
-   public keys or pre-shared keys.  A resource-constrained server can
-   use this protocol to delegate management of authorization information
-   to a trusted host with less severe limitations regarding processing
-   power and memory.
+   authorization.  The protocol relies on DTLS version 1.2 for
+   communication security between entities in a constrained network
+   using either raw public keys or pre-shared keys.  A resource-
+   constrained server can use this protocol to delegate management of
+   authorization information to a trusted host with less severe
+   limitations regarding processing power and memory.
 
 Status of This Memo
 
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 10, 2020.
+   This Internet-Draft will expire on October 11, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gerdes, et al.          Expires October 10, 2020                [Page 1]
+Gerdes, et al.          Expires October 11, 2020                [Page 1]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -72,7 +72,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   4
    3.  Protocol Flow . . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Communication between C and AS  . . . . . . . . . . . . .   5
      3.2.  RawPublicKey Mode . . . . . . . . . . . . . . . . . . . .   6
@@ -97,9 +97,9 @@ Table of Contents
 
    This specification defines a profile of the ACE framework
    [I-D.ietf-ace-oauth-authz].  In this profile, a client and a resource
-   server use CoAP [RFC7252] over DTLS [RFC6347] to communicate.  The
-   client obtains an access token, bound to a key (the proof-of-
-   possession key), from an authorization server to prove its
+   server use CoAP [RFC7252] over DTLS version 1.2 [RFC6347] to
+   communicate.  The client obtains an access token, bound to a key (the
+   proof-of-possession key), from an authorization server to prove its
    authorization to access protected resources hosted by the resource
    server.  Also, the client and the resource server are provided by the
    authorization server with the necessary keying material to establish
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gerdes, et al.          Expires October 10, 2020                [Page 2]
+Gerdes, et al.          Expires October 11, 2020                [Page 2]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -117,14 +117,23 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    DTLS with Raw Public Keys (RPK) [RFC7250] and with Pre-Shared Keys
    (PSK) [RFC4279].
 
-   The DTLS handshake requires the client and server to prove that they
-   can use certain keying material.  In the RPK mode, the client proves
-   with the DTLS handshake that it can use the RPK bound to the token
-   and the server shows that it can use a certain RPK.  The access token
-   must be presented to the resource server.  For the RPK mode, the
-   access token needs to be uploaded to the resource server before the
-   handshake is initiated, as described in Section 5.8.1 of the ACE
-   framework [I-D.ietf-ace-oauth-authz].
+   The ACE framework requires that client and server mutually
+   authenticate each other before any application data is exchanged.
+   DTLS enables mutual authentication if both client and server prove
+   their ability to use certain keying material in the DTLS handshake.
+   The authorization server assists in this process on the server side
+   by incorporating keying material (or information about keying
+   material) into the access token, which is considered a "proof of
+   possession" token.
+
+   In the RPK mode, the client proves that it can use the RPK bound to
+   the token and the server shows that it can use a certain RPK.
+
+   The resource server needs access to the token in order to complete
+   this exchange.  For the RPK mode, the client must upload the access
+   token to the resource server before initiating the handshake, as
+   described in Section 5.8.1 of the ACE framework
+   [I-D.ietf-ace-oauth-authz].
 
    In the PSK mode, client and server show with the DTLS handshake that
    they can use the keying material that is bound to the access token.
@@ -153,6 +162,14 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    authorization information endpoint as specified in
    [I-D.ietf-ace-oauth-authz].
 
+
+
+
+Gerdes, et al.          Expires October 11, 2020                [Page 3]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
 2.  Protocol Overview
 
    The CoAP-DTLS profile for ACE specifies the transfer of
@@ -162,14 +179,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    how C can use CoAP over DTLS to retrieve an access token from the
    authorization server (AS) for a protected resource hosted on the
    resource server.  As specified in Section 6.7 of
-
-
-
-Gerdes, et al.          Expires October 10, 2020                [Page 3]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
-
    [I-D.ietf-ace-oauth-authz], use of DTLS for one or both of these
    interactions is completely independent
 
@@ -209,6 +218,14 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    The access token returned by the authorization server can then be
    used by the client to establish a new DTLS session with the resource
    server.  When the client intends to use an asymmetric proof-of-
+
+
+
+Gerdes, et al.          Expires October 11, 2020                [Page 4]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
    possession key in the DTLS handshake with the resource server, the
    client MUST upload the access token to the authz-info resource, i.e.
    the authz-info endpoint, on the resource server before starting the
@@ -218,13 +235,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    MAY be used, or alternatively, the access token MAY instead be
    transferred in the DTLS ClientKeyExchange message (see
    Section 3.3.1).
-
-
-
-Gerdes, et al.          Expires October 10, 2020                [Page 4]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
 
    Figure 2 depicts the common protocol flow for the DTLS profile after
    the client C has retrieved the access token from the authorization
@@ -264,6 +274,14 @@ Internet-Draft                  CoAP-DTLS                     April 2020
    To retrieve an access token for the resource that the client wants to
    access, the client requests an access token from the authorization
    server.  Before the client can request the access token, the client
+
+
+
+Gerdes, et al.          Expires October 11, 2020                [Page 5]
+
+Internet-Draft                  CoAP-DTLS                     April 2020
+
+
    and the authorization server MUST establish a secure communication
    channel.  This profile assumes that the keying material to secure
    this communication channel has securely been obtained either by
@@ -273,14 +291,6 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
    o  The client MUST securely have obtained keying material to
       communicate with AS.
-
-
-
-
-Gerdes, et al.          Expires October 10, 2020                [Page 5]
-
-Internet-Draft                  CoAP-DTLS                     April 2020
-
 
    o  Furthermore, the client MUST verify that the authorization server
       is authorized to provide access tokens (including authorization
@@ -323,17 +333,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-Gerdes, et al.          Expires October 10, 2020                [Page 6]
+Gerdes, et al.          Expires October 11, 2020                [Page 6]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -389,7 +389,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020                [Page 7]
+Gerdes, et al.          Expires October 11, 2020                [Page 7]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -445,7 +445,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020                [Page 8]
+Gerdes, et al.          Expires October 11, 2020                [Page 8]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -501,7 +501,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020                [Page 9]
+Gerdes, et al.          Expires October 11, 2020                [Page 9]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -557,7 +557,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 10]
+Gerdes, et al.          Expires October 11, 2020               [Page 10]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -613,7 +613,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 11]
+Gerdes, et al.          Expires October 11, 2020               [Page 11]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -669,7 +669,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 12]
+Gerdes, et al.          Expires October 11, 2020               [Page 12]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -725,7 +725,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 13]
+Gerdes, et al.          Expires October 11, 2020               [Page 13]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -781,7 +781,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 14]
+Gerdes, et al.          Expires October 11, 2020               [Page 14]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -837,7 +837,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 15]
+Gerdes, et al.          Expires October 11, 2020               [Page 15]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -893,7 +893,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 16]
+Gerdes, et al.          Expires October 11, 2020               [Page 16]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -949,7 +949,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 17]
+Gerdes, et al.          Expires October 11, 2020               [Page 17]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 18]
+Gerdes, et al.          Expires October 11, 2020               [Page 18]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 19]
+Gerdes, et al.          Expires October 11, 2020               [Page 19]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 20]
+Gerdes, et al.          Expires October 11, 2020               [Page 20]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 21]
+Gerdes, et al.          Expires October 11, 2020               [Page 21]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 22]
+Gerdes, et al.          Expires October 11, 2020               [Page 22]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1285,7 +1285,7 @@ Authors' Addresses
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 23]
+Gerdes, et al.          Expires October 11, 2020               [Page 23]
 
 Internet-Draft                  CoAP-DTLS                     April 2020
 
@@ -1341,4 +1341,4 @@ Internet-Draft                  CoAP-DTLS                     April 2020
 
 
 
-Gerdes, et al.          Expires October 10, 2020               [Page 24]
+Gerdes, et al.          Expires October 11, 2020               [Page 24]
