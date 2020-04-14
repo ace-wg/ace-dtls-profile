@@ -362,7 +362,9 @@ previously sent access token request, as the request may specify the
 resource server with which the client wants to communicate.
 
 An example access token response from the authorization to the client
-is depicted in {{rpk-authorization-response-example}}.
+is depicted in {{rpk-authorization-response-example}}. Here, the
+contents of the `access_token` claim have been truncated to improve
+readability.
 Caching proxies process the Max-Age option in the CoAP response which
 has a default value of 60 seconds (Section 5.6.1 of [RFC7252]).
 The authorization server SHOULD
@@ -377,7 +379,7 @@ adjust the Max-Age option such that it does not exceed the
    {
      access_token : b64'SlAV32hkKG...
       (remainder of CWT omitted for brevity;
-      CWT contains clients RPK in the cnf claim)',
+      CWT contains the client's RPK in the cnf claim)',
      expires_in : 3600,
      rs_cnf     : {
        COSE_Key : {
@@ -495,7 +497,7 @@ An example access token request for an access token with a symmetric proof-of-po
 
 A corresponding example access token response is illustrated in {{at-response}}. 
 In this example, the authorization server returns a 2.01 response
-containing a new access token and information for the client,
+containing a new access token (truncated to improve readability) and information for the client,
 including the symmetric key in the cnf claim.  The information is
 transferred as a
 CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
