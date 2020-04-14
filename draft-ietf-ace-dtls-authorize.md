@@ -79,6 +79,7 @@ normative:
 informative:
   RFC5869:
   RFC6655:
+  RFC7662:
   RFC7748:
   RFC8032:
   RFC8392:
@@ -644,7 +645,9 @@ This specification assumes that the access token is a PoP token as
 described in {{I-D.ietf-ace-oauth-authz}} unless specifically stated
 otherwise. Therefore, the access token is bound to a symmetric PoP key
 that is used as shared secret between the client and the resource
-server.
+server. The resource server may use token introspection [RFC7662] on
+the access token to retrieve more information about the specific
+token. The use of introspection is out of scope for this specification.
 
 While the client can retrieve the shared secret from the contents of the
 `cnf` parameter in the AS-to-Client response, the resource server uses
