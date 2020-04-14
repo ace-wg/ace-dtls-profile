@@ -619,7 +619,24 @@ peers. Therefore, the resource server must be able to determine the
 shared secret from the access token. Following the general ACE
 authorization framework, the client can upload the access token to the
 resource server's authz-info resource before starting the DTLS
-handshake.
+handshake. The client then MUST include an access token that indicates
+the `kid` contained in the uploaded access token as `psk_identity`.
+To do so, it creates a `COSE_Key` structure with the `kid` that was
+conveyed in the `rs_cnf` claim in the token response from the AS and
+the key type `symmetric`.  This structure then is included as the only
+element in the `cnf` structure that is used as value for
+`psk_identity` as shown in {{psk_identity-cnf}}.
+
+~~~~~~~~~~
+{ cnf : {
+   COSE_Key : {
+      kty: symmetric,
+      kid : h'3d027833fc6267ce'
+    }
+  }
+}
+~~~~~~~~~~
+{: #psk_identity-cnf title="Access token containing a single kid parameter "}
 
 As an alternative to the access token upload, the client can provide
 the most recent access token in the `psk_identity` field of the
