@@ -351,7 +351,9 @@ parameter `rs_cnf` unless it is certain that the client already knows
 the public key of the resource server.
 The authorization server MUST ascertain that the RPK specified in `rs_cnf` belongs
 to the resource server that the client wants to communicate with. The authorization server MUST
-protect the integrity of the access token. If the access token contains
+protect the integrity of the access token such that the resource server
+can detect unauthorized changes.
+If the access token contains
 confidential data, the authorization server MUST also protect the confidentiality of the
 access token.
 
@@ -456,7 +458,8 @@ AS-to-Client response. If the profile parameter is present, it is set to
 `coap_dtls`. AS MUST ascertain that the access token is generated for
 the resource server that C wants to communicate with. Also, AS MUST
 protect the integrity of the access
-token. If the token contains confidential data such as the symmetric
+token to ensure that the resource server can detect unauthorized changes.
+If the token contains confidential data such as the symmetric
 key, the confidentiality of the token MUST also be
 protected. Depending on the requested token type and algorithm in the
 access token request, the authorization server adds access Information
