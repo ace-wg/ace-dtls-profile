@@ -158,6 +158,9 @@ Readers are expected to be familiar with the terms and concepts
 described in {{I-D.ietf-ace-oauth-authz}} and in {{I-D.ietf-ace-oauth-params}}.
 
 The authorization information (authz-info) resource refers to the authorization information endpoint as specified in {{I-D.ietf-ace-oauth-authz}}.
+The term `claim` is used in this document with the same semantics
+as in {{I-D.ietf-ace-oauth-authz}}, i.e., it denotes information carried
+in the access token or returned from introspection.
 
 # Protocol Overview {#overview}
 
