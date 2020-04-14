@@ -218,6 +218,8 @@ starting the DTLS handshake, as described in Section 5.8.1 of
 key in the DTLS handshake, the procedure as above MAY be used, or alternatively,
  the access token MAY instead be transferred in the
 DTLS ClientKeyExchange message (see {{psk-dtls-channel}}).
+In any case, DTLS MUST be used in a mode that provides replay
+protection.
 
 {{protocol-overview}} depicts the common protocol flow for the DTLS
 profile after the client C has retrieved the access token from the
