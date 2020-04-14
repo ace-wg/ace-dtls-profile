@@ -362,9 +362,10 @@ previously sent access token request, as the request may specify the
 resource server with which the client wants to communicate.
 
 An example access token response from the authorization to the client
-is depicted in {{rpk-authorization-response-example}}. Note that
-caching proxies process the Max-Age option in the CoAP response which
-has a default value of 60 seconds. The authorization server SHOULD
+is depicted in {{rpk-authorization-response-example}}.
+Caching proxies process the Max-Age option in the CoAP response which
+has a default value of 60 seconds (Section 5.6.1 of [RFC7252]).
+The authorization server SHOULD
 adjust the Max-Age option such that it does not exceed the
 `expires_in` parameter to avoid stale responses.
 
@@ -393,15 +394,17 @@ adjust the Max-Age option such that it does not exceed the
 ### DTLS Channel Setup Between C and RS {#rpk-dtls-channel}
 
 Before the client initiates the DTLS handshake with the resource
-server, C MUST send a `POST` request containing the new access token
-to the authz-info resource hosted by the resource server. After the client  
-receives a confirmation that the RS has accepted the access token, it 
-SHOULD proceed to 
-establish a new DTLS channel with the resource server. To use the
-RawPublicKey mode, the client MUST specify the public key that AS
-defined in the `cnf` field of the access token response in the
-SubjectPublicKeyInfo structure in the DTLS handshake as specified in
-{{RFC7250}}.
+server, C MUST send a `POST` request containing the obtained access token
+to the authz-info resource hosted by the resource server. After the client 
+receives a confirmation that the RS has accepted the access token, it
+SHOULD proceed to establish a new DTLS channel with the resource
+server.  The client MUST use its correct public key in the DTLS
+handshake. If the authorization server has specified a `cnf` field in
+the access token response, the client MUST use this key. Otherwise,
+the client MUST use the public key that it specified in the `req_cnf`
+of the access token request. The client MUST specify this public key
+in the SubjectPublicKeyInfo structure of the DTLS handshake as
+described in [RFC7250].
 
 To be consistent with {{RFC7252}} which allows for shortened MAC tags
 in constrained environments,
@@ -431,7 +434,13 @@ resource server, the Client's public key MUST be included in the
 access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
 used as recommended in
 {{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
-{{I-D.ietf-ace-cwt-proof-of-possession}}.  The resource server MUST use the keying
+{{I-D.ietf-ace-cwt-proof-of-possession}}. The resource server MUST
+use its own raw public key in the DTLS handshake with the client. If
+the resource server has several raw public keys, it must already
+know which key it is supposed to use with this client. How this is
+achieved is not part of this profile.
+
+The resource server MUST use the keying
 material that the authorizations server has specified in the `cnf` parameter in
 the access token for the DTLS handshake with the client.
 Thus, the handshake only finishes if the client and the resource server
@@ -607,8 +616,8 @@ where:
 ### DTLS Channel Setup Between C and RS {#psk-dtls-channel}
 
 When a client receives an access token response from an authorization
-server, C MUST ascertain that the access token response corresponds to a
-certain previously sent access token request, as the request may
+server, the client MUST check if the access token response is bound to
+a certain previously sent access token request, as the request may
 specify the resource server with which C wants to communicate.
 
 C checks if the payload of the access token response contains an
