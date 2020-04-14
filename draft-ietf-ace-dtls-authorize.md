@@ -854,10 +854,16 @@ protocol requires creation of internal state within the device.  This
 is specifically of concern where an adversary is able to intercept the
 initial cookie exchange and interject forged messages with a valid
 cookie to continue with the handshake. A similar issue exists with
-the authorization information endpoint where the resource server
+the unprotected authorization information endpoint where the resource server
 needs to keep valid access tokens until their expiry. Adversaries can fill
 up the constrained resource server's internal storage for a very
 long time with interjected or otherwise retrieved valid access tokens.
+The protection of access tokens that are stored in the authorization
+information endpoint depends on the keying material that is used between
+the authorization server and the resource server: The resource server
+must ensure that it processes only access tokens that are encrypted
+and integrity-protected by an authorization server that is authorized
+to provide access tokens for the resource server.
 
 The use of multiple access tokens for a single client increases the
 strain on the resource server as it must consider every access token
