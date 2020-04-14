@@ -464,11 +464,13 @@ key, the confidentiality of the token MUST also be
 protected. Depending on the requested token type and algorithm in the
 access token request, the authorization server adds access Information
 to the response that provides the client with sufficient information
-to setup a DTLS channel with the resource server. AS adds a `cnf`
+to setup a DTLS channel with the resource server. The authorization server adds a `cnf`
 parameter to the access information carrying a `COSE_Key` object
-that informs the client about the symmetric key that is to be used between
-C and the resource server. The access token MUST be bound to the same symmetric key
-by means of the cnf parameter.
+that informs the client about the shared secret that is to be used between
+the client and the resource server. To convey the same secret to the resource server, the authorization server either includes it directly in the access
+token by means of the `cnf` claim or it provides sufficient information
+to enable the resource server to derive the key from the access token
+using key derivation.
 
 An example access token request for an access token with a symmetric proof-of-possession key is illustrated in {{at-request}}.
 
