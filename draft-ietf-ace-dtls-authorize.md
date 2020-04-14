@@ -538,7 +538,9 @@ cnf : {
 
 A response that declines any operation on the requested resource is
 constructed according to Section 5.2 of {{RFC6749}},
-(cf. Section 5.6.3. of {{I-D.ietf-ace-oauth-authz}}).
+(cf. Section 5.6.3. of {{I-D.ietf-ace-oauth-authz}}). {{token-reject}}
+shows an example for a request that has been rejected due to invalid
+request parameters.
 
 ~~~~~~~~~~
     4.00 Bad Request
