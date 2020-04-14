@@ -530,7 +530,7 @@ The `cnf` structure in the access token is provided in {{kdf-cnf}}.
 cnf : {
   COSE_Key : {
     kty : symmetric,
-    kid : h'6549694f464361396c4f6277'
+    kid : h'3d027833fc6267ce'
   }
 }
 ~~~~~~~~~~
