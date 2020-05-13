@@ -167,20 +167,18 @@ in the access token or returned from introspection.
 
 The CoAP-DTLS profile for ACE specifies the transfer of authentication
 information and, if necessary, authorization information between the
-client (C) and
-the resource server (RS) during setup of a DTLS session for CoAP
-messaging. It also specifies how C can use CoAP over DTLS to
-retrieve an access token from the authorization server (AS) for a
-protected resource hosted on the resource server.
-As specified in Section 6.7 of
-{{I-D.ietf-ace-oauth-authz}}, use of DTLS for one or both of these
-interactions is completely independent
+client (C) and the resource server (RS) during setup of a DTLS session
+for CoAP messaging. It also specifies how the client can use CoAP over
+DTLS to retrieve an access token from the authorization server (AS)
+for a protected resource hosted on the resource server.  As specified
+in Section 6.7 of {{I-D.ietf-ace-oauth-authz}}, use of DTLS for one or
+both of these interactions is completely independent
 
-This profile requires the client to retrieve an access token for protected
-resource(s) it wants to access on RS as specified
-in {{I-D.ietf-ace-oauth-authz}}. {{at-retrieval}} shows the
-typical message flow in this scenario (messages
-in square brackets are optional):
+This profile requires the client to retrieve an access token for
+protected resource(s) it wants to access on the resource server as
+specified in {{I-D.ietf-ace-oauth-authz}}. {{at-retrieval}} shows the
+typical message flow in this scenario (messages in square brackets are
+optional):
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -197,20 +195,22 @@ in square brackets are optional):
 ~~~~~~~~~~~~~~~~~~~~~~~
 {: #at-retrieval title="Retrieving an Access Token"}
 
-To determine the AS in charge of a resource hosted at the RS, C can
-send an initial Unauthorized Resource Request message to the RS. The RS then
-denies the request and sends an AS Request Creation Hints message containing the address
-of its AS back to the client as
-specified in Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}.
+To determine the authorization server in charge of a resource hosted
+at the resource server, the client can send an initial Unauthorized
+Resource Request message to the resource server. The resource server
+then denies the request and sends an AS Request Creation Hints message
+containing the address of its authorization server back to the client
+as specified in Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}.
 
-Once the client knows the authorization server's address, it can
-send an access token request to the token endpoint at the AS as
-specified in {{I-D.ietf-ace-oauth-authz}}. As the access token request
-as well as the response may contain confidential data, the
-communication between the client and the authorization server must be
-confidentiality-protected and ensure authenticity. C may have been
-registered at the AS via the OAuth 2.0 client registration mechanism as
-outlined in Section 5.3 of {{I-D.ietf-ace-oauth-authz}}.
+Once the client knows the authorization server's address, it can send
+an access token request to the token endpoint at the authorization
+server as specified in {{I-D.ietf-ace-oauth-authz}}. As the access
+token request as well as the response may contain confidential data,
+the communication between the client and the authorization server must
+be confidentiality-protected and ensure authenticity. The client may
+have been registered at the authorization server via the OAuth 2.0
+client registration mechanism as outlined in Section 5.3 of
+{{I-D.ietf-ace-oauth-authz}}.
 
 The access token returned by the authorization server can then be used
 by the client to establish a new DTLS session with the resource
@@ -227,8 +227,8 @@ In any case, DTLS MUST be used in a mode that provides replay
 protection.
 
 {{protocol-overview}} depicts the common protocol flow for the DTLS
-profile after the client C has retrieved the access token from the
-authorization server AS.
+profile after the client has retrieved the access token from the
+authorization server, AS.
 
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -253,8 +253,8 @@ client and the resource server with sufficient information to
 establish a secure channel, and convey authorization information
 specific for this communication relationship to the resource server.
 
-{{C-AS-comm}} describes how the communication between C and AS
-must be secured.
+{{C-AS-comm}} describes how the communication between the client (C) and 
+the authorization server (AS) must be secured.
 Depending on the used CoAP security mode (see also
 Section 9 of {{RFC7252}},
 the Client-to-AS request, AS-to-Client response (see Section
@@ -263,7 +263,7 @@ establishment carry slightly different information. {{rpk-mode}}
 addresses the use of raw public keys while {{psk-mode}} defines how
 pre-shared keys are used in this profile.
 
-## Communication between C and AS {#C-AS-comm}
+## Communication Between the Client and the Authorization Server {#C-AS-comm}
 
 To retrieve an access token for the resource that the client wants to
 access, the client requests an access token from the authorization
@@ -276,11 +276,11 @@ The following requirements in alignment with Section 6.5 of
 {{I-D.ietf-ace-oauth-authz}} therefore must be met:
 
 * The client MUST securely have obtained keying material to communicate
-  with AS.
+  with the authorization server.
 * Furthermore, the client MUST verify that the authorization server is
   authorized to provide access tokens (including authorization
   information) about the resource server to the client, and that
-  this authorization information about the AS is still valid.
+  this authorization information about the authorization server is still valid.
 * Also, the authorization server MUST securely have obtained keying
   material for the client, and obtained authorization rules approved
   by the resource owner (RO) concerning the client and the resource
@@ -293,15 +293,15 @@ bootstrapped is not part of this document. The client and the
 authorization server must ensure the confidentiality, integrity and
 authenticity of all exchanged messages within the ACE protocol.
 
-Section {{as-commsec}} specifies how communication with the AS is secured.
+Section {{as-commsec}} specifies how communication with the authorization server is secured.
 
 
 ## RawPublicKey Mode {#rpk-mode}
 
 When the client and the resource server use RawPublicKey
 authentication, the procedure is as follows:
-After C and AS mutually authenticated each other and validated each
-other's authorization, C sends a token request to AS's token endpoint.
+After the client and the authorization server mutually authenticated each other and validated each
+other's authorization, the client sends a token request to the authorization server's token endpoint.
 The client MUST add a `req_cnf` object carrying either its raw public key
 or a unique identifier for a public key that it has previously made
 known to the authorization server. It is RECOMMENDED that
@@ -310,8 +310,8 @@ communication with the authorization server, proving possession of the key
 as part of the token request. Other mechanisms for proving possession of
 the key may be defined in the future.
 
-An example access token request from the client to the AS is depicted
-in {{rpk-authorization-message-example}}.
+An example access token request from the client to the authorization
+server is depicted in {{rpk-authorization-message-example}}.
 
 ~~~~~~~~~~
    POST coaps://as.example.com/token
@@ -336,28 +336,29 @@ The example shows an access token request for the resource identified
 by the string "tempSensor4711" on the authorization server
 using a raw public key.
 
-The AS MUST check if the client that it communicates with is associated
-with the RPK in the `req_cnf` parameter before issuing an access token to it.
-If the AS determines that the request is to be authorized according to
-the respective authorization rules, it generates an access token
-response for C. The access token MUST be bound to the RPK of the client 
-by means of the `cnf` claim.
+The authorization server MUST check if the client that it communicates
+with is associated with the RPK in the `req_cnf` parameter before
+issuing an access token to it.  If the authorization server determines
+that the request is to be authorized according to the respective
+authorization rules, it generates an access token response for the
+client. The access token MUST be bound to the RPK of the client by
+means of the `cnf` claim.
 
-The response MAY contain a `profile` parameter with
-the value `coap_dtls` to indicate that this profile MUST be used for
-communication between the client C and the resource server. The `profile` 
-may be specified out-of-band, in which case it does not have to be sent. The
-response also contains an access token with
-information for the resource server about the client's public key. The authorization server MUST return in its response the
-parameter `rs_cnf` unless it is certain that the client already knows
-the public key of the resource server.
-The authorization server MUST ascertain that the RPK specified in `rs_cnf` belongs
-to the resource server that the client wants to communicate with. The authorization server MUST
-protect the integrity of the access token such that the resource server
-can detect unauthorized changes.
-If the access token contains
-confidential data, the authorization server MUST also protect the confidentiality of the
-access token.
+The response MAY contain a `profile` parameter with the value
+`coap_dtls` to indicate that this profile MUST be used for
+communication between the client and the resource server. The
+`profile` may be specified out-of-band, in which case it does not have
+to be sent. The response also contains an access token with
+information for the resource server about the client's public key. The
+authorization server MUST return in its response the parameter
+`rs_cnf` unless it is certain that the client already knows the public
+key of the resource server.  The authorization server MUST ascertain
+that the RPK specified in `rs_cnf` belongs to the resource server that
+the client wants to communicate with. The authorization server MUST
+protect the integrity of the access token such that the resource
+server can detect unauthorized changes.  If the access token contains
+confidential data, the authorization server MUST also protect the
+confidentiality of the access token.
 
 The client MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
@@ -395,20 +396,20 @@ adjust the Max-Age option such that it does not exceed the
 ~~~~~~~~~~
 {: #rpk-authorization-response-example title="Access Token Response Example for RPK Mode"}
 
-### DTLS Channel Setup Between C and RS {#rpk-dtls-channel}
+### DTLS Channel Setup Between Client and Resource Server {#rpk-dtls-channel}
 
 Before the client initiates the DTLS handshake with the resource
-server, C MUST send a `POST` request containing the obtained access token
-to the authz-info resource hosted by the resource server. After the client 
-receives a confirmation that the RS has accepted the access token, it
-SHOULD proceed to establish a new DTLS channel with the resource
-server.  The client MUST use its correct public key in the DTLS
-handshake. If the authorization server has specified a `cnf` field in
-the access token response, the client MUST use this key. Otherwise,
-the client MUST use the public key that it specified in the `req_cnf`
-of the access token request. The client MUST specify this public key
-in the SubjectPublicKeyInfo structure of the DTLS handshake as
-described in [RFC7250].
+server, the client MUST send a `POST` request containing the obtained
+access token to the authz-info resource hosted by the resource
+server. After the client receives a confirmation that the resource
+server has accepted the access token, it SHOULD proceed to establish a
+new DTLS channel with the resource server.  The client MUST use its
+correct public key in the DTLS handshake. If the authorization server
+has specified a `cnf` field in the access token response, the client
+MUST use this key. Otherwise, the client MUST use the public key that
+it specified in the `req_cnf` of the access token request. The client
+MUST specify this public key in the SubjectPublicKeyInfo structure of
+the DTLS handshake as described in [RFC7250].
 
 To be consistent with {{RFC7252}} which allows for shortened MAC tags
 in constrained environments,
@@ -423,26 +424,24 @@ As discussed in {{RFC7748}}, new ECC
   regarding implementation errors than the secp256r1 curve mandated in
   {{RFC7252}}.
 
-RS MUST check if the access token is still valid, if RS is the
-intended destination (i.e., the audience) of the token, and if the
-token was issued by an authorized AS.
-The access token is constructed by the authorization server such that
-the resource server can associate the access token with the Client's
-public key. 
-The `cnf` claim MUST contain either C's RPK or, if the key is already
-known by the resource server (e.g., from previous communication),
-a reference to this key. If the authorization
-server has no
-certain knowledge that the Client's key is already known to the
-resource server, the Client's public key MUST be included in the
-access token's `cnf` parameter. If CBOR web tokens {{RFC8392}} are
-used as recommended in
+The resource server MUST check if the access token is still valid, if
+the resource server is the intended destination (i.e., the audience)
+of the token, and if the token was issued by an authorized
+authorization server.  The access token is constructed by the
+authorization server such that the resource server can associate the
+access token with the Client's public key.  The `cnf` claim MUST
+contain either the client's RPK or, if the key is already known by the
+resource server (e.g., from previous communication), a reference to
+this key. If the authorization server has no certain knowledge that
+the Client's key is already known to the resource server, the Client's
+public key MUST be included in the access token's `cnf` parameter. If
+CBOR web tokens {{RFC8392}} are used as recommended in
 {{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
-{{I-D.ietf-ace-cwt-proof-of-possession}}. The resource server MUST
-use its own raw public key in the DTLS handshake with the client. If
-the resource server has several raw public keys, it must already
-know which key it is supposed to use with this client. How this is
-achieved is not part of this profile.
+{{I-D.ietf-ace-cwt-proof-of-possession}}. The resource server MUST use
+its own raw public key in the DTLS handshake with the client. If the
+resource server has several raw public keys, it must already know
+which key it is supposed to use with this client. How this is achieved
+is not part of this profile.
 
 The resource server MUST use the keying
 material that the authorizations server has specified in the `cnf` parameter in
@@ -457,35 +456,38 @@ access, the client MAY include a `cnf` object carrying an identifier
 for a symmetric key in its access token request to the authorization
 server.  This identifier can be used by the authorization server to
 determine the shared secret to construct the proof-of-possession
-token.  The authorization server MUST check if the identifier refers to a symmetric key that was
-previously generated by the AS as a shared secret for the
-communication between this client and the resource server. If no such
-symmetric key was found, the AS MUST generate a new symmetric key that
-is returned in its response to the client.
+token.  The authorization server MUST check if the identifier refers
+to a symmetric key that was previously generated by the authorization
+server as a shared secret for the communication between this client
+and the resource server. If no such symmetric key was found, the
+authorization server MUST generate a new symmetric key that is
+returned in its response to the client.
 
 The authorization server MUST determine the authorization rules for
-the client it communicates with as defined by the resource owner and generate the access
-token accordingly.
-If the authorization server authorizes the client, it returns an
-AS-to-Client response. If the profile parameter is present, it is set to
-`coap_dtls`. AS MUST ascertain that the access token is generated for
-the resource server that C wants to communicate with. Also, AS MUST
-protect the integrity of the access
-token to ensure that the resource server can detect unauthorized changes.
-If the token contains confidential data such as the symmetric
-key, the confidentiality of the token MUST also be
+the client it communicates with as defined by the resource owner and
+generate the access token accordingly.  If the authorization server
+authorizes the client, it returns an AS-to-Client response. If the
+profile parameter is present, it is set to `coap_dtls`. The
+authorization server MUST ascertain that the access token is generated
+for the resource server that the client wants to communicate
+with. Also, the authorization server MUST protect the integrity of the
+access token to ensure that the resource server can detect
+unauthorized changes.  If the token contains confidential data such as
+the symmetric key, the confidentiality of the token MUST also be
 protected. Depending on the requested token type and algorithm in the
 access token request, the authorization server adds access Information
 to the response that provides the client with sufficient information
-to setup a DTLS channel with the resource server. The authorization server adds a `cnf`
-parameter to the access information carrying a `COSE_Key` object
-that informs the client about the shared secret that is to be used between
-the client and the resource server. To convey the same secret to the resource server, the authorization server either includes it directly in the access
-token by means of the `cnf` claim or it provides sufficient information
-to enable the resource server to derive the key from the access token
-using key derivation.
+to setup a DTLS channel with the resource server. The authorization
+server adds a `cnf` parameter to the access information carrying a
+`COSE_Key` object that informs the client about the shared secret that
+is to be used between the client and the resource server. To convey
+the same secret to the resource server, the authorization server
+either includes it directly in the access token by means of the `cnf`
+claim or it provides sufficient information to enable the resource
+server to derive the key from the access token using key derivation.
 
-An example access token request for an access token with a symmetric proof-of-possession key is illustrated in {{at-request}}.
+An example access token request for an access token with a symmetric
+proof-of-possession key is illustrated in {{at-request}}.
 
 ~~~~~~~~~~
    POST coaps://as.example.com/token
@@ -497,12 +499,12 @@ An example access token request for an access token with a symmetric proof-of-po
 ~~~~~~~~~~
 {: #at-request title="Example Access Token Request, (implicit) symmetric PoP-key"}
 
-A corresponding example access token response is illustrated in {{at-response}}. 
-In this example, the authorization server returns a 2.01 response
-containing a new access token (truncated to improve readability) and information for the client,
-including the symmetric key in the cnf claim.  The information is
-transferred as a
-CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
+A corresponding example access token response is illustrated in
+{{at-response}}.  In this example, the authorization server returns a
+2.01 response containing a new access token (truncated to improve
+readability) and information for the client, including the symmetric
+key in the cnf claim.  The information is transferred as a CBOR data
+structure as specified in {{I-D.ietf-ace-oauth-authz}}.
 
 
 <!-- msg1 -->
@@ -529,13 +531,14 @@ CBOR data structure as specified in {{I-D.ietf-ace-oauth-authz}}.
 ~~~~~~~~~~
 {: #at-response title="Example Access Token Response, symmetric PoP-key"}
 
-The access token also comprises a `cnf` claim. This claim usually contains a
-`COSE_Key` object that carries either the symmetric
-key itself or a key identifier that can be used by the resource
-server to determine the secret key it shares with the client. If the access token carries a
-symmetric key, the access token MUST be encrypted using a `COSE_Encrypt0`
-structure. The AS MUST use the keying material shared with the RS to
-encrypt the token. 
+The access token also comprises a `cnf` claim. This claim usually
+contains a `COSE_Key` object that carries either the symmetric key
+itself or a key identifier that can be used by the resource server to
+determine the secret key it shares with the client. If the access
+token carries a symmetric key, the access token MUST be encrypted
+using a `COSE_Encrypt0` structure. The authorization server MUST use
+the keying material shared with the resource server to encrypt the
+token.
 
 The `cnf` structure in the access token is provided in {{kdf-cnf}}.
 
@@ -566,36 +569,41 @@ request parameters.
 {: #token-reject title="Example Access Token Response With Reject"}
 
 
-The method for how the resource server determines the symmetric key from an access token 
-containing only a key identifier is application-specific; the remainder of this section 
-provides one example. 
+The method for how the resource server determines the symmetric key
+from an access token containing only a key identifier is
+application-specific; the remainder of this section provides one
+example.
 
-The AS and 
-the resource server are assumed to share a key derivation key used to derive 
-the symmetric key shared with the client from the key identifier in the access token. 
-The key derivation key may be derived from some other secret key shared between the AS and the resource server. This key needs
-to be securely stored and processed in the same way as the key used to protect the 
-communication between AS and RS.
+The authorization server and the resource server are assumed to share
+a key derivation key used to derive the symmetric key shared with the
+client from the key identifier in the access token.  The key
+derivation key may be derived from some other secret key shared
+between the authorization server and the resource server. This key
+needs to be securely stored and processed in the same way as the key
+used to protect the communication between the authorization server and
+the resource server.
 
-Knowledge of the 
-symmetric key shared with the client must not reveal any information about 
-the key derivation key or other secret keys shared between AS and resource server.
+Knowledge of the symmetric key shared with the client must not reveal
+any information about the key derivation key or other secret keys
+shared between the authorization server and resource server.
 
 In order to generate a new symmetric key to be used by client and
-resource server, the AS generates a new key identifier which MUST be
-unique among all key identifiers used by the authorization server. The
-authorization server then uses the key derivation key shared with the
-resource server to derive the symmetric key as specified below.
-Instead of 
-providing the keying material in the access token, the AS includes the key
-identifier in the `kid` parameter, see {{kdf-cnf}}. This key identifier
-enables the resource server to calculate the symmetric key used for the 
-communication with the client using
-the key derivation key and a KDF to be defined by the application, for example
-HKDF-SHA-256. The key identifier picked by the AS needs to be unique for each access
-token where a unique symmetric key is required.
+resource server, the authorization server generates a new key
+identifier which MUST be unique among all key identifiers used by the
+authorization server. The authorization server then uses the key
+derivation key shared with the resource server to derive the symmetric
+key as specified below.  Instead of providing the keying material in
+the access token, the authorization server includes the key identifier
+in the `kid` parameter, see {{kdf-cnf}}. This key identifier enables
+the resource server to calculate the symmetric key used for the
+communication with the client using the key derivation key and a KDF
+to be defined by the application, for example HKDF-SHA-256. The key
+identifier picked by the authorization server needs to be unique for
+each access token where a unique symmetric key is required.
 
-In this example, HKDF consists of the composition of the HKDF-Extract and HKDF-Expand steps [RFC5869]. The symmetric key is derived from the key identifier, the key derivation key and other data:
+In this example, HKDF consists of the composition of the HKDF-Extract
+and HKDF-Expand steps [RFC5869]. The symmetric key is derived from the
+key identifier, the key derivation key and other data:
 
 OKM = HKDF(salt, IKM, info, L),
 
@@ -624,24 +632,24 @@ To ensure uniqueness of the derived shared secret, the authorization
 server SHOULD generate a sufficiently random kid value and include the
 claims `iat` and either `exp` or `exi` in the access token.
 
-### DTLS Channel Setup Between C and RS {#psk-dtls-channel}
+### DTLS Channel Setup Between Client and Resource Server {#psk-dtls-channel}
 
 When a client receives an access token response from an authorization
 server, the client MUST check if the access token response is bound to
 a certain previously sent access token request, as the request may
-specify the resource server with which C wants to communicate.
+specify the resource server with which the client wants to
+communicate.
 
-C checks if the payload of the access token response contains an
-`access_token` parameter and a
-`cnf` parameter. With this information the client can initiate the
-establishment of a new DTLS channel with a resource server. To use
-DTLS with pre-shared keys, the client follows the PSK key exchange
-algorithm specified in Section 2 of {{RFC4279}} using the key conveyed
-in the `cnf` parameter of the AS response as PSK when constructing the
-premaster secret. To be consistent with the recommendations in
-{{RFC7252}} a client is expected to offer at least the
-ciphersuite TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}}
-to the resource server.
+The client checks if the payload of the access token response contains
+an `access_token` parameter and a `cnf` parameter. With this
+information the client can initiate the establishment of a new DTLS
+channel with a resource server. To use DTLS with pre-shared keys, the
+client follows the PSK key exchange algorithm specified in Section 2
+of {{RFC4279}} using the key conveyed in the `cnf` parameter of the AS
+response as PSK when constructing the premaster secret. To be
+consistent with the recommendations in {{RFC7252}} a client is
+expected to offer at least the ciphersuite
+TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}} to the resource server.
 
 In PreSharedKey mode, the knowledge of the shared secret by the client
 and the resource server is used for mutual authentication between both
@@ -652,10 +660,10 @@ resource server's authz-info resource before starting the DTLS
 handshake.  The client then needs to indicate during the DTLS
 handshake which previously uploaded access token it intends to use.
 To do so, it MUST create a `COSE_Key` structure with the `kid` that
-was conveyed in the `rs_cnf` claim in the token response from the AS
-and the key type `symmetric`.  This structure then is included as the
-only element in the `cnf` structure that is used as value for
-`psk_identity` as shown in {{psk_identity-cnf}}.
+was conveyed in the `rs_cnf` claim in the token response from the
+authorization server and the key type `symmetric`.  This structure
+then is included as the only element in the `cnf` structure that is
+used as value for `psk_identity` as shown in {{psk_identity-cnf}}.
 
 ~~~~~~~~~~
 { cnf : {
@@ -685,23 +693,25 @@ do not yield a valid access token for the requesting client, the
 resource server aborts the DTLS handshake with an `illegal_parameter`
 alert.
 
-When RS receives an access token, RS MUST check if the access token is
-still valid, if RS is the intended destination (i.e., the audience of
-the token), and if the token was issued by an authorized AS.
-This specification assumes that the access token is a PoP token as
+When the resource server receives an access token, it MUST check if
+the access token is still valid, if the resource server is the
+intended destination (i.e., the audience of the token), and if the
+token was issued by an authorized authorization server.  This
+specification assumes that the access token is a PoP token as
 described in {{I-D.ietf-ace-oauth-authz}} unless specifically stated
 otherwise. Therefore, the access token is bound to a symmetric PoP key
 that is used as shared secret between the client and the resource
 server. The resource server may use token introspection [RFC7662] on
 the access token to retrieve more information about the specific
-token. The use of introspection is out of scope for this specification.
+token. The use of introspection is out of scope for this
+specification.
 
-While the client can retrieve the shared secret from the contents of the
-`cnf` parameter in the AS-to-Client response, the resource server uses
-the information contained in the `cnf` claim of the access token to
-determine the actual secret when no explicit `kid` was provided
-in the `psk_identity` field. If key derivation is used, the RS uses
-the `COSE_KDF_Context` information as described above.
+While the client can retrieve the shared secret from the contents of
+the `cnf` parameter in the AS-to-Client response, the resource server
+uses the information contained in the `cnf` claim of the access token
+to determine the actual secret when no explicit `kid` was provided in
+the `psk_identity` field. If key derivation is used, the resource
+server uses the `COSE_KDF_Context` information as described above.
 
 ## Resource Access
 
@@ -710,15 +720,16 @@ or {{psk-mode}}, respectively, the client is authorized to access
 resources covered by the access token it has uploaded to the
 authz-info resource hosted by the resource server.
 
-With the successful establishment of the DTLS channel, C and RS have
-proven that they can use their respective keying material. An access
-token that is bound to the client's keying material is associated
-with the channel. According to section 5.8.1 of {{I-D.ietf-ace-oauth-authz}},
-there should be only one access token for each client. New access
-tokens issued by the authorization server are supposed to replace
-previously issued access tokens for the respective client. The resource
-server therefore must have a common understanding with the authorization
-server how access tokens are ordered.
+With the successful establishment of the DTLS channel, the client and
+the resource server have proven that they can use their respective
+keying material. An access token that is bound to the client's keying
+material is associated with the channel. According to section 5.8.1 of
+{{I-D.ietf-ace-oauth-authz}}, there should be only one access token
+for each client. New access tokens issued by the authorization server
+are supposed to replace previously issued access tokens for the
+respective client. The resource server therefore must have a common
+understanding with the authorization server how access tokens are
+ordered.
 
 Any request that the resource server receives on a DTLS channel that
 is tied to an access token via its keying material 
@@ -762,8 +773,10 @@ as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
 resource server.
 
-Unauthorized requests that have been received over a DTLS session SHOULD be treated as non-fatal by 
-the RS, i.e., the DTLS session SHOULD be kept alive until the associated access token has expired.
+Unauthorized requests that have been received over a DTLS session
+SHOULD be treated as non-fatal by the resource server, i.e., the DTLS
+session SHOULD be kept alive until the associated access token has
+expired.
 
 # Dynamic Update of Authorization Information {#update}
 
@@ -778,25 +791,24 @@ can be used with updated permissions.
 
 The client can therefore update the authorization information stored at the
 resource server at any time without changing an established DTLS
-session. To do so, the Client requests a
+session. To do so, the client requests a
 new access token from the authorization server 
 for the intended action on the respective resource
 and uploads this access token to the authz-info resource on the
 resource server.
 
-{{update-overview}} depicts the message flow where the C
-requests a new access token after a security association between the
-client and the resource server has been established using this
-protocol. If the client wants to update the authorization information,
-the token request MUST specify the key identifier of the proof-of-possession 
-key used for the
-existing DTLS channel between the client and the resource server in
-the `kid` parameter of the Client-to-AS request. The authorization
-server MUST verify that the specified `kid` denotes a valid verifier
-for a proof-of-possession token that has previously been issued to
-the requesting client. Otherwise, the Client-to-AS request MUST be
-declined with the error code `unsupported_pop_key` as defined in
-Section 5.6.3 of {{I-D.ietf-ace-oauth-authz}}.
+{{update-overview}} depicts the message flow where the client requests
+a new access token after a security association between the client and
+the resource server has been established using this protocol. If the
+client wants to update the authorization information, the token
+request MUST specify the key identifier of the proof-of-possession key
+used for the existing DTLS channel between the client and the resource
+server in the `kid` parameter of the Client-to-AS request. The
+authorization server MUST verify that the specified `kid` denotes a
+valid verifier for a proof-of-possession token that has previously
+been issued to the requesting client. Otherwise, the Client-to-AS
+request MUST be declined with the error code `unsupported_pop_key` as
+defined in Section 5.6.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 When the authorization server issues a new access token to update
 existing authorization information, it MUST include the specified `kid`
@@ -841,20 +853,22 @@ the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the association.
 
-# Secure Communication with AS {#as-commsec}
+# Secure Communication with an Authorization Server {#as-commsec}
 
 As specified in the ACE framework (sections 5.6 and 5.7 of
-{{I-D.ietf-ace-oauth-authz}}), the requesting entity (RS and/or client)
-and the AS communicate via the token endpoint or introspection endpoint.  The
-use of CoAP and DTLS for this communication is RECOMMENDED in this
-profile, other protocols (such as HTTP and TLS, or CoAP and OSCORE {{RFC8613}}) MAY be used
-instead.
+{{I-D.ietf-ace-oauth-authz}}), the requesting entity (the resource
+server and/or the client) and the authorization server communicate via
+the token endpoint or introspection endpoint.  The use of CoAP and
+DTLS for this communication is RECOMMENDED in this profile, other
+protocols (such as HTTP and TLS, or CoAP and OSCORE {{RFC8613}}) MAY
+be used instead.
 
-How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the AS are established is out of scope for this profile.
+How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the
+authorization server are established is out of scope for this profile.
 
-If other means of securing the communication with the AS are used, the
-communication security requirements from Section 6.2 of
-{{I-D.ietf-ace-oauth-authz}} remain applicable.
+If other means of securing the communication with the authorization
+server are used, the communication security requirements from Section
+6.2 of {{I-D.ietf-ace-oauth-authz}} remain applicable.
 
 # Security Considerations
 
@@ -876,18 +890,18 @@ authorization server therefore at some point needs to validate that the
 client can actually use the private key corresponding to the client's
 public key.
 
-When using pre-shared keys provisioned by the AS, the security level
-depends on the randomness of PSK, and the security of the TLS cipher
-suite and key exchange algorithm.  As this specification targets at
-constrained environments, message payloads exchanged between the
-client and the resource server are expected to be small and rare.
-CoAP {{RFC7252}} mandates the implementation of cipher suites with
-abbreviated, 8-byte tags for message integrity protection. For
-consistency, this profile requires implementation of the same cipher
-suites. For application scenarios where the cost of full-width
-authentication tags is low compared to the overall amount of data
-being transmitted, the use of cipher suites with 16-byte integrity
-protection tags is preferred.
+When using pre-shared keys provisioned by the authorization server,
+the security level depends on the randomness of PSK, and the security
+of the TLS cipher suite and key exchange algorithm.  As this
+specification targets at constrained environments, message payloads
+exchanged between the client and the resource server are expected to
+be small and rare.  CoAP {{RFC7252}} mandates the implementation of
+cipher suites with abbreviated, 8-byte tags for message integrity
+protection. For consistency, this profile requires implementation of
+the same cipher suites. For application scenarios where the cost of
+full-width authentication tags is low compared to the overall amount
+of data being transmitted, the use of cipher suites with 16-byte
+integrity protection tags is preferred.
 
 The PSK mode of this profile offers a distribution mechanism to convey
 authorization tokens together with a shared secret to a client and a
