@@ -303,9 +303,11 @@ After C and AS mutually authenticated each other and validated each
 other's authorization, C sends a token request to AS's token endpoint.
 The client MUST add a `req_cnf` object carrying either its raw public key
 or a unique identifier for a public key that it has previously made
-known to the authorization server. To prove that the client is in
-possession of this key, C MUST use the same keying material that it
-uses to secure the communication with AS, e.g., the DTLS session.
+known to the authorization server. It is RECOMMENDED that
+the client uses DTLS with the same keying material to secure the
+communication with the authorization server, proving possession of the key
+as part of the token request. Other mechanisms for proving possession of
+the key may be defined in the future.
 
 An example access token request from the client to the AS is depicted
 in {{rpk-authorization-message-example}}.
@@ -345,8 +347,7 @@ the value `coap_dtls` to indicate that this profile MUST be used for
 communication between the client C and the resource server. The `profile` 
 may be specified out-of-band, in which case it does not have to be sent. The
 response also contains an access token with
-information about the public key that is used by the resource
-server. The authorization server MUST return in its response the
+information for the resource server about the client's public key. The authorization server MUST return in its response the
 parameter `rs_cnf` unless it is certain that the client already knows
 the public key of the resource server.
 The authorization server MUST ascertain that the RPK specified in `rs_cnf` belongs
@@ -822,7 +823,7 @@ The resource server MUST delete access tokens that are no longer
 valid.  DTLS associations that have been setup in accordance with
 this profile are always tied to specific tokens (which may be
 exchanged with a dynamic update as described in Section 4). As tokens
-may become invalid at any time (e.g. because they have expired), the
+may become invalid at any time (e.g., because they have expired), the
 association may become useless at some point.  A resource server therefore
 MUST terminate existing DTLS association after the last access token
 associated with this association has expired.
@@ -863,7 +864,7 @@ problem cannot be completely eliminated. Nevertheless, in RPK mode it
 should not be possible for clients to request access tokens for
 arbitrary public keys, since that would allow the client to relay
 tokens without the need to share its own credentials with others. The
-authorization server therefore should at some point validate that the
+authorization server therefore at some point needs to validate that the
 client can actually use the private key corresponding to the client's
 public key.
 
