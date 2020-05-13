@@ -72,9 +72,9 @@ normative:
   RFC7925:
   RFC8152:
   RFC8422:
+  RFC8747:
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
-  I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
   RFC5077:
@@ -437,7 +437,7 @@ the Client's key is already known to the resource server, the Client's
 public key MUST be included in the access token's `cnf` parameter. If
 CBOR web tokens {{RFC8392}} are used as recommended in
 {{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
-{{I-D.ietf-ace-cwt-proof-of-possession}}. The resource server MUST use
+{{RFC8747}}. The resource server MUST use
 its own raw public key in the DTLS handshake with the client. If the
 resource server has several raw public keys, it must already know
 which key it is supposed to use with this client. How this is achieved
