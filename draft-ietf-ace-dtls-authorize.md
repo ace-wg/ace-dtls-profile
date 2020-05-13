@@ -77,6 +77,7 @@ normative:
   I-D.ietf-ace-cwt-proof-of-possession:
 
 informative:
+  RFC5077:
   RFC5869:
   RFC6655:
   RFC7662:
@@ -908,6 +909,29 @@ the authorization server and the resource server: The resource server
 must ensure that it processes only access tokens that are encrypted
 and integrity-protected by an authorization server that is authorized
 to provide access tokens for the resource server.
+
+## Reuse of Existing Sessions
+
+To avoid the overhead of a repeated DTLS handshake, {{RFC7925}}
+recommends session resumption {{RFC5077}} to reuse session state from
+an earlier DTLS association and thus requires client side
+implementation.  In this specification, the DTLS session is subject to
+the authorization rules denoted by the access token that was used for
+the initial setup of the DTLS association. Enabling session resumption
+would require the server to transfer the authorization information
+with the session state in an encrypted SessionTicket to the
+client. Assuming that the server uses long-lived keying material, this
+could open up attacks due to the lack of forward secrecy. Moreover,
+using this mechanism, a client can resume a DTLS session without
+proving the possession of the PoP key again. Therefore, the use of
+session resumption is NOT RECOMMENDED for resource servers.
+
+Since renogiation of DTLS associations is prone to attacks as well,
+{{RFC7925}} requires clients to decline any renogiation attempt. A
+server that wants to initiate re-keying therefore SHOULD periodically
+force a full handshake.
+
+## Multiple Access Tokens
 
 The use of multiple access tokens for a single client increases the
 strain on the resource server as it must consider every access token
