@@ -581,9 +581,12 @@ Knowledge of the
 symmetric key shared with the client must not reveal any information about 
 the key derivation key or other secret keys shared between AS and resource server.
 
-In order to generate a new symmetric key to be used by client and resource server, 
-the AS generates a key identifier and uses the key derivation key shared with the 
-resource server to derive the symmetric key as specified below. Instead of 
+In order to generate a new symmetric key to be used by client and
+resource server, the AS generates a new key identifier which MUST be
+unique among all key identifiers used by the authorization server. The
+authorization server then uses the key derivation key shared with the
+resource server to derive the symmetric key as specified below.
+Instead of 
 providing the keying material in the access token, the AS includes the key
 identifier in the `kid` parameter, see {{kdf-cnf}}. This key identifier
 enables the resource server to calculate the symmetric key used for the 
@@ -606,16 +609,20 @@ where:
 ~~~~~~~~~~~~~~~~~
       info = [
         type : tstr,
-        kid : bstr,
         L : uint,
+        access_token: map
       ]
 ~~~~~~~~~~~~~~~~~
 where:
 
 * type is set to the constant text string "ACE-CoAP-DTLS-key-derivation",
-* kid is the key identifier, and
-* L is the size of the symmetric key in bytes.
+* L is the size of the symmetric key in bytes,
+* access_token is the decrypted access_token as transferred from the
+  authorization server to the resource server.
 
+To ensure uniqueness of the derived shared secret, the authorization
+server SHOULD generate a sufficiently random kid value and include the
+claims `iat` and either `exp` or `exi` in the access token.
 
 ### DTLS Channel Setup Between C and RS {#psk-dtls-channel}
 
