@@ -903,11 +903,13 @@ associated with this client.  Malicious clients may hand over access
 tokens containing their own access permissions to other entities. This
 problem cannot be completely eliminated. Nevertheless, in RPK mode it
 should not be possible for clients to request access tokens for
-arbitrary public keys, since that would allow the client to relay
-tokens without the need to share its own credentials with others. The
-authorization server therefore at some point needs to validate that the
-client can actually use the private key corresponding to the client's
-public key.
+arbitrary public keys: if the client can cause the authorization
+server to issue a token for a public key without proving possession of
+the corresponding private key, this allows for identity misbinding
+attacks where the issued token is usable by an entity other than the
+intended one.  The authorization server therefore at some point needs
+to validate that the client can actually use the private key
+corresponding to the client's public key.
 
 When using pre-shared keys provisioned by the authorization server,
 the security level depends on the randomness of PSK, and the security
