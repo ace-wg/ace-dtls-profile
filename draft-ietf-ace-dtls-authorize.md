@@ -630,7 +630,8 @@ where:
 * type is set to the constant text string "ACE-CoAP-DTLS-key-derivation",
 * L is the size of the symmetric key in bytes,
 * access_token is the decrypted access_token as transferred from the
-  authorization server to the resource server.
+  authorization server to the resource server. The decrypted access token
+  usually denotes a CWT claim set represented as CBOR map.
 
 Use of a unique (per resource server) `kid` and the use of a key
 derivation IKM that is unique per authorization server/resource server
