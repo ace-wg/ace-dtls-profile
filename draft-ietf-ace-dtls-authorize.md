@@ -293,7 +293,7 @@ bootstrapped is not part of this document. The client and the
 authorization server must ensure the confidentiality, integrity and
 authenticity of all exchanged messages within the ACE protocol.
 
-Section {{as-commsec}} specifies how communication with the authorization server is secured.
+{{as-commsec}} specifies how communication with the authorization server is secured.
 
 
 ## RawPublicKey Mode {#rpk-mode}
@@ -740,7 +740,7 @@ authz-info resource hosted by the resource server.
 With the successful establishment of the DTLS channel, the client and
 the resource server have proven that they can use their respective
 keying material. An access token that is bound to the client's keying
-material is associated with the channel. According to section 5.8.1 of
+material is associated with the channel. According to Section 5.8.1 of
 {{I-D.ietf-ace-oauth-authz}}, there should be only one access token
 for each client. New access tokens issued by the authorization server
 are supposed to replace previously issued access tokens for the
@@ -757,7 +757,7 @@ If the token has expired, the resource server MUST remove it.
 Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
 rejected by the resource server with 4.01 response. The response
-MAY include AS Request Creation Hints as described in
+SHOULD include AS Request Creation Hints as described in
 Section 5.1.1 of {{I-D.ietf-ace-oauth-authz}}.
 
 The resource server MUST only accept an incoming CoAP request as
@@ -879,7 +879,7 @@ terminating the association.
 
 # Secure Communication with an Authorization Server {#as-commsec}
 
-As specified in the ACE framework (sections 5.6 and 5.7 of
+As specified in the ACE framework (Sections 5.6 and 5.7 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (the resource
 server and/or the client) and the authorization server communicate via
 the token endpoint or introspection endpoint.  The use of CoAP and
@@ -899,7 +899,7 @@ server are used, the communication security requirements from Section
 This document specifies a profile for the Authentication and
 Authorization for Constrained Environments (ACE) framework
 {{I-D.ietf-ace-oauth-authz}}. As it follows this framework's general
-approach, the general security considerations from section
+approach, the general security considerations from Section
 6 of {{I-D.ietf-ace-oauth-authz}} also apply to this profile.
 
 The authorization server must ascertain that the keying material for
@@ -1025,7 +1025,7 @@ must be kept up to date.
 
 # Privacy Considerations
 
-This privacy considerations from section
+This privacy considerations from Section
 7 of the {{I-D.ietf-ace-oauth-authz}} apply also to this profile.
 
 An unprotected response to an unauthorized request may disclose
