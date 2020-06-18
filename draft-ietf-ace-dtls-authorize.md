@@ -594,7 +594,7 @@ shared between the authorization server and resource server.
 In order to generate a new symmetric key to be used by client and
 resource server, the authorization server generates a new key
 identifier which MUST be unique among all key identifiers used by the
-authorization server. The authorization server then uses the key
+authorization server for this resource server. The authorization server then uses the key
 derivation key shared with the resource server to derive the symmetric
 key as specified below.  Instead of providing the keying material in
 the access token, the authorization server includes the key identifier
@@ -632,9 +632,13 @@ where:
 * access_token is the decrypted access_token as transferred from the
   authorization server to the resource server.
 
-To ensure uniqueness of the derived shared secret, the authorization
-server SHOULD generate a sufficiently random kid value and include the
-claims `iat` and either `exp` or `exi` in the access token.
+Use of a unique (per resource server) `kid` and the use of a key
+derivation IKM that is unique per authorization server/resource server
+pair as specified above will ensure that the derived key is not shared
+across multiple clients.  However, to additionally provide variation
+in the derived key across different tokens used by the same client, it
+is additionally RECOMMENDED to include the "iat" claim and either the
+"exp" or "exi" claims in the access token.
 
 ### DTLS Channel Setup Between Client and Resource Server {#psk-dtls-channel}
 
