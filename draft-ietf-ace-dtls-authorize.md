@@ -435,19 +435,20 @@ resource server (e.g., from previous communication), a reference to
 this key. If the authorization server has no certain knowledge that
 the Client's key is already known to the resource server, the Client's
 public key MUST be included in the access token's `cnf` parameter. If
-CBOR web tokens {{RFC8392}} are used as recommended in
-{{I-D.ietf-ace-oauth-authz}}, keys MUST be encoded as specified in
-{{RFC8747}}. The resource server MUST use
-its own raw public key in the DTLS handshake with the client. If the
-resource server has several raw public keys, it must already know
-which key it is supposed to use with this client. How this is achieved
-is not part of this profile.
+CBOR web tokens {{RFC8392}} are used (as recommended in
+{{I-D.ietf-ace-oauth-authz}}), keys MUST be encoded as specified in
+{{RFC8747}}.
 
-The resource server MUST use the keying
-material that the authorizations server has specified in the `cnf` parameter in
-the access token for the DTLS handshake with the client.
-Thus, the handshake only finishes if the client and the resource server
-are able to use their respective keying material.
+The raw public key used in the DTLS handshake with the client MUST
+belong to the resource server. If the resource server has several raw
+public keys, it needs to determine which key to use. The authorization
+server can help with this decision by including a `cnf` parameter in
+the access token that is associated with this communication.  In this
+case, the resource server MUST use the information from the `cnf`
+field to select the proper keying material.
+
+Thus, the handshake only finishes if the client and the resource
+server are able to use their respective keying material.
 
 ## PreSharedKey Mode {#psk-mode}
 
@@ -482,9 +483,12 @@ server adds a `cnf` parameter to the access information carrying a
 `COSE_Key` object that informs the client about the shared secret that
 is to be used between the client and the resource server. To convey
 the same secret to the resource server, the authorization server
-either includes it directly in the access token by means of the `cnf`
-claim or it provides sufficient information to enable the resource
-server to derive the key from the access token using key derivation.
+can include it directly in the access token by means of the `cnf`
+claim or provide sufficient information to enable the resource
+server to derive the shared secret from the access token. As an
+alternative, the resource server MAY use token introspection to
+retrieve the keying material for this access token directly from the
+authorization server.
 
 An example access token request for an access token with a symmetric
 proof-of-possession key is illustrated in {{at-request}}.
@@ -686,12 +690,20 @@ secret directly from the `cnf` claim of the access token.
 
 If a resource server receives a ClientKeyExchange message that
 contains a `psk_identity` with a length greater than zero, it MUST
-process the contents of the `psk_identity` field as access token that
-is stored with the authorization information endpoint, before
-continuing the DTLS handshake. If the contents of the `psk_identity`
-do not yield a valid access token for the requesting client, the
-resource server aborts the DTLS handshake with an `illegal_parameter`
-alert.
+parse the contents of the `psk_identity` field as CBOR data structure
+and process the contents as following:
+
+* If the data contains a `cnf` field with a `COSE_Key` structure with
+  a `kid`, the resource server continues the DTLS handshake with the
+  stored key associated with this kid.
+* If the data comprises additional CWT information, this information
+  must be stored as access token for this DTLS association before
+  continuing with the DTLS handshake.
+
+If the contents of the `psk_identity` do not yield sufficient
+information to select a valid access token for the requesting client,
+the resource server aborts the DTLS handshake with an
+`illegal_parameter` alert.
 
 When the resource server receives an access token, it MUST check if
 the access token is still valid, if the resource server is the
