@@ -778,7 +778,14 @@ rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
    not the requested action.
 
 The client MUST ascertain that its keying material is still valid
-before sending a request or processing a response.
+before sending a request or processing a response. If the client
+recently has updated the access token (see {{update}}), it must be
+prepared that its request is still handled according to the previous
+authorization rules as there is no strict ordering between access
+token uploads and resource access messages. See also
+{{multiple-access-tokens}} for a discussion of access token
+processing.
+
 If the client gets an error response
 containing AS Request Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
