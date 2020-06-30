@@ -294,12 +294,12 @@ li, p {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.45.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.46.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Gerdes, S., Bergmann, O., Bormann, C., Selander, G., and L. Seitz" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-ace-dtls-authorize-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-06-18" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-30" />
   <meta name="dct.abstract" content="This specification defines a profile of the ACE framework that allows constrained servers to delegate client authentication and authorization.  The protocol relies on DTLS version 1.2 for communication security between entities in a constrained network using either raw public keys or pre-shared keys. A resource-constrained server can use this protocol to delegate management of authorization information to a trusted host with less severe limitations regarding processing power and memory. " />
   <meta name="description" content="This specification defines a profile of the ACE framework that allows constrained servers to delegate client authentication and authorization.  The protocol relies on DTLS version 1.2 for communication security between entities in a constrained network using either raw public keys or pre-shared keys. A resource-constrained server can use this protocol to delegate management of authorization information to a trusted host with less severe limitations regarding processing power and memory. " />
 
@@ -323,7 +323,7 @@ li, p {
 <td class="right">C. Bormann</td>
 </tr>
 <tr>
-<td class="left">Expires: December 20, 2020</td>
+<td class="left">Expires: January 1, 2021</td>
 <td class="right">Universit&#228;t Bremen TZI</td>
 </tr>
 <tr>
@@ -344,7 +344,7 @@ li, p {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">June 18, 2020</td>
+<td class="right">June 30, 2020</td>
 </tr>
 
     	
@@ -360,7 +360,7 @@ li, p {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 20, 2020.</p>
+<p>This Internet-Draft will expire on January 1, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -522,7 +522,7 @@ li, p {
 <p id="rfc.section.3.2.p.4">The authorization server MUST check if the client that it communicates with is associated with the RPK in the <samp>req_cnf</samp> parameter before issuing an access token to it.  If the authorization server determines that the request is to be authorized according to the respective authorization rules, it generates an access token response for the client. The access token MUST be bound to the RPK of the client by means of the <samp>cnf</samp> claim.</p>
 <p id="rfc.section.3.2.p.5">The response MAY contain a <samp>profile</samp> parameter with the value <samp>coap_dtls</samp> to indicate that this profile MUST be used for communication between the client and the resource server. The <samp>profile</samp> may be specified out-of-band, in which case it does not have to be sent. The response also contains an access token with information for the resource server about the client&#8217;s public key. The authorization server MUST return in its response the parameter <samp>rs_cnf</samp> unless it is certain that the client already knows the public key of the resource server.  The authorization server MUST ascertain that the RPK specified in <samp>rs_cnf</samp> belongs to the resource server that the client wants to communicate with. The authorization server MUST protect the integrity of the access token such that the resource server can detect unauthorized changes.  If the access token contains confidential data, the authorization server MUST also protect the confidentiality of the access token.</p>
 <p id="rfc.section.3.2.p.6">The client MUST ascertain that the access token response belongs to a certain previously sent access token request, as the request may specify the resource server with which the client wants to communicate.</p>
-<p id="rfc.section.3.2.p.7">An example access token response from the authorization to the client is depicted in <a href="#rpk-authorization-response-example" class="xref">Figure 4</a>. Here, the contents of the <samp>access_token</samp> claim have been truncated to improve readability.  Caching proxies process the Max-Age option in the CoAP response which has a default value of 60 seconds (Section 5.6.1 of <a href="#RFC7252" class="xref">[RFC7252]</a>).  The authorization server SHOULD adjust the Max-Age option such that it does not exceed the <samp>expires_in</samp> parameter to avoid stale responses.</p>
+<p id="rfc.section.3.2.p.7">An example access token response from the authorization server to the client is depicted in <a href="#rpk-authorization-response-example" class="xref">Figure 4</a>. Here, the contents of the <samp>access_token</samp> claim have been truncated to improve readability.  Caching proxies process the Max-Age option in the CoAP response which has a default value of 60 seconds (Section 5.6.1 of <a href="#RFC7252" class="xref">[RFC7252]</a>).  The authorization server SHOULD adjust the Max-Age option such that it does not exceed the <samp>expires_in</samp> parameter to avoid stale responses.</p>
 <div id="rfc.figure.4"></div>
 <div id="rpk-authorization-response-example"></div>
 <pre>
@@ -648,9 +648,10 @@ cnf : {
 <ul>
 <li>type is set to the constant text string &#8220;ACE-CoAP-DTLS-key-derivation&#8221;,</li>
 <li>L is the size of the symmetric key in bytes,</li>
-<li>access_token is the decrypted access_token as transferred from the authorization server to the resource server. The decrypted access token usually denotes a CWT claim set represented as CBOR map.</li>
+<li>access_token is the decrypted content of the <samp>access_token</samp> field as transferred from the authorization server to the resource server.  The decrypted access token usually denotes a CWT claim set represented as CBOR map.</li>
 </ul>
-<p id="rfc.section.3.3.p.18">Use of a unique (per resource server) <samp>kid</samp> and the use of a key derivation IKM that is unique per authorization server/resource server pair as specified above will ensure that the derived key is not shared across multiple clients.  However, to additionally provide variation in the derived key across different tokens used by the same client, it is additionally RECOMMENDED to include the &#8220;iat&#8221; claim and either the &#8220;exp&#8221; or &#8220;exi&#8221; claims in the access token.</p>
+<p id="rfc.section.3.3.p.18">All CBOR data types are encoded in canonical CBOR as defined in Section 3.9 of <a href="#RFC7049" class="xref">[RFC7049]</a>. This implies in particular that the <samp>type</samp> and <samp>L</samp> components use the minimum length encoding.</p>
+<p id="rfc.section.3.3.p.19">Use of a unique (per resource server) <samp>kid</samp> and the use of a key derivation IKM that is unique per authorization server/resource server pair as specified above will ensure that the derived key is not shared across multiple clients.  However, to additionally provide variation in the derived key across different tokens used by the same client, it is additionally RECOMMENDED to include the &#8220;iat&#8221; claim and either the &#8220;exp&#8221; or &#8220;exi&#8221; claims in the access token.</p>
 <h1 id="rfc.section.3.3.1">
 <a href="#rfc.section.3.3.1">3.3.1.</a> <a href="#psk-dtls-channel" id="psk-dtls-channel">DTLS Channel Setup Between Client and Resource Server</a>
 </h1>
@@ -674,8 +675,8 @@ cnf : {
 <p></p>
 
 <ul>
-<li>If the data contains a <samp>cnf</samp> field with a <samp>COSE_Key</samp> structure with a <samp>kid</samp>, the resource server continues the DTLS handshake with the stored key associated with this kid.</li>
-<li>If the data comprises additional CWT information, this information must be stored as access token for this DTLS association before continuing with the DTLS handshake.</li>
+<li>If the data contains a <samp>cnf</samp> field with a <samp>COSE_Key</samp> structure with a <samp>kid</samp>, the resource server continues the DTLS handshake with the associated key that corresponds to this kid.</li>
+<li>If the data comprises additional CWT information, this information must be stored as an access token for this DTLS association before continuing with the DTLS handshake.</li>
 </ul>
 <p id="rfc.section.3.3.1.p.7">If the contents of the <samp>psk_identity</samp> do not yield sufficient information to select a valid access token for the requesting client, the resource server aborts the DTLS handshake with an <samp>illegal_parameter</samp> alert.</p>
 <p id="rfc.section.3.3.1.p.8">When the resource server receives an access token, it MUST check if the access token is still valid, if the resource server is the intended destination (i.e., the audience of the token), and if the token was issued by an authorized authorization server.  This specification assumes that the access token is a PoP token as described in <a href="#I-D.ietf-ace-oauth-authz" class="xref">[I-D.ietf-ace-oauth-authz]</a> unless specifically stated otherwise. Therefore, the access token is bound to a symmetric PoP key that is used as shared secret between the client and the resource server. The resource server may use token introspection <a href="#RFC7662" class="xref">[RFC7662]</a> on the access token to retrieve more information about the specific token. The use of introspection is out of scope for this specification.</p>
@@ -752,12 +753,12 @@ cnf : {
 <p id="rfc.section.7.p.2">The authorization server must ascertain that the keying material for the client that it provides to the resource server actually is associated with this client.  Malicious clients may hand over access tokens containing their own access permissions to other entities. This problem cannot be completely eliminated. Nevertheless, in RPK mode it should not be possible for clients to request access tokens for arbitrary public keys: if the client can cause the authorization server to issue a token for a public key without proving possession of the corresponding private key, this allows for identity misbinding attacks where the issued token is usable by an entity other than the intended one.  The authorization server therefore at some point needs to validate that the client can actually use the private key corresponding to the client&#8217;s public key.</p>
 <p id="rfc.section.7.p.3">When using pre-shared keys provisioned by the authorization server, the security level depends on the randomness of PSK, and the security of the TLS cipher suite and key exchange algorithm.  As this specification targets at constrained environments, message payloads exchanged between the client and the resource server are expected to be small and rare.  CoAP <a href="#RFC7252" class="xref">[RFC7252]</a> mandates the implementation of cipher suites with abbreviated, 8-byte tags for message integrity protection. For consistency, this profile requires implementation of the same cipher suites. For application scenarios where the cost of full-width authentication tags is low compared to the overall amount of data being transmitted, the use of cipher suites with 16-byte integrity protection tags is preferred.</p>
 <p id="rfc.section.7.p.4">The PSK mode of this profile offers a distribution mechanism to convey authorization tokens together with a shared secret to a client and a server. As this specification aims at constrained devices and uses CoAP <a href="#RFC7252" class="xref">[RFC7252]</a> as transfer protocol, at least the ciphersuite TLS_PSK_WITH_AES_128_CCM_8 <a href="#RFC6655" class="xref">[RFC6655]</a> should be supported. The access tokens and the corresponding shared secrets generated by the authorization server are expected to be sufficiently short-lived to provide similar forward-secrecy properties to using ephemeral Diffie-Hellman (DHE) key exchange mechanisms. For longer-lived access tokens, DHE ciphersuites should be used.</p>
-<p id="rfc.section.7.p.5">Constrained devices that use DTLS <a href="#RFC6347" class="xref">[RFC6347]</a> are inherently vulnerable to Denial of Service (DoS) attacks as the handshake protocol requires creation of internal state within the device.  This is specifically of concern where an adversary is able to intercept the initial cookie exchange and interject forged messages with a valid cookie to continue with the handshake. A similar issue exists with the unprotected authorization information endpoint where the resource server needs to keep valid access tokens until their expiry. Adversaries can fill up the constrained resource server&#8217;s internal storage for a very long time with interjected or otherwise retrieved valid access tokens.  The protection of access tokens that are stored in the authorization information endpoint depends on the keying material that is used between the authorization server and the resource server: The resource server must ensure that it processes only access tokens that are encrypted and integrity-protected by an authorization server that is authorized to provide access tokens for the resource server.</p>
+<p id="rfc.section.7.p.5">Constrained devices that use DTLS <a href="#RFC6347" class="xref">[RFC6347]</a> are inherently vulnerable to Denial of Service (DoS) attacks as the handshake protocol requires creation of internal state within the device.  This is specifically of concern where an adversary is able to intercept the initial cookie exchange and interject forged messages with a valid cookie to continue with the handshake. A similar issue exists with the unprotected authorization information endpoint where the resource server needs to keep valid access tokens until their expiry. Adversaries can fill up the constrained resource server&#8217;s internal storage for a very long time with interjected or otherwise retrieved valid access tokens.  The protection of access tokens that are stored in the authorization information endpoint depends on the keying material that is used between the authorization server and the resource server: The resource server must ensure that it processes only access tokens that are (encrypted and) integrity-protected by an authorization server that is authorized to provide access tokens for the resource server.</p>
 <h1 id="rfc.section.7.1">
 <a href="#rfc.section.7.1">7.1.</a> <a href="#reuse-of-existing-sessions" id="reuse-of-existing-sessions">Reuse of Existing Sessions</a>
 </h1>
 <p id="rfc.section.7.1.p.1">To avoid the overhead of a repeated DTLS handshake, <a href="#RFC7925" class="xref">[RFC7925]</a> recommends session resumption <a href="#RFC5077" class="xref">[RFC5077]</a> to reuse session state from an earlier DTLS association and thus requires client side implementation.  In this specification, the DTLS session is subject to the authorization rules denoted by the access token that was used for the initial setup of the DTLS association. Enabling session resumption would require the server to transfer the authorization information with the session state in an encrypted SessionTicket to the client. Assuming that the server uses long-lived keying material, this could open up attacks due to the lack of forward secrecy. Moreover, using this mechanism, a client can resume a DTLS session without proving the possession of the PoP key again. Therefore, the use of session resumption is NOT RECOMMENDED for resource servers.</p>
-<p id="rfc.section.7.1.p.2">Since renogiation of DTLS associations is prone to attacks as well, <a href="#RFC7925" class="xref">[RFC7925]</a> requires clients to decline any renogiation attempt. A server that wants to initiate re-keying therefore SHOULD periodically force a full handshake.</p>
+<p id="rfc.section.7.1.p.2">Since renegotiation of DTLS associations is prone to attacks as well, <a href="#RFC7925" class="xref">[RFC7925]</a> requires clients to decline any renogiation attempt. A server that wants to initiate re-keying therefore SHOULD periodically force a full handshake.</p>
 <h1 id="rfc.section.7.2">
 <a href="#rfc.section.7.2">7.2.</a> <a href="#multiple-access-tokens" id="multiple-access-tokens">Multiple Access Tokens</a>
 </h1>
@@ -787,7 +788,7 @@ cnf : {
 <h1 id="rfc.section.10">
 <a href="#rfc.section.10">10.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
 </h1>
-<p id="rfc.section.10.p.1">Thanks to Jim Schaad for his contributions and reviews of this document. Special thanks to Ben Kaduk for his thorough review of this document.</p>
+<p id="rfc.section.10.p.1">Thanks to Jim Schaad for his contributions and reviews of this document. Special thanks to Ben Kaduk for his thorough reviews of this document.</p>
 <p id="rfc.section.10.p.2">Ludwig Seitz worked on this document as part of the CelticNext projects CyberWI, and CRITISEC with funding from Vinnova.</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">11.</a> References</h1>
@@ -797,7 +798,7 @@ cnf : {
 <tr>
 <td class="reference"><b id="I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</b></td>
 <td class="top">
-<a>Seitz, L.</a>, <a>Selander, G.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-33">Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework (ACE-OAuth)</a>", Internet-Draft draft-ietf-ace-oauth-authz-33, February 2020.</td>
+<a>Seitz, L.</a>, <a>Selander, G.</a>, <a>Wahlstroem, E.</a>, <a>Erdtman, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/draft-ietf-ace-oauth-authz-35">Authentication and Authorization for Constrained Environments (ACE) using the OAuth 2.0 Framework (ACE-OAuth)</a>", Internet-Draft draft-ietf-ace-oauth-authz-35, June 2020.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.ietf-ace-oauth-params">[I-D.ietf-ace-oauth-params]</b></td>
@@ -823,6 +824,11 @@ cnf : {
 <td class="reference"><b id="RFC6749">[RFC6749]</b></td>
 <td class="top">
 <a>Hardt, D.</a>, "<a href="https://tools.ietf.org/html/rfc6749">The OAuth 2.0 Authorization Framework</a>", RFC 6749, DOI 10.17487/RFC6749, October 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7049">[RFC7049]</b></td>
+<td class="top">
+<a>Bormann, C.</a> and <a>P. Hoffman</a>, "<a href="https://tools.ietf.org/html/rfc7049">Concise Binary Object Representation (CBOR)</a>", RFC 7049, DOI 10.17487/RFC7049, October 2013.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC7250">[RFC7250]</b></td>
