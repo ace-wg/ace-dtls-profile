@@ -629,8 +629,9 @@ where:
 
 * type is set to the constant text string "ACE-CoAP-DTLS-key-derivation",
 * L is the size of the symmetric key in bytes,
-* access_token is the decrypted access_token as transferred from the
-  authorization server to the resource server. The decrypted access token
+* access_token is the decrypted content of the `access_token` field as
+  transferred from the authorization server to the resource server.
+  The decrypted access token
   usually denotes a CWT claim set represented as CBOR map.
 
 All CBOR data types are encoded in canonical CBOR as defined in
