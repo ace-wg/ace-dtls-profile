@@ -364,7 +364,7 @@ The client MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
 resource server with which the client wants to communicate.
 
-An example access token response from the authorization to the client
+An example access token response from the authorization server to the client
 is depicted in {{rpk-authorization-response-example}}. Here, the
 contents of the `access_token` claim have been truncated to improve
 readability.
@@ -702,7 +702,7 @@ and process the contents as following:
   a `kid`, the resource server continues the DTLS handshake with the
   stored key associated with this kid.
 * If the data comprises additional CWT information, this information
-  must be stored as access token for this DTLS association before
+  must be stored as an access token for this DTLS association before
   continuing with the DTLS handshake.
 
 If the contents of the `psk_identity` do not yield sufficient
@@ -953,8 +953,8 @@ long time with interjected or otherwise retrieved valid access tokens.
 The protection of access tokens that are stored in the authorization
 information endpoint depends on the keying material that is used between
 the authorization server and the resource server: The resource server
-must ensure that it processes only access tokens that are encrypted
-and integrity-protected by an authorization server that is authorized
+must ensure that it processes only access tokens that are (encrypted
+and) integrity-protected by an authorization server that is authorized
 to provide access tokens for the resource server.
 
 ## Reuse of Existing Sessions
@@ -973,7 +973,7 @@ using this mechanism, a client can resume a DTLS session without
 proving the possession of the PoP key again. Therefore, the use of
 session resumption is NOT RECOMMENDED for resource servers.
 
-Since renogiation of DTLS associations is prone to attacks as well,
+Since renegotiation of DTLS associations is prone to attacks as well,
 {{RFC7925}} requires clients to decline any renogiation attempt. A
 server that wants to initiate re-keying therefore SHOULD periodically
 force a full handshake.
