@@ -633,6 +633,10 @@ where:
   authorization server to the resource server. The decrypted access token
   usually denotes a CWT claim set represented as CBOR map.
 
+All CBOR data types are encoded in canonical CBOR as defined in
+Section 3.9 of {{RFC7049}}. This implies in particular that the `type`
+and `L` components use the minimum length encoding.
+
 Use of a unique (per resource server) `kid` and the use of a key
 derivation IKM that is unique per authorization server/resource server
 pair as specified above will ensure that the derived key is not shared
