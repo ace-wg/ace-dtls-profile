@@ -704,7 +704,7 @@ and process the contents as following:
 
 * If the data contains a `cnf` field with a `COSE_Key` structure with
   a `kid`, the resource server continues the DTLS handshake with the
-  stored key associated with this kid.
+  associated key that corresponds to this kid.
 * If the data comprises additional CWT information, this information
   must be stored as an access token for this DTLS association before
   continuing with the DTLS handshake.
