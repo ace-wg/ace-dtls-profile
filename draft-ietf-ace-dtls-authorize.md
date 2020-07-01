@@ -73,6 +73,7 @@ normative:
   RFC8152:
   RFC8422:
   RFC8747:
+  I-D.ietf-cbor-rfc7049bis: cbor
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
 
@@ -622,7 +623,7 @@ where:
       info = [
         type : tstr,
         L : uint,
-        access_token: map
+        access_token: bytes
       ]
 ~~~~~~~~~~~~~~~~~
 where:
@@ -632,11 +633,12 @@ where:
 * access_token is the decrypted content of the `access_token` field as
   transferred from the authorization server to the resource server.
   The decrypted access token
-  usually denotes a CWT claim set represented as CBOR map.
+  usually denotes a CWT claim set represented as CBOR data structure.
 
-All CBOR data types are encoded in canonical CBOR as defined in
-Section 3.9 of {{RFC7049}}. This implies in particular that the `type`
-and `L` components use the minimum length encoding.
+All CBOR data types are encoded in CBOR using preferred serialization
+and deterministic encoding as specified in Section 4 of {{cbor}}.
+This implies in particular that the `type` and `L` components use the
+minimum length encoding.
 
 Use of a unique (per resource server) `kid` and the use of a key
 derivation IKM that is unique per authorization server/resource server
