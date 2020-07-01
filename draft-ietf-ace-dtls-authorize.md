@@ -73,7 +73,7 @@ normative:
   RFC8152:
   RFC8422:
   RFC8747:
-  I-D.ietf-cbor-rfc7049bis: cbor
+  I-D.ietf-cbor-7049bis: cbor
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
 
@@ -636,7 +636,7 @@ where:
   usually denotes a CWT claim set represented as CBOR data structure.
 
 All CBOR data types are encoded in CBOR using preferred serialization
-and deterministic encoding as specified in Section 4 of {{cbor}}.
+and deterministic encoding as specified in Section 4 of {{-cbor}}.
 This implies in particular that the `type` and `L` components use the
 minimum length encoding.
 
