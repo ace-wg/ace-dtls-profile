@@ -630,15 +630,14 @@ where:
 
 * type is set to the constant text string "ACE-CoAP-DTLS-key-derivation",
 * L is the size of the symmetric key in bytes,
-* access_token is the decrypted content of the `access_token` field as
+* access_token is the content of the `access_token` field as
   transferred from the authorization server to the resource server.
-  The decrypted access token
-  usually denotes a CWT claim set represented as CBOR data structure.
 
 All CBOR data types are encoded in CBOR using preferred serialization
 and deterministic encoding as specified in Section 4 of {{-cbor}}.
 This implies in particular that the `type` and `L` components use the
-minimum length encoding.
+minimum length encoding. The content of the `access_token` field is
+treated as opaque data for the purpose of key derivation.
 
 Use of a unique (per resource server) `kid` and the use of a key
 derivation IKM that is unique per authorization server/resource server
