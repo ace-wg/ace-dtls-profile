@@ -720,9 +720,8 @@ When the resource server receives an access token, it MUST check if
 the access token is still valid, if the resource server is the
 intended destination (i.e., the audience of the token), and if the
 token was issued by an authorized authorization server.  This
-specification assumes that the access token is a PoP token as
-described in {{I-D.ietf-ace-oauth-authz}} unless specifically stated
-otherwise. Therefore, the access token is bound to a symmetric PoP key
+specification implements access tokens as proof-of-possession tokens.
+Therefore, the access token is bound to a symmetric PoP key
 that is used as shared secret between the client and the resource
 server. The resource server may use token introspection [RFC7662] on
 the access token to retrieve more information about the specific
