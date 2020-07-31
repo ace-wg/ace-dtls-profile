@@ -603,7 +603,7 @@ in the `kid` parameter, see {{kdf-cnf}}. This key identifier enables
 the resource server to calculate the symmetric key used for the
 communication with the client using the key derivation key and a KDF
 to be defined by the application, for example HKDF-SHA-256. The key
-identifier picked by the authorization server needs to be unique for
+identifier picked by the authorization server MUST be unique for
 each access token where a unique symmetric key is required.
 
 In this example, HKDF consists of the composition of the HKDF-Extract
@@ -640,7 +640,7 @@ minimum length encoding. The content of the `access_token` field is
 treated as opaque data for the purpose of key derivation.
 
 Use of a unique (per resource server) `kid` and the use of a key
-derivation IKM that is unique per authorization server/resource server
+derivation IKM that MUST be unique per authorization server/resource server
 pair as specified above will ensure that the derived key is not shared
 across multiple clients.  However, to additionally provide variation
 in the derived key across different tokens used by the same client, it
