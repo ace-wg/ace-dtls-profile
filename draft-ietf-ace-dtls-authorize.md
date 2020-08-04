@@ -299,8 +299,11 @@ authenticity of all exchanged messages within the ACE protocol.
 
 ## RawPublicKey Mode {#rpk-mode}
 
-When the client and the resource server use RawPublicKey
-authentication, the procedure is as follows:
+When the client uses RawPublicKey authentication, the procedure is as
+described in the following.
+
+### Access Token Retrieval from the Authorization Server
+
 After the client and the authorization server mutually authenticated each other and validated each
 other's authorization, the client sends a token request to the authorization server's token endpoint.
 The client MUST add a `req_cnf` object carrying either its raw public key
@@ -453,6 +456,11 @@ Thus, the handshake only finishes if the client and the resource
 server are able to use their respective keying material.
 
 ## PreSharedKey Mode {#psk-mode}
+
+When the client uses pre-shared key authentication, the procedure is
+as described in the following.
+
+### Access Token Retrieval from the Authorization Server
 
 To retrieve an access token for the resource that the client wants to
 access, the client MAY include a `cnf` object carrying an identifier
