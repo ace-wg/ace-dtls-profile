@@ -748,7 +748,7 @@ keying material. An access token that is bound to the client's keying
 material is associated with the channel. According to Section 5.8.1 of
 {{I-D.ietf-ace-oauth-authz}}, there should be only one access token
 for each client. New access tokens issued by the authorization server
-are supposed to replace previously issued access tokens for the
+replace previously issued access tokens for the
 respective client. The resource server therefore must have a common
 understanding with the authorization server how access tokens are
 ordered. The authorization server may, e.g., specify a `cti` claim for
