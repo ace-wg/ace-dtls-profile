@@ -751,7 +751,9 @@ for each client. New access tokens issued by the authorization server
 are supposed to replace previously issued access tokens for the
 respective client. The resource server therefore must have a common
 understanding with the authorization server how access tokens are
-ordered.
+ordered. The authorization server may, e.g., specify a `cti` claim for
+the access token (see Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}}) to
+employ a strict order.
 
 Any request that the resource server receives on a DTLS channel that
 is tied to an access token via its keying material 
