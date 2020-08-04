@@ -438,7 +438,8 @@ the Client's key is already known to the resource server, the Client's
 public key MUST be included in the access token's `cnf` parameter. If
 CBOR web tokens {{RFC8392}} are used (as recommended in
 {{I-D.ietf-ace-oauth-authz}}), keys MUST be encoded as specified in
-{{RFC8747}}.
+{{RFC8747}}. A resource server MUST have the capacity to store one
+access token for every proof-of-possession key of every authorized client.
 
 The raw public key used in the DTLS handshake with the client MUST
 belong to the resource server. If the resource server has several raw
@@ -723,7 +724,9 @@ token was issued by an authorized authorization server.  This
 specification implements access tokens as proof-of-possession tokens.
 Therefore, the access token is bound to a symmetric PoP key
 that is used as shared secret between the client and the resource
-server. The resource server may use token introspection [RFC7662] on
+server. A resource server MUST have the capacity to store one
+access token for every proof-of-possession key of every authorized client.
+The resource server may use token introspection [RFC7662] on
 the access token to retrieve more information about the specific
 token. The use of introspection is out of scope for this
 specification.
