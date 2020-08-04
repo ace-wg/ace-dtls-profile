@@ -952,11 +952,15 @@ vulnerable to Denial of Service (DoS) attacks as the handshake
 protocol requires creation of internal state within the device.  This
 is specifically of concern where an adversary is able to intercept the
 initial cookie exchange and interject forged messages with a valid
-cookie to continue with the handshake. A similar issue exists with
-the unprotected authorization information endpoint where the resource server
-needs to keep valid access tokens until their expiry. Adversaries can fill
-up the constrained resource server's internal storage for a very
-long time with interjected or otherwise retrieved valid access tokens.
+cookie to continue with the handshake. A similar issue exists with the
+unprotected authorization information endpoint when the resource
+server needs to keep valid access tokens for a long time. Adversaries
+could fill up the constrained resource server's internal storage for a
+very long time with interjected or otherwise retrieved valid access
+tokens.  To mitigate against this, the resource server should set a
+time boundary until an access token that has not been used until then
+will be deleted.
+
 The protection of access tokens that are stored in the authorization
 information endpoint depends on the keying material that is used between
 the authorization server and the resource server: The resource server
