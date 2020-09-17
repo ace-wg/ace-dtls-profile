@@ -1092,9 +1092,9 @@ Reference:  {{&SELF}}
 
 # Acknowledgments
 
-Thanks to Jim Schaad for his contributions and reviews of this
-document. Special thanks to Ben Kaduk for his thorough reviews of this
-document.
+Special thanks to Jim Schaad for his contributions and reviews of this
+document and to Ben Kaduk for his thorough reviews of this
+document. Thanks also to Paul Kyzivat for his review.
 
 Ludwig Seitz worked on this document as part of the CelticNext
 projects CyberWI, and CRITISEC with funding from Vinnova.
