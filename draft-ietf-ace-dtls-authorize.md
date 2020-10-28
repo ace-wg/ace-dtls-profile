@@ -615,7 +615,7 @@ to be defined by the application, for example HKDF-SHA-256. The key
 identifier picked by the authorization server MUST be unique for
 each access token where a unique symmetric key is required.
 
-We now give an example, to comply with which the following conditions MUST hold: HKDF consists of the composition of the HKDF-Extract
+In this example, HKDF consists of the composition of the HKDF-Extract
 and HKDF-Expand steps [RFC5869]. The symmetric key is derived from the
 key identifier, the key derivation key and other data:
 
