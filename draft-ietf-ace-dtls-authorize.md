@@ -73,7 +73,7 @@ normative:
   RFC8152:
   RFC8422:
   RFC8747:
-  I-D.ietf-cbor-7049bis: cbor
+  RFC8949: cbor
   I-D.ietf-ace-oauth-authz:
   I-D.ietf-ace-oauth-params:
 
