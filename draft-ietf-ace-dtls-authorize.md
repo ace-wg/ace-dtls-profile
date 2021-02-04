@@ -902,8 +902,8 @@ As specified in the ACE framework (Sections 5.6 and 5.7 of
 server and/or the client) and the authorization server communicate via
 the token endpoint or introspection endpoint.  The use of CoAP and
 DTLS for this communication is RECOMMENDED in this profile, other
-protocols (such as HTTP and TLS, or CoAP and OSCORE {{RFC8613}}) MAY
-be used instead.
+protocols fulfilling the security requirements defined in Section 5
+of {{I-D.ietf-ace-oauth-authz}} MAY be used instead.
 
 How credentials (e.g., PSK, RPK, X.509 cert) for using DTLS with the
 authorization server are established is out of scope for this profile.
