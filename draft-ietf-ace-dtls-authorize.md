@@ -86,7 +86,6 @@ informative:
   RFC8032:
   RFC8392:
   RFC8610:
-  RFC8613:
  
 entity:
         SELF: "[RFC-XXXX]"
@@ -549,7 +548,7 @@ structure as specified in {{I-D.ietf-ace-oauth-authz}}.
 {: #at-response title="Example Access Token Response, symmetric PoP-key"}
 
 The access token also comprises a `cnf` claim. This claim usually
-contains a `COSE_Key` object that carries either the symmetric key
+contains a `COSE_Key` object {{RFC8152}} that carries either the symmetric key
 itself or a key identifier that can be used by the resource server to
 determine the secret key it shares with the client. If the access
 token carries a symmetric key, the access token MUST be encrypted
