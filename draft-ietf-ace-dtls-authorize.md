@@ -108,16 +108,17 @@ severe limitations regarding processing power and memory.
 
 This specification defines a profile of the ACE framework
 {{I-D.ietf-ace-oauth-authz}}.  In this profile, a client and a
-resource server use CoAP {{RFC7252}} over DTLS version 1.2 {{RFC6347}} to
-communicate. The client obtains an access token, bound to a key
+resource server use CoAP {{RFC7252}} over DTLS version 1.2 {{RFC6347}}
+to communicate. The client obtains an access token, bound to a key
 (the proof-of-possession key), from an authorization server to prove
 its authorization to access protected resources hosted by the resource
 server. Also, the client and the resource server are provided by the
 authorization server with the necessary keying material to establish a
-DTLS session. The communication between client and authorization server may
-also be secured with DTLS.  This specification supports DTLS with Raw
-Public Keys (RPK) {{RFC7250}} and with Pre-Shared Keys (PSK)
-{{RFC4279}}.
+DTLS session. The communication between client and authorization
+server may also be secured with DTLS.  This specification supports
+DTLS with Raw Public Keys (RPK) {{RFC7250}} and with Pre-Shared Keys
+(PSK) {{RFC4279}}. How token introspection {{RFC7662}} is performed
+between RS and AS is out of scope for this specification.
 
 The ACE framework requires that client and server mutually
 authenticate each other before any application data is exchanged.
@@ -134,7 +135,7 @@ the token and the server shows that it can use a certain RPK.
 The resource server needs access to the token in order to complete
 this exchange.  For the RPK mode, the client must upload the access
 token to the resource server before initiating the handshake, as
-described in Section 5.8.1 of the ACE framework
+described in Section 5.10.1 of the ACE framework
 {{I-D.ietf-ace-oauth-authz}}.
 
 In the PSK mode, client and server show with the DTLS handshake that
@@ -173,7 +174,7 @@ for CoAP messaging. It also specifies how the client can use CoAP over
 DTLS to retrieve an access token from the authorization server (AS)
 for a protected resource hosted on the resource server.  As specified
 in Section 6.7 of {{I-D.ietf-ace-oauth-authz}}, use of DTLS for one or
-both of these interactions is completely independent
+both of these interactions is completely independent.
 
 This profile requires the client to retrieve an access token for
 protected resource(s) it wants to access on the resource server as
@@ -201,17 +202,16 @@ at the resource server, the client can send an initial Unauthorized
 Resource Request message to the resource server. The resource server
 then denies the request and sends an AS Request Creation Hints message
 containing the address of its authorization server back to the client
-as specified in Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}.
+as specified in Section 5.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 Once the client knows the authorization server's address, it can send
 an access token request to the token endpoint at the authorization
 server as specified in {{I-D.ietf-ace-oauth-authz}}. As the access
 token request as well as the response may contain confidential data,
 the communication between the client and the authorization server must
-be confidentiality-protected and ensure authenticity. The client may
-have been registered at the authorization server via the OAuth 2.0
-client registration mechanism as outlined in Section 5.3 of
-{{I-D.ietf-ace-oauth-authz}}.
+be confidentiality-protected and ensure authenticity. The client is
+expected to have been registered at the authorization server as
+outlined in Section 4 of {{I-D.ietf-ace-oauth-authz}}.
 
 The access token returned by the authorization server can then be used
 by the client to establish a new DTLS session with the resource
@@ -219,7 +219,7 @@ server. When the client intends to use an asymmetric proof-of-possession key in 
 DTLS handshake with the resource server, the client MUST upload the
 access token to the authz-info resource, i.e. the authz-info endpoint,
 on the resource server before
-starting the DTLS handshake, as described in Section 5.8.1 of
+starting the DTLS handshake, as described in Section 5.10.1 of
 {{I-D.ietf-ace-oauth-authz}}. In case the client uses a symmetric proof-of-possession
 key in the DTLS handshake, the procedure as above MAY be used, or alternatively,
  the access token MAY instead be transferred in the
@@ -258,8 +258,7 @@ specific for this communication relationship to the resource server.
 the authorization server (AS) must be secured.
 Depending on the used CoAP security mode (see also
 Section 9 of {{RFC7252}},
-the Client-to-AS request, AS-to-Client response (see Section
-5.6 of {{I-D.ietf-ace-oauth-authz}}) and DTLS session
+the Client-to-AS request, AS-to-Client response and DTLS session
 establishment carry slightly different information. {{rpk-mode}}
 addresses the use of raw public keys while {{psk-mode}} defines how
 pre-shared keys are used in this profile.
@@ -323,7 +322,7 @@ server is depicted in {{rpk-authorization-message-example}}.
    Payload:
    {
      grant_type : client_credentials,
-     req_aud    : "tempSensor4711",
+     audience   : "tempSensor4711",
      req_cnf    : {
        COSE_Key : {
          kty : EC2,
@@ -348,21 +347,23 @@ authorization rules, it generates an access token response for the
 client. The access token MUST be bound to the RPK of the client by
 means of the `cnf` claim.
 
-The response MAY contain a `profile` parameter with the value
-`coap_dtls` to indicate that this profile MUST be used for
-communication between the client and the resource server. The
-`profile` may be specified out-of-band, in which case it does not have
-to be sent. The response also contains an access token with
-information for the resource server about the client's public key. The
-authorization server MUST return in its response the parameter
-`rs_cnf` unless it is certain that the client already knows the public
-key of the resource server.  The authorization server MUST ascertain
-that the RPK specified in `rs_cnf` belongs to the resource server that
-the client wants to communicate with. The authorization server MUST
-protect the integrity of the access token such that the resource
-server can detect unauthorized changes.  If the access token contains
-confidential data, the authorization server MUST also protect the
-confidentiality of the access token.
+The response MUST contain an `ace_profile` parameter if
+the`ace_profile` parameter in the request is empty, and MAY contain
+this parameter otherwise (see Section 5.8.2 of
+{{I-D.ietf-ace-oauth-authz}}). This parameter is set to `coap_dtls` to
+indicate that this profile MUST be used for communication between the
+client and the resource server. The response
+also contains an access token with information for the resource server
+about the client's public key. The authorization server MUST return in
+its response the parameter `rs_cnf` unless it is certain that the
+client already knows the public key of the resource server.  The
+authorization server MUST ascertain that the RPK specified in `rs_cnf`
+belongs to the resource server that the client wants to communicate
+with. The authorization server MUST protect the integrity of the
+access token such that the resource server can detect unauthorized
+changes.  If the access token contains confidential data, the
+authorization server MUST also protect the confidentiality of the
+access token.
 
 The client MUST ascertain that the access token response belongs to a certain
 previously sent access token request, as the request may specify the
@@ -418,12 +419,12 @@ the DTLS handshake as described in [RFC7250].
 To be consistent with {{RFC7252}} which allows for shortened MAC tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile MUST at
-least support the ciphersuite
+least support the cipher suite
 TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8 {{RFC7251}}.
 As discussed in {{RFC7748}}, new ECC
-  curves have been defined recently that are considered superior to
-  the so-called NIST curves. This specification therefore mandates
-  implementation support for curve25519 (cf. {{RFC8032}}, {{RFC8422}})
+  curves have been defined recently that are considered superior to 
+  the so-called NIST curves. Implementations of this profile therefore
+  MUST implement support for curve25519 (cf. {{RFC8032}}, {{RFC8422}})
   as this curve said to be efficient and less dangerous
   regarding implementation errors than the secp256r1 curve mandated in
   {{RFC7252}}.
@@ -431,7 +432,9 @@ As discussed in {{RFC7748}}, new ECC
 The resource server MUST check if the access token is still valid, if
 the resource server is the intended destination (i.e., the audience)
 of the token, and if the token was issued by an authorized
-authorization server.  The access token is constructed by the
+authorization server (see also section 5.10.1.1 of
+{{I-D.ietf-ace-oauth-authz}}).
+The access token is constructed by the
 authorization server such that the resource server can associate the
 access token with the Client's public key.  The `cnf` claim MUST
 contain either the client's RPK or, if the key is already known by the
@@ -478,7 +481,7 @@ The authorization server MUST determine the authorization rules for
 the client it communicates with as defined by the resource owner and
 generate the access token accordingly.  If the authorization server
 authorizes the client, it returns an AS-to-Client response. If the
-profile parameter is present, it is set to `coap_dtls`. The
+`ace_profile` parameter is present, it is set to `coap_dtls`. The
 authorization server MUST ascertain that the access token is generated
 for the resource server that the client wants to communicate
 with. Also, the authorization server MUST protect the integrity of the
@@ -568,7 +571,7 @@ cnf : {
 
 A response that declines any operation on the requested resource is
 constructed according to Section 5.2 of {{RFC6749}},
-(cf. Section 5.6.3. of {{I-D.ietf-ace-oauth-authz}}). {{token-reject}}
+(cf. Section 5.8.3. of {{I-D.ietf-ace-oauth-authz}}). {{token-reject}}
 shows an example for a request that has been rejected due to invalid
 request parameters.
 
@@ -671,9 +674,9 @@ channel with a resource server. To use DTLS with pre-shared keys, the
 client follows the PSK key exchange algorithm specified in Section 2
 of {{RFC4279}} using the key conveyed in the `cnf` parameter of the AS
 response as PSK when constructing the premaster secret. To be
-consistent with the recommendations in {{RFC7252}} a client is
-expected to offer at least the ciphersuite
-TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}} to the resource server.
+consistent with the recommendations in {{RFC7252}} a client in the PSK
+mode MUST support the cipher suite TLS\_PSK\_WITH\_AES\_128\_CCM\_8
+{{RFC6655}}.
 
 In PreSharedKey mode, the knowledge of the shared secret by the client
 and the resource server is used for mutual authentication between both
@@ -756,14 +759,14 @@ authz-info resource hosted by the resource server.
 With the successful establishment of the DTLS channel, the client and
 the resource server have proven that they can use their respective
 keying material. An access token that is bound to the client's keying
-material is associated with the channel. According to Section 5.8.1 of
+material is associated with the channel. According to Section 5.10.1 of
 {{I-D.ietf-ace-oauth-authz}}, there should be only one access token
 for each client. New access tokens issued by the authorization server
 SHOULD replace previously issued access tokens for the
 respective client. The resource server therefore needs a common
 understanding with the authorization server how access tokens are
 ordered. The authorization server may, e.g., specify a `cti` claim for
-the access token (see Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}}) to
+the access token (see Section 5.9.4 of {{I-D.ietf-ace-oauth-authz}}) to
 employ a strict order.
 
 Any request that the resource server receives on a DTLS channel that
@@ -776,7 +779,7 @@ Incoming CoAP requests that are not authorized with respect
 to any access token that is associated with the client MUST be
 rejected by the resource server with 4.01 response. The response
 SHOULD include AS Request Creation Hints as described in
-Section 5.1.1 of {{I-D.ietf-ace-oauth-authz}}.
+Section 5.2 of {{I-D.ietf-ace-oauth-authz}}.
 
 The resource server MUST only accept an incoming CoAP request as
 authorized if the following holds:
@@ -792,7 +795,7 @@ authorized if the following holds:
 
 Incoming CoAP requests received on a secure DTLS channel that are not
 thus authorized MUST be
-rejected according to Section 5.8.2 of {{I-D.ietf-ace-oauth-authz}}
+rejected according to Section 5.10.1.1 of {{I-D.ietf-ace-oauth-authz}}
 
 1. with response code 4.03 (Forbidden) when the resource URI specified
    in the request is not covered by the authorization information, and
@@ -810,7 +813,7 @@ token uploads and resource access messages. See also
 processing.
 
 If the client gets an error response
-containing AS Request Creation Hints (cf.  Section 5.1.2 of {{I-D.ietf-ace-oauth-authz}}
+containing AS Request Creation Hints (cf.  Section 5.3 of {{I-D.ietf-ace-oauth-authz}}
 as response to its requests, it SHOULD request a new access token from
 the authorization server in order to continue communication with the
 resource server.
@@ -850,7 +853,7 @@ authorization server MUST verify that the specified `kid` denotes a
 valid verifier for a proof-of-possession token that has previously
 been issued to the requesting client. Otherwise, the Client-to-AS
 request MUST be declined with the error code `unsupported_pop_key` as
-defined in Section 5.6.3 of {{I-D.ietf-ace-oauth-authz}}.
+defined in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}}.
 
 When the authorization server issues a new access token to update
 existing authorization information, it MUST include the specified `kid`
@@ -890,14 +893,14 @@ association may become useless at some point.  A resource server therefore
 MUST terminate existing DTLS association after the last access token
 associated with this association has expired.
 
-As specified in Section 5.8.3 of {{I-D.ietf-ace-oauth-authz}},
+As specified in Section 5.10.3 of {{I-D.ietf-ace-oauth-authz}},
 the resource server MUST notify the client with an error response with
 code 4.01 (Unauthorized) for any long running request before
 terminating the association.
 
 # Secure Communication with an Authorization Server {#as-commsec}
 
-As specified in the ACE framework (Sections 5.6 and 5.7 of
+As specified in the ACE framework (Sections 5.8 and 5.9 of
 {{I-D.ietf-ace-oauth-authz}}), the requesting entity (the resource
 server and/or the client) and the authorization server communicate via
 the token endpoint or introspection endpoint.  The use of CoAP and
@@ -950,13 +953,14 @@ integrity protection tags is preferred.
 The PSK mode of this profile offers a distribution mechanism to convey
 authorization tokens together with a shared secret to a client and a
 server. As this specification aims at constrained devices and uses
-CoAP [RFC7252] as transfer protocol, at least the ciphersuite
+CoAP [RFC7252] as transfer protocol, at least the cipher suite
 TLS\_PSK\_WITH\_AES\_128\_CCM\_8 {{RFC6655}} should be supported. The
 access tokens and the corresponding shared secrets generated by the
 authorization server are expected to be sufficiently short-lived to
 provide similar forward-secrecy properties to using ephemeral
 Diffie-Hellman (DHE) key exchange mechanisms. For longer-lived access
-tokens, DHE ciphersuites should be used.
+tokens, DHE cipher suites should be used, i.e., cipher suites of the
+form TLS\_DHE\_PSK\_*.
 
 Constrained devices that use DTLS {{RFC6347}} are inherently
 vulnerable to Denial of Service (DoS) attacks as the handshake
@@ -992,11 +996,12 @@ with the session state in an encrypted SessionTicket to the
 client. Assuming that the server uses long-lived keying material, this
 could open up attacks due to the lack of forward secrecy. Moreover,
 using this mechanism, a client can resume a DTLS session without
-proving the possession of the PoP key again. Therefore, the use of
-session resumption is NOT RECOMMENDED for resource servers.
+proving the possession of the PoP key again. Therefore, session
+resumption should be used only in combination with reasonably
+short-lived PoP keys.
 
 Since renegotiation of DTLS associations is prone to attacks as well,
-{{RFC7925}} requires clients to decline any renogiation attempt. A
+{{RFC7925}} requires clients to decline any renegotiation attempt. A
 server that wants to initiate re-keying therefore SHOULD periodically
 force a full handshake.
 
@@ -1008,8 +1013,8 @@ and calculate the actual permissions of the client. Also, tokens may
 contradict each other which may lead the server to enforce wrong
 permissions. If one of the access tokens expires earlier than others,
 the resulting permissions may offer insufficient
-protection. Developers SHOULD avoid using multiple access
-tokens for a client.
+protection. Developers SHOULD avoid using multiple access tokens for a
+client (see also section 5.10.1 of {{I-D.ietf-ace-oauth-authz}}).
 
 Even when a single access token per client is used, an attacker could
 compromise the dynamic update mechanism for existing DTLS connections
