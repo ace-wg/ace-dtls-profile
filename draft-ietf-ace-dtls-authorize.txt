@@ -99,7 +99,7 @@ Table of Contents
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  24
      11.2.  Informative References . . . . . . . . . . . . . . . . .  26
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
 
 
 
@@ -640,13 +640,13 @@ Internet-Draft                  CoAP-DTLS                     April 2021
          Figure 6: Example Access Token Response, symmetric PoP-key
 
    The access token also comprises a "cnf" claim.  This claim usually
-   contains a "COSE_Key" object that carries either the symmetric key
-   itself or a key identifier that can be used by the resource server to
-   determine the secret key it shares with the client.  If the access
-   token carries a symmetric key, the access token MUST be encrypted
-   using a "COSE_Encrypt0" structure.  The authorization server MUST use
-   the keying material shared with the resource server to encrypt the
-   token.
+   contains a "COSE_Key" object [RFC8152] that carries either the
+   symmetric key itself or a key identifier that can be used by the
+   resource server to determine the secret key it shares with the
+   client.  If the access token carries a symmetric key, the access
+   token MUST be encrypted using a "COSE_Encrypt0" structure.  The
+   authorization server MUST use the keying material shared with the
+   resource server to encrypt the token.
 
    The "cnf" structure in the access token is provided in Figure 7.
 
@@ -1447,7 +1447,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/info/rfc8610>.
 
-
+Authors' Addresses
 
 
 
@@ -1457,13 +1457,6 @@ Gerdes, et al.           Expires 25 October 2021               [Page 26]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
-
-   [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
-              "Object Security for Constrained RESTful Environments
-              (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
-              <https://www.rfc-editor.org/info/rfc8613>.
-
-Authors' Addresses
 
    Stefanie Gerdes
    Universität Bremen TZI
@@ -1501,19 +1494,6 @@ Authors' Addresses
    Email: goran.selander@ericsson.com
 
 
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 27]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    Ludwig Seitz
    Combitech
    Djäknegatan 31
@@ -1529,40 +1509,4 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 28]
+Gerdes, et al.           Expires 25 October 2021               [Page 27]
