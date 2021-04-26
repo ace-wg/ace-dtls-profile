@@ -5,12 +5,12 @@
 ACE Working Group                                              S. Gerdes
 Internet-Draft                                               O. Bergmann
 Intended status: Standards Track                              C. Bormann
-Expires: 25 October 2021                          Universität Bremen TZI
+Expires: 28 October 2021                          Universität Bremen TZI
                                                              G. Selander
                                                              Ericsson AB
                                                                 L. Seitz
                                                                Combitech
-                                                           23 April 2021
+                                                           26 April 2021
 
 
 Datagram Transport Layer Security (DTLS) Profile for Authentication and
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 October 2021.
+   This Internet-Draft will expire on 28 October 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 1]
+Gerdes, et al.           Expires 28 October 2021                [Page 1]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -98,7 +98,7 @@ Table of Contents
    10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  24
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  24
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  26
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  25
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 2]
+Gerdes, et al.           Expires 28 October 2021                [Page 2]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -165,7 +165,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 3]
+Gerdes, et al.           Expires 28 October 2021                [Page 3]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -221,7 +221,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 4]
+Gerdes, et al.           Expires 28 October 2021                [Page 4]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -277,7 +277,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 5]
+Gerdes, et al.           Expires 28 October 2021                [Page 5]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -333,7 +333,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 6]
+Gerdes, et al.           Expires 28 October 2021                [Page 6]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -389,7 +389,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 7]
+Gerdes, et al.           Expires 28 October 2021                [Page 7]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -445,7 +445,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 8]
+Gerdes, et al.           Expires 28 October 2021                [Page 8]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -501,7 +501,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021                [Page 9]
+Gerdes, et al.           Expires 28 October 2021                [Page 9]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -557,7 +557,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 10]
+Gerdes, et al.           Expires 28 October 2021               [Page 10]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -613,7 +613,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 11]
+Gerdes, et al.           Expires 28 October 2021               [Page 11]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -669,7 +669,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 12]
+Gerdes, et al.           Expires 28 October 2021               [Page 12]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -725,7 +725,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 13]
+Gerdes, et al.           Expires 28 October 2021               [Page 13]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -781,7 +781,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 14]
+Gerdes, et al.           Expires 28 October 2021               [Page 14]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -837,7 +837,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 15]
+Gerdes, et al.           Expires 28 October 2021               [Page 15]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -893,7 +893,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 16]
+Gerdes, et al.           Expires 28 October 2021               [Page 16]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -949,7 +949,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 17]
+Gerdes, et al.           Expires 28 October 2021               [Page 17]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 18]
+Gerdes, et al.           Expires 28 October 2021               [Page 18]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 19]
+Gerdes, et al.           Expires 28 October 2021               [Page 19]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 20]
+Gerdes, et al.           Expires 28 October 2021               [Page 20]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 21]
+Gerdes, et al.           Expires 28 October 2021               [Page 21]
 
 Internet-Draft                  CoAP-DTLS                     April 2021
 
@@ -1192,12 +1192,6 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 7.2.  Multiple Access Tokens
 
-   The use of multiple access tokens for a single client increases the
-   strain on the resource server as it must consider every access token
-   and calculate the actual permissions of the client.  Also, tokens may
-   contradict each other which may lead the server to enforce wrong
-   permissions.  If one of the access tokens expires earlier than
-   others, the resulting permissions may offer insufficient protection.
    Developers SHOULD avoid using multiple access tokens for a client
    (see also section 5.10.1 of [I-D.ietf-ace-oauth-authz]).
 
@@ -1226,20 +1220,20 @@ Internet-Draft                  CoAP-DTLS                     April 2021
    authorization information concerning the authorization server
    approved by its owner as well as the corresponding keying material.
    Also, the client's owner must have approved of the client's
-
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 22]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    communication with the resource server.  The client and the
    authorization server must have obtained a common understanding how
    this resource server is identified to ensure that the client obtains
    access token and keying material for the correct resource server.  If
    the client is provided with a raw public key for the resource server,
    it must be ascertained to which resource server (which identifier and
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 22]
+
+Internet-Draft                  CoAP-DTLS                     April 2021
+
+
    authorization information) the key is associated.  All authorization
    information and keying material must be kept up to date.
 
@@ -1283,18 +1277,18 @@ Internet-Draft                  CoAP-DTLS                     April 2021
    Transport Layer Security (DTLS) channel between resource-constrained
    nodes.
 
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 23]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    Profile ID: TBD (suggested: 1)
 
    Change Controller: IESG
 
    Reference: [RFC-XXXX]
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 23]
+
+Internet-Draft                  CoAP-DTLS                     April 2021
+
 
 10.  Acknowledgments
 
@@ -1314,9 +1308,9 @@ Internet-Draft                  CoAP-DTLS                     April 2021
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
               Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-39, 15 April 2021,
+              draft-ietf-ace-oauth-authz-40, 26 April 2021,
               <https://www.ietf.org/archive/id/draft-ietf-ace-oauth-
-              authz-39.txt>.
+              authz-40.txt>.
 
    [I-D.ietf-ace-oauth-params]
               Seitz, L., "Additional OAuth Parameters for Authorization
@@ -1339,16 +1333,18 @@ Internet-Draft                  CoAP-DTLS                     April 2021
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <https://www.rfc-editor.org/info/rfc6347>.
 
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 24]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
+
+
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 24]
+
+Internet-Draft                  CoAP-DTLS                     April 2021
+
 
    [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
               Weiler, S., and T. Kivinen, "Using Raw Public Keys in
@@ -1391,23 +1387,20 @@ Internet-Draft                  CoAP-DTLS                     April 2021
               Web Tokens (CWTs)", RFC 8747, DOI 10.17487/RFC8747, March
               2020, <https://www.rfc-editor.org/info/rfc8747>.
 
-
-
-
-
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 25]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", STD 94, RFC 8949,
               DOI 10.17487/RFC8949, December 2020,
               <https://www.rfc-editor.org/info/rfc8949>.
 
 11.2.  Informative References
+
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 25]
+
+Internet-Draft                  CoAP-DTLS                     April 2021
+
 
    [RFC5077]  Salowey, J., Zhou, H., Eronen, P., and H. Tschofenig,
               "Transport Layer Security (TLS) Session Resumption without
@@ -1449,15 +1442,6 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 Authors' Addresses
 
-
-
-
-
-Gerdes, et al.           Expires 25 October 2021               [Page 26]
-
-Internet-Draft                  CoAP-DTLS                     April 2021
-
-
    Stefanie Gerdes
    Universität Bremen TZI
    Postfach 330440
@@ -1466,6 +1450,12 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
    Phone: +49-421-218-63906
    Email: gerdes@tzi.org
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 26]
+
+Internet-Draft                  CoAP-DTLS                     April 2021
 
 
    Olaf Bergmann
@@ -1509,4 +1499,14 @@ Internet-Draft                  CoAP-DTLS                     April 2021
 
 
 
-Gerdes, et al.           Expires 25 October 2021               [Page 27]
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.           Expires 28 October 2021               [Page 27]
