@@ -1006,13 +1006,7 @@ force a full handshake.
 
 ## Multiple Access Tokens
 
-The use of multiple access tokens for a single client increases the
-strain on the resource server as it must consider every access token
-and calculate the actual permissions of the client. Also, tokens may
-contradict each other which may lead the server to enforce wrong
-permissions. If one of the access tokens expires earlier than others,
-the resulting permissions may offer insufficient
-protection. Developers SHOULD avoid using multiple access tokens for a
+Developers SHOULD avoid using multiple access tokens for a
 client (see also section 5.10.1 of {{I-D.ietf-ace-oauth-authz}}).
 
 Even when a single access token per client is used, an attacker could
