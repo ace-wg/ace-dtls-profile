@@ -295,9 +295,9 @@ authenticity of all exchanged messages within the ACE protocol.
 {{as-commsec}} specifies how communication with the authorization server is secured.
 
 
-## RawPublicKey Mode {#rpk-mode}
+## Raw Public Key Mode {#rpk-mode}
 
-When the client uses RawPublicKey authentication, the procedure is as
+When the client uses raw public key authentication, the procedure is as
 described in the following.
 
 ### Access Token Retrieval from the Authorization Server
@@ -406,7 +406,7 @@ Before the client initiates the DTLS handshake with the resource
 server, the client MUST send a `POST` request containing the obtained
 access token to the authz-info resource hosted by the resource
 server. After the client receives a confirmation that the resource
-server has accepted the access token, it SHOULD proceed to establish a
+server has accepted the access token, it proceeds to establish a
 new DTLS channel with the resource server.  The client MUST use its
 correct public key in the DTLS handshake. If the authorization server
 has specified a `cnf` field in the access token response, the client
@@ -415,7 +415,7 @@ it specified in the `req_cnf` of the access token request. The client
 MUST specify this public key in the SubjectPublicKeyInfo structure of
 the DTLS handshake as described in [RFC7250].
 
-To be consistent with {{RFC7252}} which allows for shortened MAC tags
+To be consistent with {{RFC7252}}, which allows for shortened MAC tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile MUST at
 least support the cipher suite
@@ -552,7 +552,8 @@ contains a `COSE_Key` object {{RFC8152}} that carries either the symmetric key
 itself or a key identifier that can be used by the resource server to
 determine the secret key it shares with the client. If the access
 token carries a symmetric key, the access token MUST be encrypted
-using a `COSE_Encrypt0` structure. The authorization server MUST use
+using a `COSE_Encrypt0` structure (see section 7.1 of {{RFC8392}}). The
+authorization server MUST use
 the keying material shared with the resource server to encrypt the
 token.
 
@@ -673,7 +674,7 @@ channel with a resource server. To use DTLS with pre-shared keys, the
 client follows the PSK key exchange algorithm specified in Section 2
 of {{RFC4279}} using the key conveyed in the `cnf` parameter of the AS
 response as PSK when constructing the premaster secret. To be
-consistent with the recommendations in {{RFC7252}} a client in the PSK
+consistent with the recommendations in {{RFC7252}}, a client in the PSK
 mode MUST support the cipher suite TLS\_PSK\_WITH\_AES\_128\_CCM\_8
 {{RFC6655}}.
 
@@ -780,8 +781,8 @@ rejected by the resource server with 4.01 response. The response
 SHOULD include AS Request Creation Hints as described in
 Section 5.2 of {{I-D.ietf-ace-oauth-authz}}.
 
-The resource server MUST only accept an incoming CoAP request as
-authorized if the following holds:
+The resource server MUST NOT accept an incoming CoAP request as
+authorized if any of the following fails:
 
 1. The message was received on a secure channel that has been
    established using the procedure defined in this document.
