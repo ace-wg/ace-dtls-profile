@@ -1308,9 +1308,9 @@ Internet-Draft                  CoAP-DTLS                       May 2021
               H. Tschofenig, "Authentication and Authorization for
               Constrained Environments (ACE) using the OAuth 2.0
               Framework (ACE-OAuth)", Work in Progress, Internet-Draft,
-              draft-ietf-ace-oauth-authz-40, 26 April 2021,
+              draft-ietf-ace-oauth-authz-41, 6 May 2021,
               <https://www.ietf.org/archive/id/draft-ietf-ace-oauth-
-              authz-40.txt>.
+              authz-41.txt>.
 
    [I-D.ietf-ace-oauth-params]
               Seitz, L., "Additional OAuth Parameters for Authorization
