@@ -58,7 +58,7 @@ author:
     city: Malmö
     code: 211 35
     country: Sweden
-    email: ludwig.seitz@combitech.se
+    email: ludwig.seitz@combitech.com
 
 normative:
   RFC2119:
