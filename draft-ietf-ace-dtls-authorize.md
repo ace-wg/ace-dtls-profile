@@ -71,6 +71,7 @@ normative:
   RFC7252:
   RFC7925:
   RFC8152:
+  RFC8392:
   RFC8422:
   RFC8747:
   RFC8949: cbor
@@ -78,13 +79,12 @@ normative:
   I-D.ietf-ace-oauth-params:
 
 informative:
-  RFC5077:
   RFC5869:
   RFC6655:
   RFC7662:
   RFC7748:
   RFC8032:
-  RFC8392:
+  RFC8446:
   RFC8610:
  
 entity:
@@ -371,7 +371,8 @@ resource server with which the client wants to communicate.
 An example access token response from the authorization server to the client
 is depicted in {{rpk-authorization-response-example}}. Here, the
 contents of the `access_token` claim have been truncated to improve
-readability.
+readability. The response comprises access information for the client
+that contains the server's public key in the `rs_cnf` parameter.
 Caching proxies process the Max-Age option in the CoAP response which
 has a default value of 60 seconds (Section 5.6.1 of [RFC7252]).
 The authorization server SHOULD
@@ -414,6 +415,14 @@ MUST use this key. Otherwise, the client MUST use the public key that
 it specified in the `req_cnf` of the access token request. The client
 MUST specify this public key in the SubjectPublicKeyInfo structure of
 the DTLS handshake as described in [RFC7250].
+
+If the client does not have the keying material belonging to the
+public key, the client MAY try to send an access token request to the
+AS where it specifies its public key in the `req_cnf` parameter. If
+the AS still specifies a public key in the response that the client
+does not have, the client SHOULD to re-register with the authorization
+server to establish a new client public key. This process is out of
+scope for this document.
 
 To be consistent with {{RFC7252}}, which allows for shortened MAC tags
 in constrained environments,
@@ -746,8 +755,9 @@ While the client can retrieve the shared secret from the contents of
 the `cnf` parameter in the AS-to-Client response, the resource server
 uses the information contained in the `cnf` claim of the access token
 to determine the actual secret when no explicit `kid` was provided in
-the `psk_identity` field. If key derivation is used, the resource
-server uses the `COSE_KDF_Context` information as described above.
+the `psk_identity` field. If key derivation is used, the `cnf` claim
+MUST contain a `kid` parameter to be used by the server as the IKM for
+key derivation as described above.
 
 ## Resource Access
 
@@ -986,7 +996,7 @@ to provide access tokens for the resource server.
 ## Reuse of Existing Sessions
 
 To avoid the overhead of a repeated DTLS handshake, {{RFC7925}}
-recommends session resumption {{RFC5077}} to reuse session state from
+recommends session resumption {{RFC8446}} to reuse session state from
 an earlier DTLS association and thus requires client side
 implementation.  In this specification, the DTLS session is subject to
 the authorization rules denoted by the access token that was used for
