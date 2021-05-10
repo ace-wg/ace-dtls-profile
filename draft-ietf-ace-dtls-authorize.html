@@ -832,7 +832,7 @@ address div.right {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Gerdes, et al.</td>
-<td class="center">Expires 7 November 2021</td>
+<td class="center">Expires 11 November 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -845,12 +845,12 @@ address div.right {
 <dd class="internet-draft">draft-ietf-ace-dtls-authorize-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-05-06" class="published">6 May 2021</time>
+<time datetime="2021-05-10" class="published">10 May 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-11-07">7 November 2021</time></dd>
+<dd class="expires"><time datetime="2021-11-11">11 November 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -906,7 +906,7 @@ severe limitations regarding processing power and memory.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 November 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 November 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -953,7 +953,7 @@ severe limitations regarding processing power and memory.<a href="#section-abstr
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-communication-between-the-c" class="xref">Communication Between the Client and the Authorization Server</a></p>
 </li>
               <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-rawpublickey-mode" class="xref">RawPublicKey Mode</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-raw-public-key-mode" class="xref">Raw Public Key Mode</a></p>
 <ul class="compact toc ulEmpty">
 <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2.2.1">
                     <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="xref">3.2.1</a>.  <a href="#name-access-token-retrieval-from" class="xref">Access Token Retrieval from the Authorization Server</a></p>
@@ -1239,10 +1239,10 @@ authenticity of all exchanged messages within the ACE protocol.<a href="#section
 </div>
 <div id="rpk-mode">
 <section id="section-3.2">
-        <h3 id="name-rawpublickey-mode">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-rawpublickey-mode" class="section-name selfRef">RawPublicKey Mode</a>
+        <h3 id="name-raw-public-key-mode">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-raw-public-key-mode" class="section-name selfRef">Raw Public Key Mode</a>
         </h3>
-<p id="section-3.2-1">When the client uses RawPublicKey authentication, the procedure is as
+<p id="section-3.2-1">When the client uses raw public key authentication, the procedure is as
 described in the following.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <div id="access-token-retrieval-from-the-authorization-server">
 <section id="section-3.2.1">
@@ -1318,7 +1318,8 @@ resource server with which the client wants to communicate.<a href="#section-3.2
 <p id="section-3.2.1-8">An example access token response from the authorization server to the client
 is depicted in <a href="#rpk-authorization-response-example" class="xref">Figure 4</a>. Here, the
 contents of the <code>access_token</code> claim have been truncated to improve
-readability.
+readability. The response comprises access information for the client
+that contains the server's public key in the <code>rs_cnf</code> parameter.
 Caching proxies process the Max-Age option in the CoAP response which
 has a default value of 60 seconds (Section 5.6.1 of <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>).
 The authorization server SHOULD
@@ -1363,7 +1364,7 @@ adjust the Max-Age option such that it does not exceed the
 server, the client MUST send a <code>POST</code> request containing the obtained
 access token to the authz-info resource hosted by the resource
 server. After the client receives a confirmation that the resource
-server has accepted the access token, it SHOULD proceed to establish a
+server has accepted the access token, it proceeds to establish a
 new DTLS channel with the resource server.  The client MUST use its
 correct public key in the DTLS handshake. If the authorization server
 has specified a <code>cnf</code> field in the access token response, the client
@@ -1371,7 +1372,14 @@ MUST use this key. Otherwise, the client MUST use the public key that
 it specified in the <code>req_cnf</code> of the access token request. The client
 MUST specify this public key in the SubjectPublicKeyInfo structure of
 the DTLS handshake as described in <span>[<a href="#RFC7250" class="xref">RFC7250</a>]</span>.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-2">To be consistent with <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> which allows for shortened MAC tags
+<p id="section-3.2.2-2">If the client does not have the keying material belonging to the
+public key, the client MAY try to send an access token request to the
+AS where it specifies its public key in the <code>req_cnf</code> parameter. If
+the AS still specifies a public key in the response that the client
+does not have, the client SHOULD to re-register with the authorization
+server to establish a new client public key. This process is out of
+scope for this document.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-3">To be consistent with <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, which allows for shortened MAC tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile MUST at
 least support the cipher suite
@@ -1382,8 +1390,8 @@ As discussed in <span>[<a href="#RFC7748" class="xref">RFC7748</a>]</span>, new 
   MUST implement support for curve25519 (cf. <span>[<a href="#RFC8032" class="xref">RFC8032</a>]</span>, <span>[<a href="#RFC8422" class="xref">RFC8422</a>]</span>)
   as this curve said to be efficient and less dangerous
   regarding implementation errors than the secp256r1 curve mandated in
-  <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-3">The resource server MUST check if the access token is still valid, if
+  <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-4">The resource server MUST check if the access token is still valid, if
 the resource server is the intended destination (i.e., the audience)
 of the token, and if the token was issued by an authorized
 authorization server (see also section 5.10.1.1 of
@@ -1399,16 +1407,16 @@ public key MUST be included in the access token's <code>cnf</code> parameter. If
 CBOR web tokens <span>[<a href="#RFC8392" class="xref">RFC8392</a>]</span> are used (as recommended in
 <span>[<a href="#I-D.ietf-ace-oauth-authz" class="xref">I-D.ietf-ace-oauth-authz</a>]</span>), keys MUST be encoded as specified in
 <span>[<a href="#RFC8747" class="xref">RFC8747</a>]</span>. A resource server MUST have the capacity to store one
-access token for every proof-of-possession key of every authorized client.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-4">The raw public key used in the DTLS handshake with the client MUST
+access token for every proof-of-possession key of every authorized client.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-5">The raw public key used in the DTLS handshake with the client MUST
 belong to the resource server. If the resource server has several raw
 public keys, it needs to determine which key to use. The authorization
 server can help with this decision by including a <code>cnf</code> parameter in
 the access token that is associated with this communication.  In this
 case, the resource server MUST use the information from the <code>cnf</code>
-field to select the proper keying material.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-5">Thus, the handshake only finishes if the client and the resource
-server are able to use their respective keying material.<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
+field to select the proper keying material.<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-6">Thus, the handshake only finishes if the client and the resource
+server are able to use their respective keying material.<a href="#section-3.2.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1518,7 +1526,8 @@ contains a <code>COSE_Key</code> object <span>[<a href="#RFC8152" class="xref">R
 itself or a key identifier that can be used by the resource server to
 determine the secret key it shares with the client. If the access
 token carries a symmetric key, the access token MUST be encrypted
-using a <code>COSE_Encrypt0</code> structure. The authorization server MUST use
+using a <code>COSE_Encrypt0</code> structure (see section 7.1 of <span>[<a href="#RFC8392" class="xref">RFC8392</a>]</span>). The
+authorization server MUST use
 the keying material shared with the resource server to encrypt the
 token.<a href="#section-3.3.1-7" class="pilcrow">¶</a></p>
 <p id="section-3.3.1-8">The <code>cnf</code> structure in the access token is provided in <a href="#kdf-cnf" class="xref">Figure 7</a>.<a href="#section-3.3.1-8" class="pilcrow">¶</a></p>
@@ -1652,7 +1661,7 @@ channel with a resource server. To use DTLS with pre-shared keys, the
 client follows the PSK key exchange algorithm specified in Section 2
 of <span>[<a href="#RFC4279" class="xref">RFC4279</a>]</span> using the key conveyed in the <code>cnf</code> parameter of the AS
 response as PSK when constructing the premaster secret. To be
-consistent with the recommendations in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> a client in the PSK
+consistent with the recommendations in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>, a client in the PSK
 mode MUST support the cipher suite TLS_PSK_WITH_AES_128_CCM_8
 <span>[<a href="#RFC6655" class="xref">RFC6655</a>]</span>.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.3.2-3">In PreSharedKey mode, the knowledge of the shared secret by the client
@@ -1727,8 +1736,9 @@ specification.<a href="#section-3.3.2-9" class="pilcrow">¶</a></p>
 the <code>cnf</code> parameter in the AS-to-Client response, the resource server
 uses the information contained in the <code>cnf</code> claim of the access token
 to determine the actual secret when no explicit <code>kid</code> was provided in
-the <code>psk_identity</code> field. If key derivation is used, the resource
-server uses the <code>COSE_KDF_Context</code> information as described above.<a href="#section-3.3.2-10" class="pilcrow">¶</a></p>
+the <code>psk_identity</code> field. If key derivation is used, the <code>cnf</code> claim
+MUST contain a <code>kid</code> parameter to be used by the server as the IKM for
+key derivation as described above.<a href="#section-3.3.2-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1765,8 +1775,8 @@ to any access token that is associated with the client MUST be
 rejected by the resource server with 4.01 response. The response
 SHOULD include AS Request Creation Hints as described in
 Section 5.2 of <span>[<a href="#I-D.ietf-ace-oauth-authz" class="xref">I-D.ietf-ace-oauth-authz</a>]</span>.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
-<p id="section-3.4-4">The resource server MUST only accept an incoming CoAP request as
-authorized if the following holds:<a href="#section-3.4-4" class="pilcrow">¶</a></p>
+<p id="section-3.4-4">The resource server MUST NOT accept an incoming CoAP request as
+authorized if any of the following fails:<a href="#section-3.4-4" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.4-5">
 <li id="section-3.4-5.1">The message was received on a secure channel that has been
 established using the procedure defined in this document.<a href="#section-3.4-5.1" class="pilcrow">¶</a>
@@ -1989,7 +1999,7 @@ to provide access tokens for the resource server.<a href="#section-7-6" class="p
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-reuse-of-existing-sessions" class="section-name selfRef">Reuse of Existing Sessions</a>
         </h3>
 <p id="section-7.1-1">To avoid the overhead of a repeated DTLS handshake, <span>[<a href="#RFC7925" class="xref">RFC7925</a>]</span>
-recommends session resumption <span>[<a href="#RFC5077" class="xref">RFC5077</a>]</span> to reuse session state from
+recommends session resumption <span>[<a href="#RFC8446" class="xref">RFC8446</a>]</span> to reuse session state from
 an earlier DTLS association and thus requires client side
 implementation.  In this specification, the DTLS session is subject to
 the authorization rules denoted by the access token that was used for
@@ -2169,6 +2179,10 @@ projects CyberWI, and CRITISEC with funding from Vinnova.<a href="#section-10-2"
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8392">[RFC8392]</dt>
+        <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"CBOR Web Token (CWT)"</span>, <span class="seriesInfo">RFC 8392</span>, <span class="seriesInfo">DOI 10.17487/RFC8392</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8392">https://www.rfc-editor.org/info/rfc8392</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8422">[RFC8422]</dt>
         <dd>
 <span class="refAuthor">Nir, Y.</span>, <span class="refAuthor">Josefsson, S.</span>, and <span class="refAuthor">M. Pegourie-Gonnard</span>, <span class="refTitle">"Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS) Versions 1.2 and Earlier"</span>, <span class="seriesInfo">RFC 8422</span>, <span class="seriesInfo">DOI 10.17487/RFC8422</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8422">https://www.rfc-editor.org/info/rfc8422</a>&gt;</span>. </dd>
@@ -2188,10 +2202,6 @@ projects CyberWI, and CRITISEC with funding from Vinnova.<a href="#section-10-2"
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="RFC5077">[RFC5077]</dt>
-        <dd>
-<span class="refAuthor">Salowey, J.</span>, <span class="refAuthor">Zhou, H.</span>, <span class="refAuthor">Eronen, P.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"Transport Layer Security (TLS) Session Resumption without Server-Side State"</span>, <span class="seriesInfo">RFC 5077</span>, <span class="seriesInfo">DOI 10.17487/RFC5077</span>, <time datetime="2008-01" class="refDate">January 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5077">https://www.rfc-editor.org/info/rfc5077</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC5869">[RFC5869]</dt>
         <dd>
 <span class="refAuthor">Krawczyk, H.</span> and <span class="refAuthor">P. Eronen</span>, <span class="refTitle">"HMAC-based Extract-and-Expand Key Derivation Function (HKDF)"</span>, <span class="seriesInfo">RFC 5869</span>, <span class="seriesInfo">DOI 10.17487/RFC5869</span>, <time datetime="2010-05" class="refDate">May 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5869">https://www.rfc-editor.org/info/rfc5869</a>&gt;</span>. </dd>
@@ -2212,9 +2222,9 @@ projects CyberWI, and CRITISEC with funding from Vinnova.<a href="#section-10-2"
         <dd>
 <span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-editor.org/info/rfc8032</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8392">[RFC8392]</dt>
+<dt id="RFC8446">[RFC8446]</dt>
         <dd>
-<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Wahlstroem, E.</span>, <span class="refAuthor">Erdtman, S.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"CBOR Web Token (CWT)"</span>, <span class="seriesInfo">RFC 8392</span>, <span class="seriesInfo">DOI 10.17487/RFC8392</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8392">https://www.rfc-editor.org/info/rfc8392</a>&gt;</span>. </dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8446">https://www.rfc-editor.org/info/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8610">[RFC8610]</dt>
       <dd>
