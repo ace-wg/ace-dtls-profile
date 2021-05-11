@@ -420,7 +420,7 @@ If the client does not have the keying material belonging to the
 public key, the client MAY try to send an access token request to the
 AS where it specifies its public key in the `req_cnf` parameter. If
 the AS still specifies a public key in the response that the client
-does not have, the client SHOULD to re-register with the authorization
+does not have, the client SHOULD re-register with the authorization
 server to establish a new client public key. This process is out of
 scope for this document.
 
@@ -663,7 +663,7 @@ treated as opaque data for the purpose of key derivation.
 Use of a unique (per resource server) `kid` and the use of a key
 derivation IKM that MUST be unique per authorization server/resource server
 pair as specified above will ensure that the derived key is not shared
-across multiple clients.  However, to additionally provide variation
+across multiple clients.  However, to provide variation
 in the derived key across different tokens used by the same client, it
 is additionally RECOMMENDED to include the "iat" claim and either the
 "exp" or "exi" claims in the access token.
