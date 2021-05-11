@@ -109,7 +109,7 @@ This specification defines a profile of the ACE framework
 {{I-D.ietf-ace-oauth-authz}}.  In this profile, a client and a
 resource server use CoAP {{RFC7252}} over DTLS version 1.2 {{RFC6347}}
 to communicate. This specification
-uses DTLS 1.2 terminology but later versions such as DTLS 1.3 can be
+uses DTLS 1.2 terminology, but later versions such as DTLS 1.3 can be
 used instead. The client obtains an access token, bound to a key
 (the proof-of-possession key), from an authorization server to prove
 its authorization to access protected resources hosted by the resource
