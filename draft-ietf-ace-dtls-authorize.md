@@ -699,7 +699,7 @@ handshake.  The client then needs to indicate during the DTLS
 handshake which previously uploaded access token it intends to use.
 To do so, it MUST create a `COSE_Key` structure with the `kid` that
 was conveyed in the `rs_cnf` claim in the token response from the
-authorization server and the key type `symmetric`.  This structure
+authorization server and the key type `symmetric`.  The CBOR serialization of this structure
 then is included as the only element in the `cnf` structure that is
 used as value for `psk_identity` as shown in {{psk_identity-cnf}}.
 
