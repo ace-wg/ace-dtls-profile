@@ -5,12 +5,12 @@
 ACE Working Group                                              S. Gerdes
 Internet-Draft                                               O. Bergmann
 Intended status: Standards Track                              C. Bormann
-Expires: 12 November 2021                         Universität Bremen TZI
+Expires: 22 November 2021                         Universität Bremen TZI
                                                              G. Selander
                                                              Ericsson AB
                                                                 L. Seitz
                                                                Combitech
-                                                             11 May 2021
+                                                             21 May 2021
 
 
 Datagram Transport Layer Security (DTLS) Profile for Authentication and
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 November 2021.
+   This Internet-Draft will expire on 22 November 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 1]
+Gerdes, et al.          Expires 22 November 2021                [Page 1]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -86,20 +86,20 @@ Table of Contents
        3.3.2.  DTLS Channel Setup Between Client and Resource
                Server  . . . . . . . . . . . . . . . . . . . . . . .  15
      3.4.  Resource Access . . . . . . . . . . . . . . . . . . . . .  17
-   4.  Dynamic Update of Authorization Information . . . . . . . . .  18
+   4.  Dynamic Update of Authorization Information . . . . . . . . .  19
    5.  Token Expiration  . . . . . . . . . . . . . . . . . . . . . .  20
    6.  Secure Communication with an Authorization Server . . . . . .  20
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  20
-     7.1.  Reuse of Existing Sessions  . . . . . . . . . . . . . . .  22
-     7.2.  Multiple Access Tokens  . . . . . . . . . . . . . . . . .  22
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  21
+     7.1.  Reuse of Existing Sessions  . . . . . . . . . . . . . . .  23
+     7.2.  Multiple Access Tokens  . . . . . . . . . . . . . . . . .  23
      7.3.  Out-of-Band Configuration . . . . . . . . . . . . . . . .  23
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  23
+   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  24
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  24
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  24
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  26
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
+   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  25
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  25
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  27
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
 
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 2]
+Gerdes, et al.          Expires 22 November 2021                [Page 2]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -165,7 +165,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 3]
+Gerdes, et al.          Expires 22 November 2021                [Page 3]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -221,7 +221,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 4]
+Gerdes, et al.          Expires 22 November 2021                [Page 4]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -277,7 +277,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 5]
+Gerdes, et al.          Expires 22 November 2021                [Page 5]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -333,7 +333,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 6]
+Gerdes, et al.          Expires 22 November 2021                [Page 6]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -389,7 +389,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 7]
+Gerdes, et al.          Expires 22 November 2021                [Page 7]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -445,7 +445,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 8]
+Gerdes, et al.          Expires 22 November 2021                [Page 8]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -501,7 +501,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021                [Page 9]
+Gerdes, et al.          Expires 22 November 2021                [Page 9]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -557,7 +557,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 10]
+Gerdes, et al.          Expires 22 November 2021               [Page 10]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -613,7 +613,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 11]
+Gerdes, et al.          Expires 22 November 2021               [Page 11]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -669,7 +669,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 12]
+Gerdes, et al.          Expires 22 November 2021               [Page 12]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -725,7 +725,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 13]
+Gerdes, et al.          Expires 22 November 2021               [Page 13]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -781,7 +781,7 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 14]
+Gerdes, et al.          Expires 22 November 2021               [Page 14]
 
 Internet-Draft                  CoAP-DTLS                       May 2021
 
@@ -823,9 +823,24 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    DTLS handshake which previously uploaded access token it intends to
    use.  To do so, it MUST create a "COSE_Key" structure with the "kid"
    that was conveyed in the "rs_cnf" claim in the token response from
-   the authorization server and the key type "symmetric".  This
-   structure then is included as the only element in the "cnf" structure
-   that is used as value for "psk_identity" as shown in Figure 9.
+   the authorization server and the key type "symmetric".  The CBOR
+   serialization of this structure then is included as the only element
+   in the "cnf" structure that is used as value for "psk_identity" as
+   shown in Figure 9.
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 15]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    { cnf : {
       COSE_Key : {
@@ -834,13 +849,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
        }
      }
    }
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 15]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
 
           Figure 9: Access token containing a single kid parameter
 
@@ -883,6 +891,13 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    token to retrieve more information about the specific token.  The use
    of introspection is out of scope for this specification.
 
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 16]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
    While the client can retrieve the shared secret from the contents of
    the "cnf" parameter in the AS-to-Client response, the resource server
    uses the information contained in the "cnf" claim of the access token
@@ -890,13 +905,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    the "psk_identity" field.  If key derivation is used, the "cnf" claim
    MUST contain a "kid" parameter to be used by the server as the IKM
    for key derivation as described above.
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 16]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
 
 3.4.  Resource Access
 
@@ -938,6 +946,14 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    2.  The authorization information tied to the sending client is
        valid.
 
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 17]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
    3.  The request is destined for the resource server.
 
    4.  The resource URI specified in the request is covered by the
@@ -945,14 +961,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
    5.  The request method is an authorized action on the resource with
        respect to the authorization information.
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 17]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
 
    Incoming CoAP requests received on a secure DTLS channel that are not
    thus authorized MUST be rejected according to Section 5.10.1.1 of
@@ -985,6 +993,23 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    session SHOULD be kept alive until the associated access token has
    expired.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 18]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
 4.  Dynamic Update of Authorization Information
 
    Resource servers must only use a new access token to update the
@@ -1002,13 +1027,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    the authorization server for the intended action on the respective
    resource and uploads this access token to the authz-info resource on
    the resource server.
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 18]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
 
    Figure 10 depicts the message flow where the client requests a new
    access token after a security association between the client and the
@@ -1030,6 +1048,24 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    identified by this key identifier with the updated authorization
    information.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 19]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
       C                            RS                   AS
       | <===== DTLS channel =====> |                     |
       |        + Access Token      |                     |
@@ -1047,24 +1083,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
       | <=== Protected Resource == |                     |
 
               Figure 10: Overview of Dynamic Update Operation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 19]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
 
 5.  Token Expiration
 
@@ -1097,6 +1115,13 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    authorization server are established is out of scope for this
    profile.
 
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 20]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
    If other means of securing the communication with the authorization
    server are used, the communication security requirements from
    Section 6.2 of [I-D.ietf-ace-oauth-authz] remain applicable.
@@ -1114,14 +1139,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    associated with this client.  Malicious clients may hand over access
    tokens containing their own access permissions to other entities.
    This problem cannot be completely eliminated.  Nevertheless, in RPK
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 20]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    mode it should not be possible for clients to request access tokens
    for arbitrary public keys: if the client can cause the authorization
    server to issue a token for a public key without proving possession
@@ -1143,6 +1160,23 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    full-width authentication tags is low compared to the overall amount
    of data being transmitted, the use of cipher suites with 16-byte
    integrity protection tags is preferred.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 21]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    The PSK mode of this profile offers a distribution mechanism to
    convey authorization tokens together with a shared secret to a client
@@ -1170,20 +1204,35 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    should set a time boundary until an access token that has not been
    used until then will be deleted.
 
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 21]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    The protection of access tokens that are stored in the authorization
    information endpoint depends on the keying material that is used
    between the authorization server and the resource server: The
    resource server must ensure that it processes only access tokens that
    are (encrypted and) integrity-protected by an authorization server
    that is authorized to provide access tokens for the resource server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 22]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
 7.1.  Reuse of Existing Sessions
 
@@ -1223,17 +1272,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    reduction in authorization will take effect prior to the expiration
    of the original token.
 
-
-
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 22]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
 7.3.  Out-of-Band Configuration
 
    To communicate securely, the authorization server, the client and the
@@ -1244,6 +1282,14 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    resource owner as well as corresponding keying material.  The
    resource server must have received authorization information approved
    by the resource owner concerning its authorization managers and the
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 23]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
+
    respective keying material.  The client must have obtained
    authorization information concerning the authorization server
    approved by its owner as well as the corresponding keying material.
@@ -1281,15 +1327,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    established, due to observable message sizes, the source, and the
    destination addresses.
 
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 23]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
 9.  IANA Considerations
 
    The following registrations are done for the ACE OAuth Profile
@@ -1300,6 +1337,14 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    with the RFC number of this specification and delete this paragraph.
 
    Profile name: coap_dtls
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 24]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    Profile Description: Profile for delegating client authentication and
    authorization in a constrained environment by establishing a Datagram
@@ -1334,18 +1379,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
               <https://www.ietf.org/archive/id/draft-ietf-ace-oauth-
               authz-41.txt>.
 
-
-
-
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 24]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    [I-D.ietf-ace-oauth-params]
               Seitz, L., "Additional OAuth Parameters for Authorization
               in Constrained Environments (ACE)", Work in Progress,
@@ -1357,6 +1390,17 @@ Internet-Draft                  CoAP-DTLS                       May 2021
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 25]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    [RFC4279]  Eronen, P., Ed. and H. Tschofenig, Ed., "Pre-Shared Key
               Ciphersuites for Transport Layer Security (TLS)",
@@ -1393,15 +1437,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
               DOI 10.17487/RFC7925, July 2016,
               <https://www.rfc-editor.org/info/rfc7925>.
 
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 25]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
@@ -1413,6 +1448,15 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    [RFC8392]  Jones, M., Wahlstroem, E., Erdtman, S., and H. Tschofenig,
               "CBOR Web Token (CWT)", RFC 8392, DOI 10.17487/RFC8392,
               May 2018, <https://www.rfc-editor.org/info/rfc8392>.
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 26]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    [RFC8422]  Nir, Y., Josefsson, S., and M. Pegourie-Gonnard, "Elliptic
               Curve Cryptography (ECC) Cipher Suites for Transport Layer
@@ -1450,14 +1494,6 @@ Internet-Draft                  CoAP-DTLS                       May 2021
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
 
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 26]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    [RFC8032]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
               Signature Algorithm (EdDSA)", RFC 8032,
               DOI 10.17487/RFC8032, January 2017,
@@ -1466,6 +1502,17 @@ Internet-Draft                  CoAP-DTLS                       May 2021
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 27]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
+
 
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
@@ -1505,19 +1552,22 @@ Authors' Addresses
    Email: cabo@tzi.org
 
 
-
-
-
-
-Gerdes, et al.          Expires 12 November 2021               [Page 27]
-
-Internet-Draft                  CoAP-DTLS                       May 2021
-
-
    Göran Selander
    Ericsson AB
 
    Email: goran.selander@ericsson.com
+
+
+
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 28]
+
+Internet-Draft                  CoAP-DTLS                       May 2021
 
 
    Ludwig Seitz
@@ -1565,4 +1615,10 @@ Internet-Draft                  CoAP-DTLS                       May 2021
 
 
 
-Gerdes, et al.          Expires 12 November 2021               [Page 28]
+
+
+
+
+
+
+Gerdes, et al.          Expires 22 November 2021               [Page 29]
