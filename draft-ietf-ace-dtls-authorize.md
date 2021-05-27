@@ -1113,7 +1113,8 @@ Reference:  {{&SELF}}
 
 Special thanks to Jim Schaad for his contributions and reviews of this
 document and to Ben Kaduk for his thorough reviews of this
-document. Thanks also to Paul Kyzivat for his review.
+document. Thanks also to Paul Kyzivat for his review. The authors also
+would like to thank Marco Tiloca for his contributions.
 
 Ludwig Seitz worked on this document as part of the CelticNext
 projects CyberWI, and CRITISEC with funding from Vinnova.
