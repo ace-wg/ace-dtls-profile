@@ -349,7 +349,7 @@ client. The access token MUST be bound to the RPK of the client by
 means of the `cnf` claim.
 
 The response MUST contain an `ace_profile` parameter if
-the`ace_profile` parameter in the request is empty, and MAY contain
+the `ace_profile` parameter in the request is empty, and MAY contain
 this parameter otherwise (see Section 5.8.2 of
 {{I-D.ietf-ace-oauth-authz}}). This parameter is set to `coap_dtls` to
 indicate that this profile MUST be used for communication between the
@@ -730,6 +730,10 @@ opaque data as specified in Section 4.2 of [RFC7925] and not perform
 any re-coding. This allows the resource server to retrieve the shared
 secret directly from the `cnf` claim of the access token.
 
+DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3, the
+access token is placed in the `identity` field of a `PskIdentity` within
+the `PreSharedKeyExtension` of the `ClientHello`.
+
 If a resource server receives a ClientKeyExchange message that
 contains a `psk_identity` with a length greater than zero, it MUST
 parse the contents of the `psk_identity` field as CBOR data structure
@@ -980,7 +984,7 @@ authorization server are expected to be sufficiently short-lived to
 provide similar forward-secrecy properties to using ephemeral
 Diffie-Hellman (DHE) key exchange mechanisms. For longer-lived access
 tokens, DHE cipher suites should be used, i.e., cipher suites of the
-form TLS\_DHE\_PSK\_*.
+form TLS\_DHE\_PSK\_* or TLS\_ECDHE\_PSK\_*.
 
 Constrained devices that use DTLS {{RFC6347}} are inherently
 vulnerable to Denial of Service (DoS) attacks as the handshake
