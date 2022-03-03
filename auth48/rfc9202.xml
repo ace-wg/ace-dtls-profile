@@ -876,11 +876,13 @@ Perhaps:
    Incoming CoAP requests received on a secure DTLS channel that are not
    thus authorized MUST be rejected according to Section 5.10.2 of
    [RFC9200]: ...
+
+Resolved: Updated as suggested (Section 5.10.2)
 -->
         <t>Incoming CoAP requests received on a secure DTLS channel that are not
 	thus authorized <bcp14>MUST</bcp14> be
 	rejected according to <xref target="RFC9200"
-	sectionFormat="of" section="5.10.1.1"/>:</t>
+	sectionFormat="of" section="5.10.2"/>:</t>
         <ol spacing="normal" type="1">
 	  <li>with response code 4.03 (Forbidden) when the resource URI specified
 	  in the request is not covered by the authorization information and</li>
