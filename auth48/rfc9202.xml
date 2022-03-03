@@ -19,8 +19,10 @@ CoAP-DTLS
 
 Current:
 CoAP over DTLS
+
+Resolved: "DTLS Profile for ACE"
 -->
-    <title abbrev="CoAP over DTLS">Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)</title>
+    <title abbrev="DTLS Profile for ACE">Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)</title>
     <seriesInfo name="RFC" value="9202"/>
     <author initials="S." surname="Gerdes" fullname="Stefanie Gerdes">
       <organization>Universität Bremen TZI</organization>
