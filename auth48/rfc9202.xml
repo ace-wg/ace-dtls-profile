@@ -88,7 +88,11 @@ Resolved: "DTLS Profile for ACE"
 <!-- [rfced] Please insert any keywords (beyond those that appear in
 the title) for use on https://www.rfc-editor.org/search. -->
 
-<keyword>example</keyword>
+    <keyword>Internet of Things (IoT)</keyword>
+    <keyword>Internet of Things</keyword>
+    <keyword>IOT</keyword>
+    <keyword>OAuth</keyword>
+    <keyword>Access Token</keyword>
 
     <abstract>
       <t>This specification defines a profile of the Authentication and Authorization for
