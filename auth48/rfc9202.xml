@@ -1064,12 +1064,15 @@ Perhaps:
 Or:
    The resource server must ensure that it processes only access tokens that
    are encrypted and integrity protected by an authorization server ...
+
+Resolved to option "Perhaps" (put "(and encrypted)" after integrity, remove
+hyphen from "integrity-protected").
 -->
 
       <t>The protection of access tokens that are stored in the authorization
 information endpoint depends on the keying material that is used between
 the authorization server and the resource server; the resource server
-must ensure that it processes only access tokens that are (encrypted and) integrity-protected  by an authorization server that is authorized
+must ensure that it processes only access tokens that are integrity protected (and encrypted) by an authorization server that is authorized
 to provide access tokens for the resource server.</t>
       <section anchor="reuse-of-existing-sessions" numbered="true" toc="default">
         <name>Reuse of Existing Sessions</name>
