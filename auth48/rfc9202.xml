@@ -767,6 +767,9 @@ Original:
    DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3,
    the access token is placed in the "identity" field of a "PskIdentity"
    within the "PreSharedKeyExtension" of the "ClientHello".
+
+Resolved: Leave as is because PskIdentity refers to the literal name
+of a structure specified in RFC 8446.
 -->
 <t>DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3,
    the access token is placed in the <tt>identity</tt> field of a <tt>PSKIdentity</tt>
