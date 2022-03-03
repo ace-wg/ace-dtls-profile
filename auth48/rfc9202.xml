@@ -306,6 +306,9 @@ Original Section 3.2:
 
 Perhaps Section 3.2:
  RawPublicKey Mode
+
+Resolved: No change for title of Section 3.2 but change title of
+Section 3.3 to "Pre-shared Key Mode" for consistency
 -->
         <name>Raw Public Key Mode</name>
         <t>When the client uses raw public key authentication, the procedure is as
@@ -506,7 +509,7 @@ server are able to use their respective keying material.</t>
         </section>
       </section>
       <section anchor="psk-mode" numbered="true" toc="default">
-        <name>PreSharedKey Mode</name>
+        <name>Pre-shared Key Mode</name>
         <t>When the client uses pre-shared key authentication, the procedure is
 as described in the following.</t>
         <section anchor="access-token-retrieval-from-the-authorization-server-1" numbered="true" toc="default">
