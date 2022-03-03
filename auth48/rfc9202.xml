@@ -443,10 +443,12 @@ Perhaps B:
    If the client does not have the keying material belonging to the
    public key, the client MAY try to send an access token request to the
    AS, where the AS specifies its public key in the "req_cnf" parameter.
+
+Resolved to option A ("it" refers to the client).
 -->
           <t>If the client does not have the keying material belonging to the
 public key, the client <bcp14>MAY</bcp14> try to send an access token request to the
-AS, where it specifies its public key in the <tt>req_cnf</tt> parameter. If
+AS, where the client specifies its public key in the <tt>req_cnf</tt> parameter. If
 the AS still specifies a public key in the response that the client
 does not have, the client <bcp14>SHOULD</bcp14> re-register with the authorization
 server to establish a new client public key. This process is out of
