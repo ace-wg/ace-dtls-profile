@@ -661,7 +661,7 @@ key identifier, the key derivation key, and other data:</t>
             <li>IKM, the input keying material, is the key derivation key, as defined
 	    above</li>
             <li><t>info is the serialization of a CBOR array consisting of <xref target="RFC8610" format="default"/>:</t>
-          <sourcecode type=""><![CDATA[
+          <sourcecode type="cddl"><![CDATA[
       info = [
         type : tstr,
         L : uint,
