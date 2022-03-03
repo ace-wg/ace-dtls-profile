@@ -469,8 +469,10 @@ Perhaps:
    in constrained environments, an implementation that supports the RPK
    mode of this profile MUST at least support the cipher suite
    TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251].
+
+Resolved to expand "MAC" as "Message Authentication Code (MAC)"
 -->
-          <t>To be consistent with <xref target="RFC7252" format="default"/>, which allows for shortened MAC tags
+          <t>To be consistent with <xref target="RFC7252" format="default"/>, which allows for shortened Message Authentication Code (MAC) tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile <bcp14>MUST</bcp14> at
 least support the cipher suite
