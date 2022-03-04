@@ -130,7 +130,7 @@ DTLS enables mutual authentication if both the client and server prove
 their ability to use certain keying material in the DTLS handshake.
 The authorization server assists in this process on the server side by
 incorporating keying material (or information about keying material)
-into the access token, which is considered a "proof-of-possession"
+into the access token, which is considered a proof-of-possession
 token.</t>
       <t>In the RPK mode, the client proves that it can use the RPK bound to
 the token and the server shows that it can use a certain RPK.</t>
