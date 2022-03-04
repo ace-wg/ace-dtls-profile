@@ -191,7 +191,7 @@ typical message flow in this scenario (messages in square brackets are
 optional):</t>
       <figure anchor="at-retrieval">
         <name>Retrieving an Access Token</name>
-<artwork><![CDATA[--> 
+<artwork><![CDATA[
    C                                RS                   AS
    | [---- Resource Request ------>]|                     |
    |                                |                     |
