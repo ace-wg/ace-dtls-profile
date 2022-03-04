@@ -829,7 +829,7 @@ for each client. New access tokens issued by the authorization server
 respective client. The resource server therefore needs a common
 understanding with the authorization server about how access tokens are
 ordered. The authorization server may, e.g., specify a <tt>cti</tt> claim for
-the access token (see <xref target="RFC9200" sectionFormat="of" section="5.9.4"/>) to
+the access token (see <xref target="RFC9200" sectionFormat="of" section="5.9.2"/>) to
 employ a strict order.</t>
         <t>Any request that the resource server receives on a DTLS channel that
 is tied to an access token via its keying material 
