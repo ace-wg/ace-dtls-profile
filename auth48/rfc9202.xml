@@ -700,8 +700,8 @@ key identifier, the key derivation key, and other data:</t>
 	  per AS/RS pair, as specified above, will ensure that
 	  the derived key is not shared across multiple clients.  However, to provide
 	  variation in the derived key across different tokens used by the same client, it
-	  is additionally <bcp14>RECOMMENDED</bcp14> to include the "iat" claim and either the
-	  "exp" or "exi" claims in the access token.</t>
+	  is additionally <bcp14>RECOMMENDED</bcp14> to include the <tt>iat</tt>tt> claim and either the
+	  <tt>exp</tt> or <tt>exi</tt> claims in the access token.</t>
         </section>
         <section anchor="psk-dtls-channel" numbered="true" toc="default">
           <name>DTLS Channel Setup between the Client and Resource Server</name>
