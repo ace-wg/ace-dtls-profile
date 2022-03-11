@@ -563,7 +563,7 @@ proof-of-possession key is illustrated in <xref target="at-request" format="defa
    Content-Format: application/ace+cbor
    Payload:
    {
-     / audience / 5    : "smokeSensor1807",
+     / audience / 5    : "smokeSensor1807"
    }
 ]]></sourcecode>
           </figure>
