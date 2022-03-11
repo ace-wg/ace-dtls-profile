@@ -334,13 +334,13 @@ server is depicted in <xref target="rpk-authorization-message-example" format="d
    Payload:
    {
      / grant_type / 33 : / client_credentials / 2,
-     / audience / 5    : "tempSensor4711",
-     / req_cnf / 4     : {
+     / audience /    5 : "tempSensor4711",
+     / req_cnf /     4 : {
        / COSE_Key / 1 : {
-         / kty / 1  : / EC2 / 2,
+         / kty /  1 : / EC2 /   2,
          / crv / -1 : / P-256 / 1,
-         / x / -2   : h'e866c35f4c3c81bb96a1...',
-         / y / -3   : h'2e25556be097c8778a20...'
+         / x /   -2 : h'e866c35f4c3c81bb96a1...',
+         / y /   -3 : h'2e25556be097c8778a20...'
        }
      }
    }
@@ -400,13 +400,13 @@ means of the <tt>cnf</tt> claim.</t>
      / access_token / 1 : b64'SlAV32hkKG...
       (remainder of CWT omitted for brevity;
       CWT contains the client's RPK in the cnf claim)',
-     / expires_in / 2 : 3600,
-     / rs_cnf / 41    : {
-       / COSE_Key / 1 : {
-         / kty / 1  : / EC2 / 2,
+     / expires_in /  2 : 3600,
+     / rs_cnf /     41 : {
+       / COSE_Key /  1 : {
+         / kty /  1 : / EC2 /   2,
          / crv / -1 : / P-256 / 1,
-         / x / -2   : h'd7cc072de2205bdc1537...',
-         / y / -3   : h'f95e1d4b851a2cc80fff...'
+         / x /   -2 : h'd7cc072de2205bdc1537...',
+         / y /   -3 : h'f95e1d4b851a2cc80fff...'
        }
      }
    }
@@ -563,7 +563,7 @@ proof-of-possession key is illustrated in <xref target="at-request" format="defa
    Content-Format: application/ace+cbor
    Payload:
    {
-     / audience / 5    : "smokeSensor1807"
+     / audience / 5 : "smokeSensor1807"
    }
 ]]></sourcecode>
           </figure>
@@ -583,13 +583,13 @@ structure as specified in <xref target="RFC9200" format="default"/>.</t>
    Max-Age: 85800
    Payload:
    {
-      / access_token / 1 : h'd08343a10...
+      / access_token /  1 : h'd08343a10...
         (remainder of CWT omitted for brevity)
-      / token_type / 34  : / PoP / 2,
-      / expires_in / 2   : 86400,
-      / ace_profile / 38 : / coap_dtls / 1,
-      / cnf / 8         : {
-        / COSE_Key / 1  : {
+      / token_type /   34 : / PoP / 2,
+      / expires_in /    2 : 86400,
+      / ace_profile /  38 : / coap_dtls / 1,
+      / cnf /           8 : {
+        / COSE_Key / 1 : {
           / kty / 1 : / symmetric / 4,
           / kid / 2 : h'3d027833fc6267ce',
           / k /  -1 : h'73657373696f6e6b6579'
@@ -677,8 +677,8 @@ key identifier, the key derivation key, and other data:</t>
           <sourcecode type="cddl"><![CDATA[
       info = [
         type : tstr,
-        L : uint,
-        access_token: bytes
+        L    : uint,
+        access_token : bytes
       ]
 ]]></sourcecode>
           <t>where:</t>
