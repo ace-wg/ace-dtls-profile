@@ -257,7 +257,7 @@ establish a secure channel and convey authorization information
 specific for this communication relationship to the resource server.</t>
       <t><xref target="C-AS-comm" format="default"/> describes how the communication between
       the client (C) and the authorization server (AS) must be secured.
-      Depending on the used CoAP security mode (see also
+      Depending on the CoAP security mode used (see also
       <xref target="RFC7252" sectionFormat="of" section="9"/>),
       the client-to-AS request, AS-to-client response, and DTLS session
       establishment carry slightly different information. <xref target="rpk-mode"
@@ -498,7 +498,7 @@ this key. If the authorization server has no certain knowledge that
 the client's key is already known to the resource server, the client's
 public key <bcp14>MUST</bcp14> be included in the access token's <tt>cnf</tt> parameter. If
 CBOR web tokens <xref target="RFC8392" format="default"/> are used (as recommended in
-<xref target="RFC9200" format="default"/>), keys <bcp14>MUST</bcp14> be encoded, as specified in
+<xref target="RFC9200" format="default"/>), keys <bcp14>MUST</bcp14> be encoded as specified in
 <xref target="RFC8747" format="default"/>. A resource server <bcp14>MUST</bcp14> have the capacity to store one
 access token for every proof-of-possession key of every authorized client.</t>
           <t>The raw public key used in the DTLS handshake with the client <bcp14>MUST</bcp14>
@@ -700,7 +700,7 @@ key identifier, the key derivation key, and other data:</t>
 	  per AS/RS pair, as specified above, will ensure that
 	  the derived key is not shared across multiple clients.  However, to provide
 	  variation in the derived key across different tokens used by the same client, it
-	  is additionally <bcp14>RECOMMENDED</bcp14> to include the <tt>iat</tt>tt> claim and either the
+	  is additionally <bcp14>RECOMMENDED</bcp14> to include the <tt>iat</tt> claim and either the
 	  <tt>exp</tt> or <tt>exi</tt> claims in the access token.</t>
         </section>
         <section anchor="psk-dtls-channel" numbered="true" toc="default">
@@ -1096,7 +1096,7 @@ short-lived PoP keys.</t>
       </section>
       <section anchor="multiple-access-tokens" numbered="true" toc="default">
         <name>Multiple Access Tokens</name>
-        <t>Developers <bcp14>SHOULD</bcp14> avoid using multiple access tokens for a
+        <t>Implementers <bcp14>SHOULD</bcp14> avoid using multiple access tokens for a
 client (see also <xref target="RFC9200" sectionFormat="of" section="5.10.1"/>).</t>
         <t>Even when a single access token per client is used, an attacker could
 compromise the dynamic update mechanism for existing DTLS connections
