@@ -1046,7 +1046,7 @@ cookie to continue with the handshake. A similar issue exists with the
 unprotected authorization information endpoint when the resource
 server needs to keep valid access tokens for a long time. Adversaries
 could fill up the constrained resource server's internal storage for a
-very long time with interjected or otherwise retrieved valid access
+very long time with intercepted or otherwise retrieved valid access
 tokens.  To mitigate against this, the resource server should set a
 time boundary until an access token that has not been used until then
 will be deleted.</t>
