@@ -519,7 +519,7 @@ as described in the following.</t>
         <section anchor="access-token-retrieval-from-the-authorization-server-1" numbered="true" toc="default">
           <name>Access Token Retrieval from the Authorization Server</name>
           <t>To retrieve an access token for the resource that the client wants to
-access, the client <bcp14>MAY</bcp14> include a <tt>cnf</tt> object carrying an identifier
+access, the client <bcp14>MAY</bcp14> include a <tt>req_cnf</tt> object carrying an identifier
 for a symmetric key in its access token request to the authorization
 server.  This identifier can be used by the authorization server to
 determine the shared secret to construct the proof-of-possession
