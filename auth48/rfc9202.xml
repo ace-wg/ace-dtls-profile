@@ -11,17 +11,6 @@
 
   <!-- xml2rfc v2v3 conversion 3.7.0 -->
   <front>
-<!--[rfced] Please note that the short title (which is seen in the header of
-the PDF file) has been updated as follows. Please let us know of any objections.
-
-Original:
-CoAP-DTLS
-
-Current:
-CoAP over DTLS
-
-Resolved: "DTLS Profile for ACE"
--->
     <title abbrev="DTLS Profile for ACE">Datagram Transport Layer Security (DTLS) Profile for Authentication and Authorization for Constrained Environments (ACE)</title>
     <seriesInfo name="RFC" value="9202"/>
     <author initials="S." surname="Gerdes" fullname="Stefanie Gerdes">
@@ -84,10 +73,6 @@ Resolved: "DTLS Profile for ACE"
     <date year="2022" month="March"/>
     <area>Security</area>
     <workgroup>ACE</workgroup>
-
-<!-- [rfced] Please insert any keywords (beyond those that appear in
-the title) for use on https://www.rfc-editor.org/search. -->
-
     <keyword>Internet of Things (IoT)</keyword>
     <keyword>Internet of Things</keyword>
     <keyword>IOT</keyword>
@@ -138,17 +123,6 @@ the token and the server shows that it can use a certain RPK.</t>
 this exchange.  For the RPK mode, the client must upload the access
 token to the resource server before initiating the handshake, as
 described in <xref target="RFC9200" sectionFormat="of" section="5.10.1"> the ACE framework</xref>.</t>
-
-<!-- [rfced] FYI, the text rendering of the <tt> element was changed
-in Sept. 2021 (xml2rfc release 3.10.0). <tt> no longer yields quotation
-marks in the text rendering.
-Note that <tt> yields fixed-width font in the HTML and PDF files.
-
-This alternative diff file has been provided so that you can review
-changes without the noise of the quotation marks being removed due
-to this change to the rendering of <tt>:
-https://www.rfc-editor.org/authors/rfc9202-alt-diff.html
--->
 
       <t>In the PSK mode, the client and server show with the DTLS handshake that
 they can use the keying material that is bound to the access token.
@@ -295,21 +269,6 @@ specific for this communication relationship to the resource server.</t>
         <t><xref target="as-commsec" format="default"/> specifies how communication with the authorization server is secured.</t>
       </section>
       <section anchor="rpk-mode" numbered="true" toc="default">
-<!--[rfced] Should the title of Section 3.2 be updated to be similar
-to the title of Section 3.3?
-
-Section 3.3:
- PreSharedKey Mode
-
-Original Section 3.2: 
- Raw Public Key Mode	
-
-Perhaps Section 3.2:
- RawPublicKey Mode
-
-Resolved: No change for title of Section 3.2 but change title of
-Section 3.3 to "Pre-shared Key Mode" for consistency
--->
         <name>Raw Public Key Mode</name>
         <t>When the client uses raw public key authentication, the procedure is as
 described in the following.</t>
@@ -427,25 +386,6 @@ has specified a <tt>cnf</tt> field in the access token response, the client
 it specified in the <tt>req_cnf</tt> of the access token request. The client
 <bcp14>MUST</bcp14> specify this public key in the SubjectPublicKeyInfo structure of
 the DTLS handshake, as described in <xref target="RFC7250" format="default"/>.</t>
-<!--[rfced] Does "it" refer to the client or AS in this sentence?
-
-Original:
-   If the client does not have the keying material belonging to the
-   public key, the client MAY try to send an access token request to the
-   AS where it specifies its public key in the "req_cnf" parameter.
-
-Perhaps A:
-   If the client does not have the keying material belonging to the
-   public key, the client MAY try to send an access token request to the
-   AS, where the client specifies its public key in the "req_cnf" parameter.
-
-Perhaps B:
-   If the client does not have the keying material belonging to the
-   public key, the client MAY try to send an access token request to the
-   AS, where the AS specifies its public key in the "req_cnf" parameter.
-
-Resolved to option A ("it" refers to the client).
--->
           <t>If the client does not have the keying material belonging to the
 public key, the client <bcp14>MAY</bcp14> try to send an access token request to the
 AS, where the client specifies its public key in the <tt>req_cnf</tt> parameter. If
@@ -453,25 +393,6 @@ the AS still specifies a public key in the response that the client
 does not have, the client <bcp14>SHOULD</bcp14> re-register with the authorization
 server to establish a new client public key. This process is out of
 scope for this document.</t>
-<!--[rfced] Should "MAC" be expanded as "Message Authentication Code" 
-in this sentence? Please consider if the sentence needs an update, as
-RFC 7252 does not mention "MAC".
-
-Original: 
-   To be consistent with [RFC7252], which allows for shortened MAC tags
-   in constrained environments, an implementation that supports the RPK
-   mode of this profile MUST at least support the cipher suite
-   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251].
-
-Perhaps:
-   To be consistent with [RFC7252], which allows for shortened Message 
-   Authentication Code (MAC) tags
-   in constrained environments, an implementation that supports the RPK
-   mode of this profile MUST at least support the cipher suite
-   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8 [RFC7251].
-
-Resolved to expand "MAC" as "Message Authentication Code (MAC)"
--->
           <t>To be consistent with <xref target="RFC7252" format="default"/>, which allows for shortened Message Authentication Code (MAC) tags
 in constrained environments,
 an implementation that supports the RPK mode of this profile <bcp14>MUST</bcp14> at
@@ -759,18 +680,6 @@ contents of the <tt>access_token</tt> field from the AS-to-client response as
 opaque data, as specified in <xref target="RFC7925" sectionFormat="of" section="4.2"/>, and not perform
 any recoding. This allows the resource server to retrieve the shared
 secret directly from the <tt>cnf</tt> claim of the access token.</t>
-
-<!--[rfced] Should "PSKIdentity" be "psk_identity", as the latter is used 
-throughout this document?
-
-Original:
-   DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3,
-   the access token is placed in the "identity" field of a "PskIdentity"
-   within the "PreSharedKeyExtension" of the "ClientHello".
-
-Resolved: Leave as is because PskIdentity refers to the literal name
-of a structure specified in RFC 8446.
--->
 <t>DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3,
    the access token is placed in the <tt>identity</tt> field of a <tt>PSKIdentity</tt>
    within the <tt>PreSharedKeyExtension</tt> of the <tt>ClientHello</tt>.</t>
@@ -854,31 +763,6 @@ authorized if any of the following fails:</t>
           <li>The request method is an authorized action on the resource with
 	  respect to the authorization information.</li>
         </ol>
-
-<!--[rfced] Should Section 5.10.1.1 be changed to 5.10.2 here, as it mentions
-both response codes? Please see
-<https://www.rfc-editor.org/authors/rfc9200.html#section-5.10.2>.
-
-Original:
-   Incoming CoAP requests received on a secure DTLS channel that are not
-   thus authorized MUST be rejected according to Section 5.10.1.1 of
-   [I-D.ietf-ace-oauth-authz]
-
-   1.  with response code 4.03 (Forbidden) when the resource URI
-       specified in the request is not covered by the authorization
-       information, and
-
-   2.  with response code 4.05 (Method Not Allowed) when the resource
-       URI specified in the request covered by the authorization
-       information but not the requested action.
-
-Perhaps:
-   Incoming CoAP requests received on a secure DTLS channel that are not
-   thus authorized MUST be rejected according to Section 5.10.2 of
-   [RFC9200]: ...
-
-Resolved: Updated as suggested (Section 5.10.2)
--->
         <t>Incoming CoAP requests received on a secure DTLS channel that are not
 	thus authorized <bcp14>MUST</bcp14> be
 	rejected according to <xref target="RFC9200"
@@ -1050,25 +934,6 @@ very long time with intercepted or otherwise retrieved valid access
 tokens.  To mitigate against this, the resource server should set a
 time boundary until an access token that has not been used until then
 will be deleted.</t>
-<!--[rfced] For readability, may this parenthetical phrase be moved, 
-or may the parentheses be removed?
-
-Current:
-   The resource server must ensure that it processes only access tokens that
-   are (encrypted and) integrity-protected by an authorization server ...
-
-Perhaps:
-   The resource server must ensure that it processes only access tokens that
-   are integrity protected (and encrypted) by an authorization server ...
-
-Or:
-   The resource server must ensure that it processes only access tokens that
-   are encrypted and integrity protected by an authorization server ...
-
-Resolved to option "Perhaps" (put "(and encrypted)" after integrity, remove
-hyphen from "integrity-protected").
--->
-
       <t>The protection of access tokens that are stored in the authorization
 information endpoint depends on the keying material that is used between
 the authorization server and the resource server; the resource server
