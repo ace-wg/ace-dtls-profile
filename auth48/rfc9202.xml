@@ -306,8 +306,8 @@ server is depicted in <xref target="rpk-authorization-message-example" format="d
        / COSE_Key / 1 : {
          / kty /  1 : / EC2 /   2,
          / crv / -1 : / P-256 / 1,
-         / x /   -2 : h'e866c35f4c3c81bb96a1...',
-         / y /   -3 : h'2e25556be097c8778a20...'
+         / x /   -2 : h'e866c35f4c3c81bb96a1/.../',
+         / y /   -3 : h'2e25556be097c8778a20/.../'
        }
      }
    }
@@ -364,16 +364,16 @@ means of the <tt>cnf</tt> claim.</t>
    Max-Age: 3560
    Payload:
    {
-     / access_token / 1 : b64'SlAV32hkKG...
+     / access_token / 1 : b64'SlAV32hk'/...
       (remainder of CWT omitted for brevity;
-      CWT contains the client's RPK in the cnf claim)',
+      CWT contains the client's RPK in the cnf claim)/,
      / expires_in /  2 : 3600,
      / rs_cnf /     41 : {
        / COSE_Key /  1 : {
          / kty /  1 : / EC2 /   2,
          / crv / -1 : / P-256 / 1,
-         / x /   -2 : h'd7cc072de2205bdc1537...',
-         / y /   -3 : h'f95e1d4b851a2cc80fff...'
+         / x /   -2 : h'd7cc072de2205bdc1537/.../',
+         / y /   -3 : h'f95e1d4b851a2cc80fff/.../'
        }
      }
    }
@@ -512,8 +512,8 @@ structure as specified in <xref target="RFC9200" format="default"/>.</t>
    Max-Age: 85800
    Payload:
    {
-      / access_token /  1 : h'd08343a10...
-        (remainder of CWT omitted for brevity)
+      / access_token /  1 : h'd08343a1/...
+        (remainder of CWT omitted for brevity)/',
       / token_type /   34 : / PoP / 2,
       / expires_in /    2 : 86400,
       / ace_profile /  38 : / coap_dtls / 1,
