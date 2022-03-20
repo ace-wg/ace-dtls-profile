@@ -146,6 +146,14 @@ described in <xref target="RFC9200" format="default"/> and <xref target="RFC9201
 The term <tt>claim</tt> is used in this document with the same semantics
 as in <xref target="RFC9200" format="default"/>, i.e., it denotes information carried
 in the access token or returned from introspection.</t>
+        <t>Throughout this document, examples for CBOR data items are expressed in
+           CBOR extended diagnostic notation as defined in
+           <xref section="8" sectionFormat="of" target="RFC8949"/> and
+           <xref section="G" sectionFormat="of" target="RFC8610"/>
+           ("diagnostic notation"), unless noted otherwise.
+           We often use diagnostic notation comments to provide
+           a textual representation of the numeric parameter names and values.
+        </t>
       </section>
     </section>
     <section anchor="overview" numbered="true" toc="default">
