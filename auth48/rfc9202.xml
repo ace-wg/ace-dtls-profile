@@ -83,7 +83,7 @@
       <t>This specification defines a profile of the Authentication and Authorization for
       Constrained Environments (ACE) framework that allows constrained
       servers to delegate client authentication and authorization.  The protocol
-      relies on DTLS version 1.2 for communication security between entities in a
+      relies on DTLS version 1.2 or later for communication security between entities in a
       constrained network using either raw public keys or pre-shared keys. A
       resource-constrained server can use this protocol to delegate
       management of authorization information to a trusted host with less-severe 
@@ -97,7 +97,7 @@
 <xref target="RFC9200" format="default"/>.  In this profile, a client (C) and a
 resource server (RS) use the Constrained Application Protocol (CoAP) <xref target="RFC7252" format="default"/> over DTLS version 1.2 <xref target="RFC6347" format="default"/>
 to communicate. This specification
-uses DTLS 1.2 terminology, but later versions such as DTLS 1.3 can be
+uses DTLS 1.2 terminology, but later versions such as DTLS 1.3 <xref target="RFC9147"/> can be
 used instead. The client obtains an access token bound to a key
 (the proof-of-possession (PoP) key) from an authorization server (AS) to prove
 its authorization to access protected resources hosted by the resource
@@ -686,7 +686,7 @@ contents of the <tt>access_token</tt> field from the AS-to-client response as
 opaque data, as specified in <xref target="RFC7925" sectionFormat="of" section="4.2"/>, and not perform
 any recoding. This allows the resource server to retrieve the shared
 secret directly from the <tt>cnf</tt> claim of the access token.</t>
-<t>DTLS 1.3 does not use the ClientKeyExchange message; for DTLS 1.3,
+<t>DTLS 1.3 <xref target="RFC9147"/> does not use the ClientKeyExchange message; for DTLS 1.3,
    the access token is placed in the <tt>identity</tt> field of a <tt>PSKIdentity</tt>
    within the <tt>PreSharedKeyExtension</tt> of the <tt>ClientHello</tt>.</t>
 
@@ -1062,6 +1062,7 @@ registry, following the procedure specified in
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8422.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8747.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8949.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9147.xml"/>
 
 <reference anchor='RFC9200' target='https://www.rfc-editor.org/info/rfc9200'>
 <front>
