@@ -732,8 +732,8 @@ key derivation, as described above.</t>
       </section>
       <section anchor="resource-access" numbered="true" toc="default">
         <name>Resource Access</name>
-        <t>Once a DTLS channel has been established, as described in Sections <xref target="rpk-mode" format="counter"/>
-and <xref target="psk-mode" format="counter"/>, respectively, the client is authorized to access
+        <t>Once a DTLS channel has been established as described in either Sections <xref target="rpk-mode" format="counter"/>
+or <xref target="psk-mode" format="counter"/>, respectively, the client is authorized to access
 resources covered by the access token it has uploaded to the
 authz-info resource that is hosted by the resource server.</t>
         <t>With the successful establishment of the DTLS channel, the client and
@@ -931,7 +931,7 @@ integrity protection tags is preferred.</t>
       form TLS_DHE_PSK_* or TLS_ECDHE_PSK_*.</t>
       <t>Constrained devices that use DTLS <xref target="RFC6347" format="default"/> are inherently
 vulnerable to Denial of Service (DoS) attacks, as the handshake
-protocol requires creation of an internal state within the device.  This
+protocol requires creation of internal state within the device.  This
 is specifically of concern where an adversary is able to intercept the
 initial cookie exchange and interject forged messages with a valid
 cookie to continue with the handshake. A similar issue exists with the
