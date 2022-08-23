@@ -70,7 +70,7 @@
         <email>ludwig.seitz@combitech.com</email>
       </address>
     </author>
-    <date year="2022" month="March"/>
+    <date year="2022" month="August"/>
     <area>Security</area>
     <workgroup>ACE</workgroup>
     <keyword>Internet of Things (IoT)</keyword>
@@ -137,8 +137,7 @@ those are out of scope for this document.</t>
         <name>Terminology</name>
         <t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>",
 "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and
-"<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as described in BCP
-14 <xref target="RFC2119" format="default"/> <xref target="RFC8174" format="default"/> when, and only when, they appear in all
+"<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as described in BCP&nbsp;14 <xref target="RFC2119" format="default"/> <xref target="RFC8174" format="default"/> when, and only when, they appear in all
 capitals, as shown here.</t>
         <t>Readers are expected to be familiar with the terms and concepts
 described in <xref target="RFC9200" format="default"/> and <xref target="RFC9201" format="default"/>.</t>
@@ -502,7 +501,6 @@ proof-of-possession key is illustrated in <xref target="at-request" format="defa
 readability) and information for the client, including the symmetric
 key in the <tt>cnf</tt> claim.  The information is transferred as a CBOR data
 structure as specified in <xref target="RFC9200" format="default"/>.</t>
-          <!-- msg1 -->
 
 <figure anchor="at-response">
             <name>Example Access Token Response, Symmetric PoP Key</name>
@@ -853,7 +851,6 @@ by this key identifier with the updated authorization information.</t>
    | == Authorized Request ===> |                     |
    |                            |                     |
    | <=== Protected Resource == |                     |
-
 ]]></artwork>
       </figure>
     </section>
@@ -1066,7 +1063,6 @@ registry, following the procedure specified in
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8747.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8949.xml"/>
 
-<!-- [I-D.ietf-ace-oauth-authz]; companion document RFC 9200 -->
 <reference anchor='RFC9200' target='https://www.rfc-editor.org/info/rfc9200'>
 <front>
 <title>Authentication and Authorization for Constrained Environments (ACE) Using the OAuth 2.0 Framework (ACE-OAuth)</title>
@@ -1085,21 +1081,19 @@ registry, following the procedure specified in
 <author initials='H' surname='Tschofenig' fullname='Hannes Tschofenig'>
 <organization />
 </author>
-<date year='2022' month='March'/>
+<date year='2022' month='August'/>
 </front>
 <seriesInfo name="RFC" value="9200"/>
 <seriesInfo name="DOI" value="10.17487/RFC9200"/>
 </reference>
 
-
-<!-- [I-D.ietf-ace-oauth-params] - companion document RFC 9201 -->
 <reference anchor='RFC9201' target='https://www.rfc-editor.org/info/rfc9201'>
 <front>
 <title>Additional OAuth Parameters for Authentication and Authorization for Constrained Environments (ACE)</title>
 <author initials='L' surname='Seitz' fullname='Ludwig Seitz'>
 <organization />
 </author>
-<date year='2022' month='March'/>
+<date year='2022' month='August'/>
 </front>
 <seriesInfo name="RFC" value="9201"/>
 <seriesInfo name="DOI" value="10.17487/RFC9201"/>
@@ -1119,18 +1113,6 @@ registry, following the procedure specified in
 
       </references>
     </references>
-    <!--  LocalWords:  Datagram CoAP CoRE DTLS introducer URI
- -->
-<!--  LocalWords:  namespace Verifier JSON timestamp timestamps PSK
- -->
-<!--  LocalWords:  decrypt UTC decrypted whitespace preshared HMAC
--->
-
-<!-- Local Variables: -->
-<!-- coding: utf-8 -->
-<!-- ispell-local-dictionary: "american" -->
-<!-- End: -->
-
     <section anchor="acknowledgments" numbered="false" toc="default">
       <name>Acknowledgments</name>
       <t>Special thanks to <contact fullname="Jim Schaad"/> for his contributions and reviews of this
